@@ -1,5 +1,6 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,14 +18,15 @@ public class User extends Person {
             super(username, email, password);
     }
 
-    public void bookService(Date date, Service service) {
+    public void bookService(Timestamp date, Service service) {
         bookings.add(new Booking(date, this, service));
     }
 
     public void rateService(int rating, Booking booking){
         booking.setServiceRating(rating);
     }
-    public Service searchServices(String){
+
+    public Service searchServices(String service){
         //PUT CODE HERE
         return new Service("TEST", 1.0);
     }
