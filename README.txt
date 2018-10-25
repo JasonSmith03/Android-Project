@@ -12,10 +12,6 @@ Bradley Rose
 
 - Student ID: 8746930
 
-Daniel Podsadowski
-
-- Student ID: 300017037
-
 Nicolas Gardin
 
 - Student ID: 8714215
