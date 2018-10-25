@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HomeServicesApp</string>
+    <string name="log_in">Log in</string>
+    <string name="register">Register</string>
+    <string name="dont_have_an_account">Dont have an account?</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_username">Enter Username</string>
 </resources>
