@@ -1,7 +1,9 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class LogInPage extends AppCompatActivity {
 
@@ -9,5 +11,17 @@ public class LogInPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_page);
+    }
+
+    public void register(View view) {
+        //Application Context and Activity
+        Intent intent = new Intent(getApplicationContext(), RegistrationInfo.class);
+        startActivityForResult (intent,0);
+    }
+
+    public void welcomeScreen(View view) {
+        //Application Context and Activity
+        Intent intent = new Intent(getApplicationContext(), RegistrationInfo.class);
+        startActivityForResult (intent,0);
     }
 }
