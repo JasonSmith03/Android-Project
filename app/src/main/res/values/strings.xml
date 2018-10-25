@@ -5,4 +5,8 @@
     <string name="dont_have_an_account">Dont have an account?</string>
     <string name="enter_password">Enter Password</string>
     <string name="enter_username">Enter Username</string>
+    <string name="welcome">Welcome</string>
+    <string name="username">username</string>
+    <string name="your_role_is">Your role is:</string>
+    <string name="role">role</string>
 </resources>
