@@ -17,12 +17,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="TextView"
+        android:text="Who are you?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Who are you?" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/homeOwnerBtn"

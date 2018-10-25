@@ -19,9 +19,9 @@ public class LogInPage extends AppCompatActivity {
         startActivityForResult (intent,0);
     }
 
-    public void welcomeScreen(View view) {
+    public void logIn(View view) {
         //Application Context and Activity
-        Intent intent = new Intent(getApplicationContext(), RegistrationInfo.class);
+        Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         startActivityForResult (intent,0);
     }
 }
