@@ -22,7 +22,8 @@
             android:name="com.google.android.actions"
             android:resource="@xml/roundbutton" />
 
-        <activity android:name=".CreateNewAccount"></activity>
+        <activity android:name=".CreateNewAccount" />
+        <activity android:name=".WelcomeScreen"></activity>
     </application>
 
 </manifest>
