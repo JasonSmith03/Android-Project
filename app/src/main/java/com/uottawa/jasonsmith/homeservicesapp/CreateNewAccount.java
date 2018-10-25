@@ -15,5 +15,6 @@ public class CreateNewAccount extends AppCompatActivity {
     public void signUp(View view) {
         //Application Context and Activity
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
-        startActivityForResult (intent,0);
+        startActivityForResult(intent, 0);
+    }
 }
