@@ -9,4 +9,6 @@
     <string name="username">username</string>
     <string name="your_role_is">Your role is:</string>
     <string name="role">role</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="create_username">Create username</string>
 </resources>
