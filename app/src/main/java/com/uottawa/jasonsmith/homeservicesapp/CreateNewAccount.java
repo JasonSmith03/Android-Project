@@ -28,16 +28,16 @@ public class CreateNewAccount extends AppCompatActivity {
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             if (RegistrationInfo.selection){
                 if (admin.notFoundInUser(tempUser)){
-//                    admin.addUser(tempUser);
-//                    startActivityForResult(intent, 0);
+                    admin.addUser(tempUser);
+                    startActivityForResult(intent, 0);
                 }
             }
-//            else{
-//                if (admin.notFoundInServiceProviders(tempServiceProvider)){
-////                    Admin.addServiceProvider(tempServiceProvider);
-////                    startActivityForResult(intent, 0);
-//                }
-//             }
+            else{
+                if (admin.notFoundInServiceProviders(tempServiceProvider)){
+                    Admin.addServiceProvider(tempServiceProvider);
+                    startActivityForResult(intent, 0);
+                }
+            }
         }
     }
 }

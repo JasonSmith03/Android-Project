@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Admin{
 
-    private static ArrayList<Service> services;
-    private static ArrayList<User> users;
+    private static ArrayList<Service> services = new ArrayList<Service>();
+    private static ArrayList<User> users = new ArrayList<User>();;
     private static ArrayList<ServiceProvider> serviceProviders;
     private static final String username = "Silver Rivals";
     private static final String password = "admin1";
