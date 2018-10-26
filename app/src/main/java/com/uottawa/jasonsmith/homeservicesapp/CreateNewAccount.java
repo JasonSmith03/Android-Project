@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class CreateNewAccount extends AppCompatActivity {
 
@@ -15,6 +16,16 @@ public class CreateNewAccount extends AppCompatActivity {
     public void signUp(View view) {
         //Application Context and Activity
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
-        startActivityForResult(intent, 0);
+        EditText usernameInput = (EditText) findViewById(R.id.createUsername);
+        String usernameContent = usernameInput.getText().toString();
+        EditText passwordInput = (EditText) findViewById(R.id.createPassword);
+        String passwordContent = usernameInput.getText().toString();
+        if (!usernameContent.equals("") && !passwordContent.equals("")){
+            if (RegistrationInfo.selection){
+                if (Admin.getUsers().){
+                }
+            }
+            startActivityForResult(intent, 0);
+        }
     }
 }
