@@ -8,7 +8,7 @@ public class Admin{
 
     private static ArrayList<Service> services = new ArrayList<Service>();
     private static ArrayList<User> users = new ArrayList<User>();;
-    private static ArrayList<ServiceProvider> serviceProviders;
+    private static ArrayList<ServiceProvider> serviceProviders = new ArrayList<ServiceProvider>();
     private static final String username = "Silver Rivals";
     private static final String password = "admin1";
 
