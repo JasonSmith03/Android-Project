@@ -20,9 +20,10 @@ public class CreateNewAccount extends AppCompatActivity {
         String usernameContent = usernameInput.getText().toString();
         EditText passwordInput = (EditText) findViewById(R.id.createPassword);
         String passwordContent = usernameInput.getText().toString();
+        User tempUser = new User(usernameContent, "tempEmail",passwordContent);
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             if (RegistrationInfo.selection){
-                if (Admin.getUsers().){
+                if (Admin.notFoundInUser(tempUser)){
                 }
             }
             startActivityForResult(intent, 0);
