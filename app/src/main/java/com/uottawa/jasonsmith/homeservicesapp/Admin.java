@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Admin{
 
-    private ArrayList<Service> services;
-    private ArrayList<User> users;
-    private ArrayList<ServiceProvider> serviceProviders;
+    private static ArrayList<Service> services;
+    private static ArrayList<User> users;
+    private static ArrayList<ServiceProvider> serviceProviders;
     private static final String username = "Silver Rivals";
     private static final String password = "admin1";
 
@@ -47,17 +47,15 @@ public class Admin{
         return true;
     }
 
-    public ArrayList<User> getUsers(){
+    public static ArrayList<User> getUsers(){
         return users;
     }
 
-
-
-    public String getUsername(){
+    public static String getUsername(){
         return username;
     }
 
-    public String getPassword(){
+    public static String getPassword(){
         return password;
     }
 
