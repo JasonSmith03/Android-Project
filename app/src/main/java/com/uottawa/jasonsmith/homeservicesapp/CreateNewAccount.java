@@ -29,12 +29,16 @@ public class CreateNewAccount extends AppCompatActivity {
             if (RegistrationInfo.selection){
                 if (admin.notFoundInUser(tempUser)){
                     admin.addUser(tempUser);
+                    intent.putExtra("username", tempUser.getUsername());
+                    intent.putExtra("role", "Home Owner");
                     startActivityForResult(intent, 0);
                 }
             }
             else{
                 if (admin.notFoundInServiceProviders(tempServiceProvider)){
                     Admin.addServiceProvider(tempServiceProvider);
+                    intent.putExtra("username", tempServiceProvider.getUsername());
+                    intent.putExtra("role", "Service Provider");
                     startActivityForResult(intent, 0);
                 }
             }
