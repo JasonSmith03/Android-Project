@@ -8,7 +8,8 @@ public class Service {
      */
     private String serviceType;
     private double hourlyRate;
-    private double averageRating;
+    private double averageRating = 0.0;
+    private int numOfRatings = 0;
 
     public Service(String serviceType, double hourlyRate){
         this.serviceType = serviceType;
@@ -24,7 +25,14 @@ public class Service {
     }
 
     public void addRating(int rating){
-        //TODO code this method
-
+        if(averageRating == 0.0){
+            averageRating = rating;
+            numOfRatings = 1;
+        }
+        else{
+            double orig_rating = averageRating * numOfRatings;
+            averageRating = ( (orig_Rating + rating) / (numOfRatings + 1) );
+            numOfRatings ++;
+        }
     }
 }
