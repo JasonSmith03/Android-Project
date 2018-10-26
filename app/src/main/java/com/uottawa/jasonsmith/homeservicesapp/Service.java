@@ -30,8 +30,8 @@ public class Service {
             numOfRatings = 1;
         }
         else{
-            double orig_rating = averageRating * numOfRatings;
-            averageRating = ( (orig_Rating + rating) / (numOfRatings + 1) );
+            double origRating = averageRating * numOfRatings;
+            averageRating = ( (origRating + rating) / (numOfRatings + 1) );
             numOfRatings ++;
         }
     }

@@ -14,7 +14,8 @@ public class CreateNewAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_new_account);
     }
     public void signUp(View view) {
-        //Application Context and Activity
+//        Application Context and Activity
+        Admin admin = new Admin();
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         EditText usernameInput = (EditText) findViewById(R.id.createUsername);
         String usernameContent = usernameInput.getText().toString();
@@ -26,16 +27,17 @@ public class CreateNewAccount extends AppCompatActivity {
         ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent);
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             if (RegistrationInfo.selection){
-                if (Admin.notFoundInUser(tempUser)){
-                    Admin.addUser(tempUser);
-                    startActivityForResult(intent, 0);
-                }
-            }else{
-                if (Admin.notFoundInServiceProviders(tempServiceProvider)){
-                    Admin.addServiceProvider(tempServiceProvider);
-                    startActivityForResult(intent, 0);
+                if (admin.notFoundInUser(tempUser)){
+//                    admin.addUser(tempUser);
+//                    startActivityForResult(intent, 0);
                 }
             }
+//            else{
+//                if (admin.notFoundInServiceProviders(tempServiceProvider)){
+////                    Admin.addServiceProvider(tempServiceProvider);
+////                    startActivityForResult(intent, 0);
+//                }
+//             }
         }
     }
 }
