@@ -23,10 +23,16 @@ public class CreateNewAccount extends AppCompatActivity {
         EditText emailInput = (EditText) findViewById(R.id.email);
         String emailContent = emailInput.getText().toString();
         User tempUser = new User(usernameContent, emailContent, passwordContent);
+        ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent);
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             if (RegistrationInfo.selection){
                 if (Admin.notFoundInUser(tempUser)){
                     Admin.addUser(tempUser);
+                    startActivityForResult(intent, 0);
+                }
+            }else{
+                if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                    Admin.addServiceProvider(tempServiceProvider);
                     startActivityForResult(intent, 0);
                 }
             }

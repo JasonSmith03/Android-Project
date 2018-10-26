@@ -18,7 +18,7 @@ public class Admin{
     }
 
     //add to the service provider list
-    public void addServiceProvider(ServiceProvider serviceProvider){
+    public static void addServiceProvider(ServiceProvider serviceProvider){
         serviceProviders.add(serviceProvider);
     }
 
@@ -35,7 +35,7 @@ public class Admin{
         return true;
     }
 
-    public boolean notFoundInServiceProviders(ServiceProvider serviceProvider){
+    public static boolean notFoundInServiceProviders(ServiceProvider serviceProvider){
         if (serviceProviders.size() == 0){
             return true;
         }
