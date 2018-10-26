@@ -26,9 +26,10 @@ public class CreateNewAccount extends AppCompatActivity {
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             if (RegistrationInfo.selection){
                 if (Admin.notFoundInUser(tempUser)){
+                    Admin.addUser(tempUser);
+                    startActivityForResult(intent, 0);
                 }
             }
-            startActivityForResult(intent, 0);
         }
     }
 }

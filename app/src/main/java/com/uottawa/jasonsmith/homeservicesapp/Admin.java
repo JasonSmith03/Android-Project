@@ -13,7 +13,7 @@ public class Admin{
     private static final String password = "admin1";
 
     //add to the user list
-    public void addUser(User user){
+    public static void addUser(User user){
         users.add(user);
     }
 
@@ -23,7 +23,7 @@ public class Admin{
     }
 
     //check to see if the username exists
-    public boolean notFoundInUser(User user){
+    public static boolean notFoundInUser(User user){
         if (users.size() == 0){
             return true;
         }
