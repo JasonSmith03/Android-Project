@@ -36,7 +36,7 @@ public class CreateNewAccount extends AppCompatActivity {
             }
             else{
                 if (admin.notFoundInServiceProviders(tempServiceProvider)){
-                    Admin.addServiceProvider(tempServiceProvider);
+                    admin.addServiceProvider(tempServiceProvider);
                     intent.putExtra("username", tempServiceProvider.getUsername());
                     intent.putExtra("role", "Service Provider");
                     startActivityForResult(intent, 0);
