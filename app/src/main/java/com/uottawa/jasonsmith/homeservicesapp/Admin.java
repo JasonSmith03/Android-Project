@@ -28,7 +28,7 @@ public class Admin{
             return true;
         }
         for (int i = 0; i < users.size(); i++){
-            if(user.equals(users.get(i).getUsername())){
+            if(user.getUsername().equals(users.get(i).getUsername())){
                 return false;
             }
         }
@@ -40,7 +40,7 @@ public class Admin{
             return true;
         }
         for (int i = 0; i < serviceProviders.size(); i++){
-            if(serviceProviders.equals(users.get(i).getUsername())){
+            if(serviceProvider.getUsername().equals(serviceProviders.get(i).getUsername())){
                 return false;
             }
         }
