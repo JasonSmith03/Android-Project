@@ -12,7 +12,8 @@ import android.widget.WrapperListAdapter;
 public class LogInPage extends AppCompatActivity {
 
     Admin admin = new Admin();
-
+    User tempUser;
+    ServiceProvider tempServiceProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +34,24 @@ public class LogInPage extends AppCompatActivity {
         EditText passwordInput = (EditText) findViewById(R.id.PasswordText);
         String passwordContent = passwordInput.getText().toString();
 
+        tempUser = new User(usernameContent, passwordContent);
+        tempServiceProvider = new ServiceProvider(usernameContent, passwordContent);
+
         if (usernameContent.equals(admin.getUsername()) && passwordContent.equals(admin.getPassword())) {
             //Application Context and Activity
             Intent intent = new Intent(this, WelcomeScreen.class);
             intent.putExtra("username", admin.getUsername());
             intent.putExtra("role", "Admin");
+            startActivity(intent);
+        }else if((admin.passwordMatchUser(tempUser) == true)){
+            Intent intent = new Intent(this, WelcomeScreen.class);
+            intent.putExtra("username", tempUser.getUsername());
+            intent.putExtra("role", "Home owner");
+            startActivity(intent);
+        }else if(admin.passwordMatchSP(tempServiceProvider) == true){
+            Intent intent = new Intent(this, WelcomeScreen.class);
+            intent.putExtra("username", tempServiceProvider.getUsername());
+            intent.putExtra("role", "Service Provider");
             startActivity(intent);
         }
 

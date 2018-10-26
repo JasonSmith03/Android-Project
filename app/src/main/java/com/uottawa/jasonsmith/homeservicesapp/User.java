@@ -18,9 +18,14 @@ public class User extends Person {
             super(username, email, password);
     }
 
+    public User(String usernameContent, String passwordContent) {
+        super(usernameContent, passwordContent);
+    }
+
     public void bookService(Timestamp date, Service service) {
         bookings.add(new Booking(date, this, service));
     }
+
 
     public void rateService(int rating, Booking booking){
         booking.setServiceRating(rating);

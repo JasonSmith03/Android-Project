@@ -47,6 +47,30 @@ public class Admin{
         return true;
     }
 
+    public boolean passwordMatchUser(User user){
+        if (users.size() == 0){
+            return false;
+        }
+        for (int i = 0; i < users.size(); i++){
+            if(user.getUsername().equals(users.get(i).getUsername()) && user.getPassword().equals(users.get(i).getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean passwordMatchSP(ServiceProvider serviceProvider){
+        if (serviceProviders.size() == 0){
+            return false;
+        }
+        for (int i = 0; i < serviceProviders.size(); i++){
+            if(serviceProvider.getUsername().equals(users.get(i).getUsername()) && serviceProvider.getPassword().equals(users.get(i).getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static ArrayList<User> getUsers(){
         return users;
     }

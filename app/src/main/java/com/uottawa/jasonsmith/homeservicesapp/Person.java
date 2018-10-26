@@ -9,6 +9,11 @@ public class Person {
         this.password = password;
     }
 
+    public Person(String usernameContent, String passwordContent) {
+        this.username = usernameContent;
+        this.password = passwordContent;
+    }
+
     public String getUsername(){
         return username;
     }
