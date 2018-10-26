@@ -19,3 +19,7 @@ Nicolas Gardin
 GitHub Repository link:
 
 - https://github.com/JasonSmith03/Android-Project.git
+
+
+- Admin username: Silver Rivals
+- Admin password: admin1
