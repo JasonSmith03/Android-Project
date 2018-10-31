@@ -7,7 +7,7 @@ import java.util.Date;
 public class User extends Person {
 
     //In addition to storing the Person class information, a User instance also stores an address and a list of the current bookings
-    //ATTENTION----------------bookings to be the current bookings or all bookings (history of bookings
+    //ATTENTION----------------bookings to be the current bookings or all bookings (history of bookings) (so variable or list)
     private String address;
     private ArrayList<Booking> bookings;
     private String username;

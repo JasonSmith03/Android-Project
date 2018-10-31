@@ -22,7 +22,7 @@ public class Admin{
         serviceProviders.add(serviceProvider);
     }
 
-    //check to see if the username exists
+    //check to see if the username doesn't exist
     public static boolean notFoundInUser(User user){
         if (users.size() == 0){
             return true;
