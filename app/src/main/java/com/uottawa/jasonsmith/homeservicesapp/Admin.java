@@ -12,17 +12,17 @@ public class Admin{
     private static final String username = "Silver Rivals";
     private static final String password = "admin1";
 
-    //add to the user list
+        //add to the user list
     public static void addUser(User user){
         users.add(user);
     }
 
-    //add to the service provider list
+        //add to the service provider list
     public static void addServiceProvider(ServiceProvider serviceProvider){
         serviceProviders.add(serviceProvider);
     }
 
-    //check to see if the username doesn't exist
+        //check to see if the username doesn't exist
     public static boolean notFoundInUser(User user){
         if (users.size() == 0){
             return true;
