@@ -35,41 +35,64 @@ public class CreateNewAccount extends AppCompatActivity {
         if (!usernameContent.equals("") && !passwordContent.equals("")){
                 //selection is true if the homeOwnerBtn was pressed, otherwise false.
             if (RegistrationInfo.selection){
-                    //Checks if the username of tempUser is found in Admin's list.
-                if (Admin.notFoundInUser(tempUser)){
-                        //Creates temporary String array where element 0 is the left of the @ symbol, and 1 is right.
-                        //If no symbol exists in emailContent String, there will only be one element.
-                    String[] email = emailContent.split("@", 2);
-                        // Will do nothing if there is no @ symbol (array is length 1).
-                    if (email.length==2){
-                            //Creates temporary String array where element 0 is left of . symbol, and 1 is right.
+                    //checks if entered username is same as Admin's.
+                if (!usernameContent.equals(Admin.getUsername())){
+                        //Checks if the username of tempUser is found in Admin's list.
+                    if (Admin.notFoundInUser(tempUser)){
+                            //Creates temporary String array where element 0 is the left of the @ symbol, and 1 is right.
                             //If no symbol exists in emailContent String, there will only be one element.
-                        String[] emailRightSide = email[1].split("\\.",2);
-                            // Will do nothing if there is no . after the @ (emailRightSide length 1).
-                        if (emailRightSide.length == 2){
-                                /* Will do nothing if there is a second @ symbol, there are no letters before the @,
-                                there are no letters before ., or there are no letters after . */
-                            if (!email[1].contains("@") && email[0].length()>0 && emailRightSide[0].length()>0 && emailRightSide[1].length()>0){
-                                //tempUser is added to Admin's list.
-                                Admin.addUser(tempUser);
-                                //Welcome Screen is prepared to display the role and username of the created account.
-                                intent.putExtra("username", tempUser.getUsername());
-                                intent.putExtra("role", "Home Owner");
-                                startActivityForResult(intent, 0);
+                        String[] email = emailContent.split("@", 2);
+                            // Will do nothing if there is no @ symbol (array is length 1).
+                        if (email.length==2){
+                                //Creates temporary String array where element 0 is left of . symbol, and 1 is right.
+                                //If no symbol exists in emailContent String, there will only be one element.
+                            String[] emailRightSide = email[1].split("\\.",2);
+                                // Will do nothing if there is no . after the @ (emailRightSide length 1).
+                            if (emailRightSide.length == 2){
+                                    /* Will do nothing if there is a second @ symbol, there are no letters before the @,
+                                    there are no letters before ., or there are no letters after . */
+                                if (!email[1].contains("@") && email[0].length()>0 && emailRightSide[0].length()>0 && emailRightSide[1].length()>0){
+                                        //tempUser is added to Admin's list.
+                                    Admin.addUser(tempUser);
+                                        //Welcome Screen is prepared to display the role and username of the created account.
+                                    intent.putExtra("username", tempUser.getUsername());
+                                    intent.putExtra("role", "Home Owner");
+                                    startActivityForResult(intent, 0);
+                                }
                             }
                         }
                     }
                 }
+
             }
             else{
-                    //Checks if the username of tempServiceProvider is found in Admin's list.
-                if (Admin.notFoundInServiceProviders(tempServiceProvider)){
-                        //tempServiceProvider is added to Admin's list.
-                    Admin.addServiceProvider(tempServiceProvider);
-                        //Welcome Screen is prepared to display the role and username of the created account.
-                    intent.putExtra("username", tempServiceProvider.getUsername());
-                    intent.putExtra("role", "Service Provider");
-                    startActivityForResult(intent, 0);
+                    //checks if entered username is same as Admin's.
+                if (!usernameContent.equals(Admin.getUsername())){
+                        //Checks if the username of tempServiceProvider is found in Admin's list.
+                    if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                            //Creates temporary String array where element 0 is the left of the @ symbol, and 1 is right.
+                            //If no symbol exists in emailContent String, there will only be one element.
+                        String[] email = emailContent.split("@", 2);
+                            // Will do nothing if there is no @ symbol (array is length 1).
+                        if (email.length==2){
+                                //Creates temporary String array where element 0 is left of . symbol, and 1 is right.
+                                //If no symbol exists in emailContent String, there will only be one element.
+                            String[] emailRightSide = email[1].split("\\.",2);
+                                // Will do nothing if there is no . after the @ (emailRightSide length 1).
+                            if (emailRightSide.length == 2){
+                                    /* Will do nothing if there is a second @ symbol, there are no letters before the @,
+                                    there are no letters before ., or there are no letters after . */
+                                if (!email[1].contains("@") && email[0].length()>0 && emailRightSide[0].length()>0 && emailRightSide[1].length()>0){
+                                        //tempServiceProvider is added to Admin's list.
+                                    Admin.addServiceProvider(tempServiceProvider);
+                                        //Welcome Screen is prepared to display the role and username of the created account.
+                                    intent.putExtra("username", tempServiceProvider.getUsername());
+                                    intent.putExtra("role", "Service Provider");
+                                    startActivityForResult(intent, 0);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
