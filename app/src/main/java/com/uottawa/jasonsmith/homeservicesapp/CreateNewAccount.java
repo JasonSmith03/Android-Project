@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class CreateNewAccount extends AppCompatActivity {
 
@@ -14,6 +15,8 @@ public class CreateNewAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_new_account);
     }
     public void signUp(View view) {
+            //Resets error message.
+        ((TextView)findViewById(R.id.errorMessage)).setText("");
             //Application Context and Activity
         Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
             //Following lines takes currently typed text in appropriate fields and assigns them to variables.
@@ -59,11 +62,25 @@ public class CreateNewAccount extends AppCompatActivity {
                                     intent.putExtra("role", "Home Owner");
                                     startActivityForResult(intent, 0);
                                 }
+                                    //Updates errorMessage in xml to inform user of error
+                                ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                                return;
                             }
+                                //Updates errorMessage in xml to inform user of error
+                            ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                            return;
                         }
+                            //Updates errorMessage in xml to inform user of error
+                        ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                        return;
                     }
+                        //Updates errorMessage in xml to inform user of error
+                    ((TextView)findViewById(R.id.errorMessage)).setText("Username taken");
+                    return;
                 }
-
+                    //Updates errorMessage in xml to inform user of error
+                ((TextView)findViewById(R.id.errorMessage)).setText("Username taken");
+                return;
             }
             else{
                     //checks if entered username is same as Admin's.
@@ -90,11 +107,28 @@ public class CreateNewAccount extends AppCompatActivity {
                                     intent.putExtra("role", "Service Provider");
                                     startActivityForResult(intent, 0);
                                 }
+                                    //Updates errorMessage in xml to inform user of error
+                                ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                                return;
                             }
+                                //Updates errorMessage in xml to inform user of error
+                            ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                            return;
                         }
+                            //Updates errorMessage in xml to inform user of error
+                        ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
+                        return;
                     }
+                        //Updates errorMessage in xml to inform user of error
+                    ((TextView)findViewById(R.id.errorMessage)).setText("Username taken");
+                    return;
                 }
+                    //Updates errorMessage in xml to inform user of error
+                ((TextView)findViewById(R.id.errorMessage)).setText("Username taken");
+                return;
             }
         }
+            //Updates errorMessage in xml to inform user of error
+        ((TextView)findViewById(R.id.errorMessage)).setText("Fields cannot be blank");
     }
 }
