@@ -14,9 +14,10 @@ public class ServiceProvider extends Person {
         super(username, email, password);
     }
 
-    public ServiceProvider(String usernameContent, String passwordContent) {
-        super(usernameContent, passwordContent);
-    }
+        //Unused
+//    public ServiceProvider(String usernameContent, String passwordContent) {
+//        super(usernameContent, passwordContent);
+//    }
 
     public void associateWithService(){
         //TODO code this method

@@ -61,6 +61,7 @@ public class CreateNewAccount extends AppCompatActivity {
                                     intent.putExtra("username", tempUser.getUsername());
                                     intent.putExtra("role", "Home Owner");
                                     startActivityForResult(intent, 0);
+                                    return;
                                 }
                                     //Updates errorMessage in xml to inform user of error
                                 ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");
@@ -106,6 +107,7 @@ public class CreateNewAccount extends AppCompatActivity {
                                     intent.putExtra("username", tempServiceProvider.getUsername());
                                     intent.putExtra("role", "Service Provider");
                                     startActivityForResult(intent, 0);
+                                    return;
                                 }
                                     //Updates errorMessage in xml to inform user of error
                                 ((TextView)findViewById(R.id.errorMessage)).setText("Invalid email");

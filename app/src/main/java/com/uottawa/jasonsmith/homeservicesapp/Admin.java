@@ -47,7 +47,7 @@ public class Admin{
         return true;
     }
 
-    public boolean passwordMatchUser(User user){
+    public static boolean passwordMatchUser(User user){
         if (users.size() == 0){
             return false;
         }
@@ -59,7 +59,7 @@ public class Admin{
         return false;
     }
 
-    public boolean passwordMatchSP(ServiceProvider serviceProvider){
+    public static boolean passwordMatchSP(ServiceProvider serviceProvider){
         if (serviceProviders.size() == 0){
             return false;
         }
