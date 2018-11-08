@@ -55,11 +55,14 @@ public class CreateNewAccount extends AppCompatActivity {
         //Email field
         EditText emailInput = (EditText) findViewById(R.id.email);
         String emailContent = emailInput.getText().toString();
+        //address field
+        EditText addressInput = (EditText) findViewById(R.id.address);
+        String addressContent = addressInput.getText().toString();
 
         //Creates an instance of User that will be added to Admin's list if it satisfies the if statements.
-        User tempUser = new User(usernameContent, emailContent, passwordContent);
+        User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
         //Creates an instance of ServiceProvider that will be added to Admin's list if it satisfies the if statements.
-        ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent);
+        ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
         //If the username and/or password fields are blank, do nothing.
         if (!usernameContent.equals("") && !passwordContent.equals("")){
             //selection is true if the homeOwnerBtn was pressed, otherwise false.
