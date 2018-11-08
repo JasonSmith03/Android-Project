@@ -10,8 +10,6 @@ import android.util.Log;
 
 public class CreateNewAccount extends AppCompatActivity {
 
-    DatabaseHandler mDBHandler = new DatabaseHandler(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,15 +17,18 @@ public class CreateNewAccount extends AppCompatActivity {
 
     }
 
-    //add user to database
-    public void add_User(String newUserEntry){
-        Log.d("myTag", "add_User (" + newUserEntry + ") to database - call addUser from DatabaseHandler");
-        boolean insertData = mDBHandler.addUser(newUserEntry);
+    //add Person to database
+    public void addPerson(String username, String password, String email){
+
+        //initiate new DatabaseHandler
+        DatabaseHandler mDBHandler = new DatabaseHandler(this);
+
+        boolean insertData = mDBHandler.addPerson(username, password, email);
         if(insertData){
-            toastMessage("Username successfully inserted");
+            toastMessage("Person successfully added to Database");
         }
         else{
-            toastMessage("Something went wrong when trying to add Username to Database");
+            toastMessage("Something went wrong while adding Person to Database");
         }
     }
 
@@ -47,20 +48,10 @@ public class CreateNewAccount extends AppCompatActivity {
         EditText usernameInput = (EditText) findViewById(R.id.createUsername);
         String usernameContent = usernameInput.getText().toString();
 
-
-        if(usernameInput.length() != 0){
-            add_User(usernameContent);
-            usernameInput.setText("");
-        }
-        else{
-            toastMessage("Username must contain at least one character");
-        }
-
-
-
         //Password field
         EditText passwordInput = (EditText) findViewById(R.id.createPassword);
         String passwordContent = passwordInput.getText().toString();
+
         //Email field
         EditText emailInput = (EditText) findViewById(R.id.email);
         String emailContent = emailInput.getText().toString();
@@ -94,9 +85,20 @@ public class CreateNewAccount extends AppCompatActivity {
                             if (!email[1].contains("@") && email[0].length()>0 && emailRightSide[0].length()>0 && emailRightSide[1].length()>0){
                                 //tempUser is added to Admin's list.
                                 Admin.addUser(tempUser);
+
+                                //adding to Database
+                                addPerson(  tempUser.getUsername(),
+                                        tempUser.getPassword(),
+                                        tempUser.getEmail()
+                                );
+                                usernameInput.setText("");
+                                emailInput.setText("");
+                                passwordInput.setText("");
+
                                 //Welcome Screen is prepared to display the role and username of the created account.
                                 intent.putExtra("username", tempUser.getUsername());
                                 intent.putExtra("role", "Home Owner");
+
                                 startActivityForResult(intent, 0);
                             }
                         }
@@ -105,12 +107,23 @@ public class CreateNewAccount extends AppCompatActivity {
             }
             else{
                 //Checks if the username of tempServiceProvider is found in Admin's list.
-                if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                if (Admin.notFoundInServiceProviders(tempServiceProvider)) {
                     //tempServiceProvider is added to Admin's list.
                     Admin.addServiceProvider(tempServiceProvider);
+
+                    //adding to Database
+                    addPerson(  tempServiceProvider.getUsername(),
+                            tempServiceProvider.getPassword(),
+                            tempServiceProvider.getEmail()
+                    );
+                    usernameInput.setText("");
+                    emailInput.setText("");
+                    passwordInput.setText("");
+
                     //Welcome Screen is prepared to display the role and username of the created account.
                     intent.putExtra("username", tempServiceProvider.getUsername());
                     intent.putExtra("role", "Service Provider");
+
                     startActivityForResult(intent, 0);
                 }
             }
