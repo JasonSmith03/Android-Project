@@ -53,6 +53,7 @@ public class LogInPage extends AppCompatActivity {
                 //Admin is brought to admin interface
                 Intent adminIntent = new Intent(this, admin_interface.class);
                 startActivityForResult (adminIntent,0);
+                return;
             }
             //Checks if username/password match a User account
             else if((Admin.passwordMatchUser(tempUser))){
@@ -60,6 +61,7 @@ public class LogInPage extends AppCompatActivity {
                 intent.putExtra("username", tempUser.getUsername());
                 intent.putExtra("role", "Home owner");
                 startActivity(intent);
+                return;
             }
             //Checks if username/password match a Service Provider account
             else if(Admin.passwordMatchSP(tempServiceProvider)){
@@ -67,11 +69,15 @@ public class LogInPage extends AppCompatActivity {
                 intent.putExtra("username", tempServiceProvider.getUsername());
                 intent.putExtra("role", "Service Provider");
                 startActivity(intent);
+                return;
             }
+
+            toastMessage("Username and password do not match");
+            return;
 
         }
 
         //Updates errorMessage in xml to inform user of error
-        toastMessage("Username and password do not match");
+        toastMessage("Fields can't be left blank");
     }
 }
