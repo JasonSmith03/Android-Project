@@ -122,6 +122,7 @@ public class CreateNewAccount extends AppCompatActivity {
                     usernameInput.setText("");
                     emailInput.setText("");
                     passwordInput.setText("");
+                    addressInput.setText("");
 
                     //Welcome Screen is prepared to display the role and username of the created account.
                     intent.putExtra("username", tempServiceProvider.getUsername());

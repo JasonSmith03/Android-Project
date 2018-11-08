@@ -76,8 +76,6 @@ public class LogInPage extends AppCompatActivity {
             return;
 
         }
-
-        //Updates errorMessage in xml to inform user of error
         toastMessage("Fields can't be left blank");
     }
 }

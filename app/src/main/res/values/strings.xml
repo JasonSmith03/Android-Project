@@ -14,4 +14,5 @@
     <string name="service">Service</string>
     <string name="add_service_btn">Add Service</string>
     <string name="enter_service">Enter Service</string>
+    <string name="remove_service">Remove Service</string>
 </resources>
