@@ -11,4 +11,7 @@
     <string name="role">role</string>
     <string name="create_your_account">Create your account</string>
     <string name="create_username">Create username</string>
+    <string name="service">Service</string>
+    <string name="add_service_btn">Add Service</string>
+    <string name="enter_service">Enter Service</string>
 </resources>

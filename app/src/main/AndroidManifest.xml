@@ -23,7 +23,8 @@
             android:resource="@xml/roundbutton" />
 
         <activity android:name=".CreateNewAccount" />
-        <activity android:name=".WelcomeScreen"></activity>
+        <activity android:name=".WelcomeScreen" />
+        <activity android:name=".admin_interface"></activity>
     </application>
 
 </manifest>
