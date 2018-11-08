@@ -50,7 +50,7 @@ public class LogInPage extends AppCompatActivity {
         if(!usernameContent.equals("") && !passwordContent.equals("")){
             //Checks if username/password match Admin account
             if (usernameContent.equals(Admin.getUsername()) && passwordContent.equals(Admin.getPassword())) {
-                //Go to admin interface
+                //Admin is brought to admin interface
                 Intent adminIntent = new Intent(this, admin_interface.class);
                 startActivityForResult (adminIntent,0);
             }
