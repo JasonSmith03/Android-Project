@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class admin_interface extends AppCompatActivity {
 
     EditText editText, initialRate;
-    Button addBtn, removeBtn;
+    Button addBtn, removeBtn, editBtn;
     ListView lv;
     ArrayList<Service> arrayList;
     ArrayAdapter<Service> arrayAdapter;
@@ -31,6 +31,7 @@ public class admin_interface extends AppCompatActivity {
         initialRate = (EditText) findViewById(R.id.rate);
         addBtn = (Button) findViewById(R.id.addServiceBtn);
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
+        editBtn = (Button) findViewById(R.id.editServiceBtn);
         lv = (ListView) findViewById(R.id.listViewServices);
 
         arrayList = new ArrayList<Service>();
@@ -98,5 +99,23 @@ public class admin_interface extends AppCompatActivity {
             }
         });
     }
+
+//    public void editServiceClick(){
+//        editBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SparseBooleanArray positionChecker = lv.getCheckedItemPositions();
+//                int ctr = lv.getCount();
+//                for(int item = ctr - 1; item >= 0; item--){
+//                    if(positionChecker.get(item)){
+//                        arrayAdapter.getItem(item);
+//                    }
+//                }
+//
+//                editText.setText(positionChecker.);
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//        });
+//    }
 
 }

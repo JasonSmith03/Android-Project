@@ -16,4 +16,5 @@
     <string name="enter_service">Enter Service</string>
     <string name="remove_service">Remove Service</string>
     <string name="initial_rate">Initial Rate</string>
+    <string name="edit_service">Edit Service</string>
 </resources>
