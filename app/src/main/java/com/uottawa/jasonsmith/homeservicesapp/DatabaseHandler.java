@@ -18,14 +18,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "projectDB.db";
 
-    //users table properties
-    public static final String TABLE_NAME = "People";
+    //people table properties
+    public static final String TABLE_NAME_PEOPLE = "People";
     public static final String COL_ID = "id";
     public static final String COL_USERNAME = "username";
     public static final String COL_PASSWORD = "password";
     public static final String COL_EMAIL = "email";
     public static final String COL_HOME_ADDRESS = "homeAddress";
     //type of user?
+
+    //service table properties
+    public static final String TABLE_NAME_SERVICES = "Services";
+    public static final String COL_SID = "sid";
+    public static final String COL_SERVICE_NAME = "serviceName";
+    public static final String COL_SERVICE_RATE = "serviceHourlyRate";
+    public static final String COL_SERVICE_RATING = "serviceUserRating";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,7 +41,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_table = "CREATE TABLE " + TABLE_NAME +
+
+        //Create People table
+        String create_people_table = "CREATE TABLE " + TABLE_NAME_PEOPLE +
                 "("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_USERNAME + " TEXT,"
@@ -42,13 +51,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_EMAIL + " TEXT,"
                 + COL_HOME_ADDRESS + " TEXT"
                 + ")";
-        db.execSQL(create_table);
+        db.execSQL(create_people_table);
+
+        //Create Service table
+        String create_service_table = "CREATE TABLE " + TABLE_NAME_SERVICES +
+                "("
+                + COL_SID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_SERVICE_NAME + " TEXT,"
+                + COL_SERVICE_RATE + " REAL,"
+                + COL_SERVICE_RATING + " REAL"
+                + ")";
+        db.execSQL(create_service_table);
     }
 
     //to upgrade the table
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PEOPLE);
         onCreate(db);
     }
 
@@ -62,8 +81,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_EMAIL, email);
         contentValues.put(COL_HOME_ADDRESS, homeAddr);
 
-        Log.d("myTag", "addUser: Adding " + username + " to " + TABLE_NAME);
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        Log.d("myTag", "addUser: Adding " + username + " to " + TABLE_NAME_PEOPLE);
+        long result = db.insert(TABLE_NAME_PEOPLE, null, contentValues);
         db.close();
 
         if(result == -1){
@@ -76,7 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void findAllPeople(){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select '*' FROM " + TABLE_NAME;
+        String query = "Select '*' FROM " + TABLE_NAME_PEOPLE;
         Cursor result = db.rawQuery(query, null );
 
         Log.d("QueryResult", "Query returned: " + result);
