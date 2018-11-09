@@ -26,6 +26,16 @@ public class CreateNewAccount extends AppCompatActivity {
         if(insertData){
             toastMessage("Person successfully added to Database");
             mDBHandler.findAllPeople();
+
+            boolean isDeleted = mDBHandler.deleteUser("nGardin98");
+            if(isDeleted){
+                toastMessage("user nGardin98 deleted");
+                mDBHandler.findAllPeople();
+            }
+            else{
+                toastMessage("Something went wring while deleting user");
+            }
+
         }
         else{
             toastMessage("Something went wrong while adding Person to Database");
