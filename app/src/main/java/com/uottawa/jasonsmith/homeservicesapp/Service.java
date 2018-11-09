@@ -1,23 +1,25 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
+import android.text.Editable;
+
 public class Service {
 
     /**
      * @author Jason Smith
      * @author Joseph Peters
      */
-    private String serviceType;
+    private String service;
     private double hourlyRate;
     private double averageRating = 0.0;
     private int numOfRatings = 0;
 
-    public Service(String serviceType, double hourlyRate){
-        this.serviceType = serviceType;
+    public Service(String service, double hourlyRate){
+        this.service = service;
         this.hourlyRate = hourlyRate;
     }
 
-    public String getServiceType(){
-        return serviceType;
+    public String getService(){
+        return service;
     }
 
     public double getHourlyRate() {
@@ -34,5 +36,9 @@ public class Service {
             averageRating = ( (origRating + rating) / (numOfRatings + 1) );
             numOfRatings ++;
         }
+    }
+
+    public String toString(){
+        return getService() + "\n" +  "$" + String.format("%.2f", getHourlyRate());
     }
 }

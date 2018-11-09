@@ -2,6 +2,7 @@ package com.uottawa.jasonsmith.homeservicesapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,24 +16,27 @@ import java.util.ArrayList;
 
 public class admin_interface extends AppCompatActivity {
 
-    EditText editText;
+    EditText editText, initialRate;
     Button addBtn, removeBtn;
     ListView lv;
-    ArrayList<String> arrayList;
-    ArrayAdapter<String> arrayAdapter;
+    ArrayList<Service> arrayList;
+    ArrayAdapter<Service> arrayAdapter;
+    double hourlyRate = 0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_interface);
 
         editText = (EditText) findViewById(R.id.service);
+        initialRate = (EditText) findViewById(R.id.rate);
         addBtn = (Button) findViewById(R.id.addServiceBtn);
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
         lv = (ListView) findViewById(R.id.listViewServices);
 
-        arrayList = new ArrayList<String>();
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
+        arrayList = new ArrayList<Service>();
+        arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
         lv.setAdapter(arrayAdapter);
+
         addServiceClick();
         removeServiceClick();
     }
@@ -41,17 +45,39 @@ public class admin_interface extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-//    EditText serviceInput = (EditText) findViewById(R.id.service);
-//    String service = serviceInput.getText().toString();
 
     public void addServiceClick(){
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(editText.getText().toString().equals("") || initialRate.getText().toString().equals("")) {
+                    toastMessage("Fields cannot be blank");
+                    return;
+                }
+
                 String result = editText.getText().toString();
-                arrayList.add(result);
+                result = result.trim();
+
+                try{
+                    hourlyRate = Double.parseDouble(initialRate.getText().toString());
+                }catch(NumberFormatException e){
+                    toastMessage("Not a valid rate");
+                    return;
+                }
+
+                Service service = new Service(result, hourlyRate);
+
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (arrayList.get(i).getService().equals(editText.getText().toString())) {
+                        toastMessage("Service already exists");
+                        return;
+                    }
+                }
+
+                arrayList.add(service);
                 arrayAdapter.notifyDataSetChanged();
                 editText.setText("");
+                initialRate.setText("");
             }
         });
     }

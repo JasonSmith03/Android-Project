@@ -82,9 +82,4 @@ public class Admin{
     public static String getPassword(){
         return password;
     }
-
-    public void addService(Service service){
-        services.add(service);
-    }
-
 }
