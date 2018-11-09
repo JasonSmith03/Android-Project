@@ -18,20 +18,19 @@ public class CreateNewAccount extends AppCompatActivity {
     }
 
     //add Person to database
-    public void addPerson(String username, String password, String email){
-
+    public void addPerson(String username, String password, String email, String homeAddress){
         //initiate new DatabaseHandler
         DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
-        boolean insertData = mDBHandler.addPerson(username, password, email);
+        boolean insertData = mDBHandler.addPerson(username, password, email, homeAddress);
         if(insertData){
             toastMessage("Person successfully added to Database");
+            mDBHandler.findAllPeople();
         }
         else{
             toastMessage("Something went wrong while adding Person to Database");
         }
     }
-
 
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -55,9 +54,39 @@ public class CreateNewAccount extends AppCompatActivity {
         //Email field
         EditText emailInput = (EditText) findViewById(R.id.email);
         String emailContent = emailInput.getText().toString();
+
         //address field
         EditText addressInput = (EditText) findViewById(R.id.address);
         String addressContent = addressInput.getText().toString();
+
+        if(usernameContent.length() != 0
+                & emailContent.length() != 0
+                & addressContent.length() != 0
+                & passwordContent.length() != 0){
+
+            //adding to Database
+            addPerson(  usernameContent,
+                    passwordContent,
+                    emailContent,
+                    addressContent);
+
+            //Welcome Screen is prepared to display the role and username of the created account.
+            //intent.putExtra("username", usernameContent);
+            //intent.putExtra("role", "Home Owner");
+            startActivityForResult(intent, 0);
+
+            usernameInput.setText("");
+            emailInput.setText("");
+            passwordInput.setText("");
+            addressInput.setText("");
+
+        } else{
+            toastMessage("All fields must be filled in");
+        }
+
+
+
+        //FIX THIS CODE
 
         //Creates an instance of User that will be added to Admin's list if it satisfies the if statements.
         User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
@@ -89,20 +118,6 @@ public class CreateNewAccount extends AppCompatActivity {
                                 //tempUser is added to Admin's list.
                                 Admin.addUser(tempUser);
 
-                                //adding to Database
-                                addPerson(  tempUser.getUsername(),
-                                        tempUser.getPassword(),
-                                        tempUser.getEmail()
-                                );
-                                usernameInput.setText("");
-                                emailInput.setText("");
-                                passwordInput.setText("");
-
-                                //Welcome Screen is prepared to display the role and username of the created account.
-                                intent.putExtra("username", tempUser.getUsername());
-                                intent.putExtra("role", "Home Owner");
-
-                                startActivityForResult(intent, 0);
                             }
                         }
                     }
@@ -115,20 +130,16 @@ public class CreateNewAccount extends AppCompatActivity {
                     Admin.addServiceProvider(tempServiceProvider);
 
                     //adding to Database
-                    addPerson(  tempServiceProvider.getUsername(),
-                            tempServiceProvider.getPassword(),
-                            tempServiceProvider.getEmail()
-                    );
-                    usernameInput.setText("");
-                    emailInput.setText("");
-                    passwordInput.setText("");
-                    addressInput.setText("");
+//                    addPerson(  tempServiceProvider.getUsername(),
+//                            tempServiceProvider.getPassword(),
+//                            tempServiceProvider.getEmail()
+//                    );
 
                     //Welcome Screen is prepared to display the role and username of the created account.
                     intent.putExtra("username", tempServiceProvider.getUsername());
                     intent.putExtra("role", "Service Provider");
 
-                    startActivityForResult(intent, 0);
+                    //startActivityForResult(intent, 0);
                 }
             }
         }
