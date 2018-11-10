@@ -114,17 +114,21 @@ public class admin_interface extends AppCompatActivity {
         });
     }
 
+    //Enters edit mode and allows the admin to edit the price of a service
     public void editServiceClick(){
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toastMessage("Entered edit mode");
+                //change colour of button
+                editBtn.setBackgroundResource(R.drawable.redroundbutton);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     showInputBox(arrayList.get(position), position);
                     lv.clearChoices();
                     arrayAdapter.notifyDataSetChanged();
-                    //reset click to false to leave edit mode
+                    //returning to regular functionality
                     lv.setOnItemClickListener(null);
                     }
                 });
@@ -147,9 +151,12 @@ public class admin_interface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 arrayList.set(index, new Service(oldService.getService(), Double.parseDouble(editText1.getText().toString())));
+                //Updating the service into the database
                 mDBHandler.editService(arrayList.get(index).getService(), arrayList.get(index).getHourlyRate());
                 arrayAdapter.notifyDataSetChanged();
                 dialog.dismiss();
+                //change the colour of the button back to original
+                editBtn.setBackgroundResource(R.drawable.roundbutton);
             }
         });
         dialog.show();
