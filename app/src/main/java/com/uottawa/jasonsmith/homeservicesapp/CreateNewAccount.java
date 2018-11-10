@@ -25,16 +25,24 @@ public class CreateNewAccount extends AppCompatActivity {
         boolean insertData = mDBHandler.addPerson(username, password, email, homeAddress);
         if(insertData){
             toastMessage("Person successfully added to Database");
-            mDBHandler.findAllPeople();
+            //mDBHandler.findAllPeople();
 
-            boolean isDeleted = mDBHandler.deleteUser("nGardin98");
-            if(isDeleted){
-                toastMessage("user nGardin98 deleted");
-                mDBHandler.findAllPeople();
-            }
-            else{
-                toastMessage("Something went wring while deleting user");
-            }
+
+              //TEST EDIT SERVICE
+            mDBHandler.findAllServices();
+            mDBHandler.editService("gate repair", 50.5);
+            mDBHandler.findAllServices();
+
+
+            //TEST DELETE USER FROM DBHANDLER
+            //boolean isDeleted = mDBHandler.deleteUser("nGardin98");
+//            if(isDeleted){
+//                toastMessage("user nGardin98 deleted");
+//                mDBHandler.findAllPeople();
+//            }
+//            else{
+//                toastMessage("Something went wring while deleting user");
+//            }
 
         }
         else{

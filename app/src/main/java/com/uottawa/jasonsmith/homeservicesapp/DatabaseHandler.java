@@ -155,19 +155,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
-//    public boolean updateUser(String oldName, String newName){
-//        boolean result = false;
-//
-//        String query = "UPDATE " + COL_USERNAME " FROM " + TABLE_NAME_PEOPLE + " WHERE " +
-//                COL_USERNAME + " = \"" + username + "\"";
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//
-//
-//        return result;
-//    }
+    public void editService(String serviceName, double newRate){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_NAME_SERVICES+ " SET " + COL_SERVICE_RATE + " = '" +
+                newRate + "' WHERE " + COL_SERVICE_NAME + " = '" + serviceName + "'";
+
+        db.execSQL(query);
+        Log.d("ServiceEdited", "New service rate:" + newRate);
+    }
 
 
 
