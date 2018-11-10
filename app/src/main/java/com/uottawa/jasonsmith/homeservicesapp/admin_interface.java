@@ -1,5 +1,7 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
+import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,7 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,8 @@ public class admin_interface extends AppCompatActivity {
     ArrayList<Service> arrayList;
     ArrayAdapter<Service> arrayAdapter;
     double hourlyRate = 0.0;
+    boolean clicked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class admin_interface extends AppCompatActivity {
 
         addServiceClick();
         removeServiceClick();
+        editServiceClick();
     }
 
     private void toastMessage(String message){
@@ -58,8 +66,6 @@ public class admin_interface extends AppCompatActivity {
                     toastMessage("Fields cannot be blank");
                     return;
                 }
-                //initiate database instance
-                //DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
                 String result = editText.getText().toString();
                 result = result.trim();
@@ -108,22 +114,46 @@ public class admin_interface extends AppCompatActivity {
         });
     }
 
-//    public void editServiceClick(){
-//        editBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SparseBooleanArray positionChecker = lv.getCheckedItemPositions();
-//                int ctr = lv.getCount();
-//                for(int item = ctr - 1; item >= 0; item--){
-//                    if(positionChecker.get(item)){
-//                        arrayAdapter.getItem(item);
-//                    }
-//                }
-//
-//                editText.setText(positionChecker.);
-//                arrayAdapter.notifyDataSetChanged();
-//            }
-//        });
-//    }
+    public void editServiceClick(){
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showInputBox(arrayList.get(position), position);
+                    lv.clearChoices();
+                    arrayAdapter.notifyDataSetChanged();
+                    //reset click to false to leave edit mode
+                    lv.setOnItemClickListener(null);
+                    }
+                });
+            }
+        });
+    }
+
+    //shows dialog box where you can edit the price of a service
+    public void showInputBox(final Service oldService, final int index){
+        final Dialog dialog = new Dialog(this);
+        dialog.setTitle("Edit Service");
+        dialog.setContentView(R.layout.activity_dialog_box);
+        TextView textView = (TextView) dialog.findViewById(R.id.textmessage);
+        textView.setText("Update Service");
+        textView.setTextColor(Color.parseColor("#ff2222"));
+        final EditText editText1 = (EditText) dialog.findViewById(R.id.priceinput);
+        editText1.setText(Double.toString(oldService.getHourlyRate()));
+        Button bt = (Button) dialog.findViewById(R.id.btdone);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList.set(index, new Service(oldService.getService(), Double.parseDouble(editText1.getText().toString())));
+                mDBHandler.editService(arrayList.get(index).getService(), arrayList.get(index).getHourlyRate());
+                arrayAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 
 }
