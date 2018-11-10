@@ -28,10 +28,10 @@ public class CreateNewAccount extends AppCompatActivity {
             //mDBHandler.findAllPeople();
 
 
-              //TEST EDIT SERVICE
-            mDBHandler.findAllServices();
-            mDBHandler.editService("gate repair", 50.5);
-            mDBHandler.findAllServices();
+            //TEST EDIT SERVICE
+            //mDBHandler.findAllServices();
+            //mDBHandler.editService("gate repair", 50.5);
+            //mDBHandler.findAllServices();
 
 
             //TEST DELETE USER FROM DBHANDLER
