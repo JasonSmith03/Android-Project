@@ -16,6 +16,9 @@ import java.util.ArrayList;
 
 public class admin_interface extends AppCompatActivity {
 
+    //initiate database instance
+    DatabaseHandler mDBHandler = new DatabaseHandler(this);
+
     EditText editText, initialRate;
     Button addBtn, removeBtn;
     ListView lv;
@@ -33,7 +36,7 @@ public class admin_interface extends AppCompatActivity {
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
         lv = (ListView) findViewById(R.id.listViewServices);
 
-        arrayList = new ArrayList<Service>();
+        arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
         lv.setAdapter(arrayAdapter);
 
@@ -54,6 +57,8 @@ public class admin_interface extends AppCompatActivity {
                     toastMessage("Fields cannot be blank");
                     return;
                 }
+                //initiate database instance
+                //DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
                 String result = editText.getText().toString();
                 result = result.trim();
@@ -73,7 +78,7 @@ public class admin_interface extends AppCompatActivity {
                         return;
                     }
                 }
-
+                mDBHandler.addService(service.getService(), service.getHourlyRate());
                 arrayList.add(service);
                 arrayAdapter.notifyDataSetChanged();
                 editText.setText("");
@@ -90,9 +95,12 @@ public class admin_interface extends AppCompatActivity {
                 int ctr = lv.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
+
+                        mDBHandler.deleteService(arrayList.get(item).getService());
                         arrayAdapter.remove(arrayList.get(item));
                     }
                 }
+
                 positionChecker.clear();
                 arrayAdapter.notifyDataSetChanged();
             }

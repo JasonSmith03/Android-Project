@@ -13,10 +13,16 @@ public class Service {
     private double averageRating = 0.0;
     private int numOfRatings = 0;
 
+    public Service(){}
+
     public Service(String service, double hourlyRate){
         this.service = service;
         this.hourlyRate = hourlyRate;
     }
+
+    public void setService(String service){this.service = service;}
+
+    public void setHourlyRate(double hourlyRate){this.hourlyRate = hourlyRate;}
 
     public String getService(){
         return service;

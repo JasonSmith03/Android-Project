@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 8;
-    private static final String DATABASE_NAME = "projectDB3.db";
+    private static final String DATABASE_NAME = "projectDB4.db";
 
     //people table properties
     public static final String TABLE_NAME_PEOPLE = "People";
@@ -71,6 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //add a Person
     public boolean addPerson(String username, String password, String email, String homeAddr) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -92,34 +95,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    //Add service
+    public boolean addService(String serviceName, double serviceRate) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+        contentValues.put(COL_SERVICE_NAME, serviceName);
+        contentValues.put(COL_SERVICE_RATE, serviceRate);
 
+        Log.d("myTag", "addService: Adding " + serviceName + " to " + TABLE_NAME_SERVICES);
+        long result = db.insert(TABLE_NAME_SERVICES, null, contentValues);
+        db.close();
 
-
-
-    //DELETE SERVICE
-//    public boolean deleteService(String serviceName) {
-//        boolean result = false;
-//
-//        String query = "Select * FROM " + TABLE_NAME_SERVICES + " WHERE " +
-//                COL_SERVICE_NAME + " = \"" + serviceName + "\"";
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        if (cursor.moveToFirst()) {
-//            String service = cursor.getString(1);
-//            db.delete(TABLE_NAME_SERVICES, COL_SERVICE_NAME + " = " + service, null);
-//            cursor.close();
-//            result = true;
-//        }
-//        db.close();
-//        return result;
-//    }
-
-
-
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     //DELETE USER
     public boolean deleteUser(String username) {
@@ -134,6 +128,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             String idStr = cursor.getString(0);
             db.delete(TABLE_NAME_PEOPLE, COL_ID + " = " + idStr, null);
+            cursor.close();
+            result = true;
+        }
+        db.close();
+        return result;
+    }
+
+    //DELETE USER
+    public boolean deleteService(String serviceName) {
+        boolean result = false;
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICES + " WHERE " +
+                COL_SERVICE_NAME + " = \"" + serviceName + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            String idStr = cursor.getString(0);
+            db.delete(TABLE_NAME_SERVICES, COL_SID + " = " + idStr, null);
             cursor.close();
             result = true;
         }
@@ -186,4 +200,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
+
+    //QUERY: FIND ALL SERVICES
+    public ArrayList<Service> findAllServices() {
+
+        ArrayList<Service> allServicesList = new ArrayList<Service>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //String query = "Select 'username' FROM " + TABLE_NAME + " WHERE " +
+        //COL_USERNAME + " = \"" + name + "\"";
+        String query = "Select * FROM " + TABLE_NAME_SERVICES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        Service service;
+        if (cursor.moveToFirst()) {
+            do {
+                service = new Service();
+                service.setService(cursor.getString(1));
+                service.setHourlyRate(Double.parseDouble(cursor.getString(2)));
+
+                allServicesList.add(service);
+
+                Log.d("---------", "-------------");
+                Log.d("QueryResult", "Query returned: | service: "
+                        + service.getService()
+                        + " | hourly rate: " + service.getHourlyRate());
+            }
+            while (cursor.moveToNext());
+        } else {
+            service = null;
+        }
+        cursor.close();
+        db.close();
+
+        return allServicesList;
+    }
+
 }
