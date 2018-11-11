@@ -23,3 +23,5 @@ GitHub Repository link:
 
 - Admin username: Silver Rivals
 - Admin password: admin1
+
+circleci is a PNG in the submission folder
