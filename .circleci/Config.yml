@@ -49,7 +49,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/Android-Project
+    working_directory: ~/SEGProject
     docker:
       - image: circleci/android:api-28-alpha
     environment:
