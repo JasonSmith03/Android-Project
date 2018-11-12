@@ -9,22 +9,26 @@ import android.database.Cursor;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    BCrypt bycrypt_hash = new BCrypt();
+    String hashed_password;
+    String salt;
+
     //database Schema
-    private static final int DATABASE_VERSION = 8;
-    private static final String DATABASE_NAME = "projectDB4.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "projectDB5.db";
 
     //people table properties
     public static final String TABLE_NAME_PEOPLE = "People";
     public static final String COL_ID = "id";
     public static final String COL_USERNAME = "username";
-    public static final String COL_PASSWORD = "password";
+    public static final String COL_PASSWORD_HASH = "password_hash";
+    public static final String COL_SALT = "salt";
     public static final String COL_EMAIL = "email";
     public static final String COL_HOME_ADDRESS = "homeAddress";
     //type of user?
@@ -49,7 +53,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_USERNAME + " TEXT,"
-                + COL_PASSWORD + " TEXT,"
+                + COL_PASSWORD_HASH + " TEXT,"
+                + COL_SALT + " TEXT,"
                 + COL_EMAIL + " TEXT,"
                 + COL_HOME_ADDRESS + " TEXT"
                 + ")";
@@ -76,11 +81,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //add a Person
     public boolean addPerson(String username, String password, String email, String homeAddr) {
 
+        salt = bycrypt_hash.gensalt();
+        hashed_password = BCrypt.hashpw(password, salt);
+
+        Log.d("genSalt", "Salt value: " + salt);
+
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL_USERNAME, username);
-        contentValues.put(COL_PASSWORD, password);
+        contentValues.put(COL_PASSWORD_HASH, hashed_password);
+        contentValues.put(COL_SALT, salt);
         contentValues.put(COL_EMAIL, email);
         contentValues.put(COL_HOME_ADDRESS, homeAddr);
 
@@ -182,7 +194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 person.setUsername(cursor.getString(1));
                 person.setPassword(cursor.getString(2));
-                person.setEmail(cursor.getString(3));
+                person.setEmail(cursor.getString(4));
 
                 Log.d("---------", "-------------");
                 Log.d("QueryResult", "Query returned: | username: "

@@ -25,7 +25,7 @@ public class CreateNewAccount extends AppCompatActivity {
         boolean insertData = mDBHandler.addPerson(username, password, email, homeAddress);
         if(insertData){
             toastMessage("Person successfully added to Database");
-            //mDBHandler.findAllPeople();
+            mDBHandler.findAllPeople();
 
 
             //TEST EDIT SERVICE
