@@ -10,6 +10,10 @@ public class ServiceProvider extends Person {
     private String password;
     private String address;
     private String email;
+    private String phoneNumber;
+    private String nameOfCompany;
+    private boolean licensed;
+
 
     public ServiceProvider(String username, String email, String address, String password) {
         super(username, email, address, password);
