@@ -53,31 +53,29 @@
     <EditText
         android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="368dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Description"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/license"
-        app:layout_constraintVertical_bias="0.228" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/license"
-        android:layout_width="229dp"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="51dp"
         android:layout_marginTop="304dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Are you licensed? (yes/no)"
+        android:hint="Licensed? (yes/no)"
         android:inputType="textPersonName"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,6 +85,7 @@
         android:layout_height="63dp"
         android:layout_marginTop="16dp"
         android:text="Done"
+        android:background="@drawable/roundbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"

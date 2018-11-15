@@ -18,4 +18,8 @@
     <string name="initial_rate">Initial Rate</string>
     <string name="edit_service">Edit Service</string>
     <string name="update_service">Update Service</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="view_edit_services">View/Edit Services</string>
+    <string name="view_edit_availability">View/Edit Availability</string>
+    <string name="log_out">Log Out</string>
 </resources>

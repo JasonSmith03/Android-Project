@@ -66,9 +66,8 @@ public class LogInPage extends AppCompatActivity {
             //Checks if username/password match a Service Provider account
             else if(Admin.passwordMatchSP(tempServiceProvider)){
                 //Welcome page is prepared to display role and username of account
-                intent.putExtra("username", tempServiceProvider.getUsername());
-                intent.putExtra("role", "Service Provider");
-                startActivity(intent);
+                Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
+                startActivityForResult(serviceProviderIntent, 0);
                 return;
             }
 
