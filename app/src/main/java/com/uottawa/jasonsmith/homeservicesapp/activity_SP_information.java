@@ -41,6 +41,7 @@ public class activity_SP_information extends AppCompatActivity {
                 String addressText = address.getText().toString();
                 String licensed = aLicense.getText().toString();
                 String descriptionText = description.getText().toString();
+                //add all these values to the database
 
                 //make sure all fields are full in the information page
                 if(doneText.equals("") || nameText.equals("") || phoneNum.equals("") || addressText.equals("") || licensed.equals("") || descriptionText.equals("")){
