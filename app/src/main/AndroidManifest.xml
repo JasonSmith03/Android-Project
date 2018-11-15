@@ -25,7 +25,8 @@
         <activity android:name=".CreateNewAccount" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".admin_interface" />
-        <activity android:name=".activity_service_provider_interface"></activity>
+        <activity android:name=".activity_service_provider_interface" />
+        <activity android:name=".activity_SP_information"></activity>
     </application>
 
 </manifest>
