@@ -174,7 +174,6 @@ public class CreateNewAccount extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
                 //Following lines takes currently typed text in appropriate fields and assigns them to variables.
 
                 //Username field
@@ -204,6 +203,7 @@ public class CreateNewAccount extends AppCompatActivity {
                         if(RegistrationInfo.selection){
                             User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
                             if (Admin.notFoundInUser(tempUser)){
+                                Intent intent =  new Intent(getApplicationContext(), WelcomeScreen.class);
                                 //adding to Admin's list
                                 Admin.addUser(tempUser);
                                 //adding to Database
@@ -223,6 +223,7 @@ public class CreateNewAccount extends AppCompatActivity {
                         }else{
                             ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
                             if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                                Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
                                 //adding to Admin's list
                                 Admin.addServiceProvider(tempServiceProvider);
                                 //adding to Database
