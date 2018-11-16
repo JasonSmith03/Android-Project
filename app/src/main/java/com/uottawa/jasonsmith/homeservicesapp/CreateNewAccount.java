@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CreateNewAccount extends AppCompatActivity {
 
     Button signUp;
@@ -114,14 +117,14 @@ public class CreateNewAccount extends AppCompatActivity {
 
 //        //FIX THIS CODE
 //
-//        //Creates an instance of User that will be added to Admin's list if it satisfies the if statements.
-//        User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
-//        //Creates an instance of ServiceProvider that will be added to Admin's list if it satisfies the if statements.
-//        ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
-//        //If the username and/or password fields are blank, do nothing.
-//        if (!usernameContent.equals("") && !passwordContent.equals("")){
-//            //selection is true if the homeOwnerBtn was pressed, otherwise false.
-//            if (RegistrationInfo.selection){
+//        //Creates an instance of User that will be added to Admin's list if it satisfies the if statements.------------------------------------------------------------------
+//        User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);------------------------------------------------------------------
+//        //Creates an instance of ServiceProvider that will be added to Admin's list if it satisfies the if statements.------------------------------------------------------------------
+//        ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);------------------------------------------------------------------
+//        //If the username and/or password fields are blank, do nothing.------------------------------------------------------------------
+//        if (!usernameContent.equals("") && !passwordContent.equals("")){------------------------------------------------------------------
+//            //selection is true if the homeOwnerBtn was pressed, otherwise false.------------------------------------------------------------------
+//            if (RegistrationInfo.selection){------------------------------------------------------------------
 //                //Checks if the username of tempUser is found in Admin's list.
 //                if (Admin.notFoundInUser(tempUser)){
 //                    //Creates temporary String array where element 0 is the left of the @ symbol, and 1 is right.
@@ -195,24 +198,70 @@ public class CreateNewAccount extends AppCompatActivity {
                         & addressContent.length() != 0
                         & passwordContent.length() != 0){
 
-                    //adding to Database
-                    addPerson(  usernameContent,
-                            passwordContent,
-                            emailContent,
-                            addressContent);
-
-                    //go to the service provider information page
-                    startActivityForResult(intent, 0);
-
-                    usernameInput.setText("");
-                    emailInput.setText("");
-                    passwordInput.setText("");
-                    addressInput.setText("");
+                    Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+                    Matcher m = p.matcher(emailContent);
+                    if (m.find()){
+                        if(RegistrationInfo.selection){
+                            User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
+                            if (Admin.notFoundInUser(tempUser)){
+                                //adding to Admin's list
+                                Admin.addUser(tempUser);
+                                //adding to Database
+                                addPerson(  usernameContent,
+                                        passwordContent,
+                                        emailContent,
+                                        addressContent);
+                                //go to the service provider information page
+                                startActivityForResult(intent, 0);
+                                usernameInput.setText("");
+                                emailInput.setText("");
+                                passwordInput.setText("");
+                                addressInput.setText("");
+                            }else{
+                                toastMessage("Username taken");
+                            }
+                        }else{
+                            ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
+                            if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                                //adding to Admin's list
+                                Admin.addServiceProvider(tempServiceProvider);
+                                //adding to Database
+                                addPerson(  usernameContent,
+                                        passwordContent,
+                                        emailContent,
+                                        addressContent);
+                                //go to the service provider information page
+                                startActivityForResult(intent, 0);
+                                usernameInput.setText("");
+                                emailInput.setText("");
+                                passwordInput.setText("");
+                                addressInput.setText("");
+                            }else{
+                                toastMessage("Username taken");
+                            }
+                        }
+                    }else{
+                        toastMessage("Email invalid");
+                    }
+//
+//
+//                    //adding to Database
+//                    addPerson(  usernameContent,
+//                            passwordContent,
+//                            emailContent,
+//                            addressContent);
+//
+//                    //go to the service provider information page
+//                    startActivityForResult(intent, 0);
+//
+//                    usernameInput.setText("");
+//                    emailInput.setText("");
+//                    passwordInput.setText("");
+//                    addressInput.setText("");
 
                 } else{
                     toastMessage("All fields must be filled in");
                 }
-
             }
         });
     }
