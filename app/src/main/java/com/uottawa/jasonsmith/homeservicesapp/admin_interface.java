@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,10 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class admin_interface extends AppCompatActivity {
 
@@ -26,11 +23,10 @@ public class admin_interface extends AppCompatActivity {
 
     EditText editText, initialRate;
     Button addBtn, removeBtn, editBtn;
-    ListView lv;
+    ListView lvServices, serviceProviders, homeOwners;
     ArrayList<Service> arrayList;
     ArrayAdapter<Service> arrayAdapter;
     double hourlyRate = 0.0;
-    boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +38,13 @@ public class admin_interface extends AppCompatActivity {
         addBtn = (Button) findViewById(R.id.addServiceBtn);
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
         editBtn = (Button) findViewById(R.id.editServiceBtn);
-        lv = (ListView) findViewById(R.id.listViewServices);
+        lvServices = (ListView) findViewById(R.id.listViewServices);
+        serviceProviders= (ListView) findViewById(R.id.serviceProviderList);
+        homeOwners = (ListView) findViewById(R.id.userClientList);
 
         arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
-        lv.setAdapter(arrayAdapter);
+        lvServices.setAdapter(arrayAdapter);
 
         addServiceClick();
         removeServiceClick();
@@ -98,8 +96,8 @@ public class admin_interface extends AppCompatActivity {
         removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SparseBooleanArray positionChecker = lv.getCheckedItemPositions();
-                int ctr = lv.getCount();
+                SparseBooleanArray positionChecker = lvServices.getCheckedItemPositions();
+                int ctr = lvServices.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
 
@@ -122,14 +120,14 @@ public class admin_interface extends AppCompatActivity {
                 toastMessage("Entered edit mode");
                 //change colour of button
                 editBtn.setBackgroundResource(R.drawable.redroundbutton);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                lvServices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     showInputBox(arrayList.get(position), position);
-                    lv.clearChoices();
+                    lvServices.clearChoices();
                     arrayAdapter.notifyDataSetChanged();
                     //returning to regular functionality
-                    lv.setOnItemClickListener(null);
+                    lvServices.setOnItemClickListener(null);
                     }
                 });
             }
