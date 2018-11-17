@@ -23,6 +23,8 @@ public class ServiceProvider extends Person {
         super(usernameContent, passwordContent);
     }
 
+    public ServiceProvider(){}
+
 
     public void associateWithService(){
         //TODO code this method
@@ -46,9 +48,7 @@ public class ServiceProvider extends Person {
     public String getAddress(){
         return this.address;
     }
-    public void setAddress(String address){
-        this.address = address;
-    }
+    public void setAddress(String address){ this.address = address; }
 
     public String getEmail(){
         return this.email;

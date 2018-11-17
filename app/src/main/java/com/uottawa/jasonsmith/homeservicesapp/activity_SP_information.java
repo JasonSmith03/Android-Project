@@ -13,6 +13,7 @@ public class activity_SP_information extends AppCompatActivity {
     Button done;
     EditText name, number, aLicense, description;
     boolean license = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,22 @@ public class activity_SP_information extends AppCompatActivity {
 
         doneClick();
     }
+
+
+    public void addServiceProvider(String companyName, String phoneNum, String license){
+
+        DatabaseHandler mDBHandler = new DatabaseHandler(this);
+
+        boolean insertData = mDBHandler.addServiceProvider(companyName, phoneNum, license);
+        if(insertData) {
+            toastMessage("Service Provider successfully added to Database");
+        }else{  toastMessage("Something went wrong"); }
+
+        mDBHandler.findAllServiceProviders();
+    }
+
+
+
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -48,9 +65,13 @@ public class activity_SP_information extends AppCompatActivity {
                     if(isValidLicense() == false){
                         toastMessage("Invalid license");
                     }else{
+                        //validate phone #
                         if(aLicense.getText().toString().equalsIgnoreCase("yes")){
                             license = true;
                         }
+
+                        addServiceProvider(name.getText().toString(), number.getText().toString(), aLicense.getText().toString());
+
                         //go to the service provider interface
                         intent.putExtra("USERNAME", name.getText().toString()); //Display company name
                         startActivity(intent);

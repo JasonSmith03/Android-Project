@@ -41,8 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_NAME_SERVICE_PROVIDERS = "serviceProviders";
     public static final String COL_SERVICE_PROVIDER_ID = "serviceProviderID";
     public static final String COL_COMP_NAME = "companyName";
-    public static final String COL_ASSOC_SERVICES = "services"; //IS THIS RIGHT?
-    public static final String COL_AVAILABILITY = "availability"; //IS THIS RIGHT?
+    //public static final String COL_AVAILABILITY = "availability"; //IS THIS RIGHT?
     public static final String COL_PHONE_NUM = "phoneNumber";
     public static final String COL_LICENSE = "license";
 
@@ -92,8 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "("
                 + COL_SERVICE_PROVIDER_ID + " INTEGER," //forign key of type person
                 + COL_COMP_NAME + " TEXT,"
-                + COL_ASSOC_SERVICES + " TEXT," //HELP
-                + COL_AVAILABILITY + " TEXT,"
+               // + COL_AVAILABILITY + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT"
                 + ")";
@@ -127,8 +125,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //* MUST ADD SERVICE_PROVIDER or HOME_OWNER with PERSON
-    //add a Person
+
+
+
+
+
+    //Add a Person
     public boolean addPerson(String username, String password, String email, String address, int userType) {
 
         salt = bycrypt_hash.gensalt();
@@ -157,6 +159,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
+
+
+    //add a Service Provider
+    public boolean addServiceProvider(String companyName, String phoneNum, String license) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_COMP_NAME, companyName);
+        contentValues.put(COL_PHONE_NUM, phoneNum);
+        contentValues.put(COL_LICENSE, license);
+
+        Log.d("Service Provider", "Adding SP: " + companyName);
+        long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
+        db.close();
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -200,7 +232,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
-    //DELETE USER
+    //DELETE SERVICE
     public boolean deleteService(String serviceName) {
         boolean result = false;
 
@@ -262,6 +294,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
+
+    //QUERY: FIND ALL SP's
+    public void findAllServiceProviders() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ServiceProvider sp = new ServiceProvider();
+        if (cursor.moveToFirst()) {
+            do {
+                sp.setCompanyName(cursor.getString(1));
+                sp.setPhoneNumber(cursor.getString(2));
+                sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
+
+                Log.d("---------", "-------------");
+                Log.d("QueryResultSP", "Query returned: | company name: "
+                        + sp.getCompanyName()
+                        + " | phone number: " + sp.getPhoneNumber()
+                        + " | Licensed?: " + sp.getLicensed());
+            }
+            while (cursor.moveToNext());
+        } else {
+            sp = null;
+        }
+        cursor.close();
+        db.close();
+    }
+
+
+
+
 
 
     //QUERY: FIND ALL SERVICES
