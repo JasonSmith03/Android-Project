@@ -86,12 +86,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(create_people_table);
 
-        //Create ServiceProvider table
+        //Create ServiceProvider table ADD AVAILABILITY AND DESCRIPTION AND SET FK
         String create_serProvider_table = "CREATE TABLE " + TABLE_NAME_SERVICE_PROVIDERS +
                 "("
                 + COL_SERVICE_PROVIDER_ID + " INTEGER," //forign key of type person
                 + COL_COMP_NAME + " TEXT,"
-               // + COL_AVAILABILITY + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT"
                 + ")";
