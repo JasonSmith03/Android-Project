@@ -343,15 +343,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 person = new Person();
-
                 person.setID(Integer.parseInt(cursor.getString(0)));
                 lastPersonsPK = person.getID();
-
-                Log.d("---------", "-------------");
-                Log.d("QueryResult", "Query returned: | username: "
-                        + person.getUsername()
-                        + " | email: " + person.getEmail()
-                        + " | password: " + person.getPassword());
             }
             while (cursor.moveToNext());
         } else {
@@ -360,6 +353,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
+        Log.d("Last PK", "Query returned: | pk = " + lastPersonsPK);
         return lastPersonsPK;
     }
 
