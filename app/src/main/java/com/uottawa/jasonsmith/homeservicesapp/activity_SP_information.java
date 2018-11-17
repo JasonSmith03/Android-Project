@@ -69,8 +69,7 @@ public class activity_SP_information extends AppCompatActivity {
                         if(aLicense.getText().toString().equalsIgnoreCase("yes")){
                             license = true;
                         }
-
-                        addServiceProvider(name.getText().toString(), number.getText().toString(), aLicense.getText().toString());
+                        addServiceProvider(name.getText().toString(), number.getText().toString(), String.valueOf(license));
 
                         //go to the service provider interface
                         intent.putExtra("USERNAME", name.getText().toString()); //Display company name
