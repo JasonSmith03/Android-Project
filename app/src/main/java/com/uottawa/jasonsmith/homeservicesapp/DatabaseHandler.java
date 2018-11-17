@@ -25,7 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "projectDB5.db";
 
-    //people table columns
+
+    //PEOPLE
     public static final String TABLE_NAME_PEOPLE = "People";
     public static final String COL_ID = "id";
     public static final String COL_USERNAME = "username";
@@ -35,26 +36,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_ADDRESS = "address";
     public static final String COL_PERSON_TYPE = "personType";
 
-    //service provider table columns
+
+    //SERVICE PROVIDER
     public static final String TABLE_NAME_SERVICE_PROVIDERS = "serviceProviders";
-    public static final String COL_SERVICEPROVIDER_ID = "serviceProviderID";
+    public static final String COL_SERVICE_PROVIDER_ID = "serviceProviderID";
     public static final String COL_COMP_NAME = "companyName";
-    public static final ArrayList<Service> COL_ASSOC_SERVICES = new ArrayList<Service>(); //FINAL?????
-    public static final ArrayList<Timestamp> COL_AVAILABILITY = new ArrayList<Timestamp>();
+    public static final String COL_ASSOC_SERVICES = "services"; //IS THIS RIGHT?
+    public static final String COL_AVAILABILITY = "availability"; //IS THIS RIGHT?
+    public static final String COL_PHONE_NUM = "phoneNumber";
+    public static final String COL_LICENSE = "license";
 
-    //home owner table columns - INSTANTIATE
 
-    //service table columns
+    //HOME OWNER
+    public static final String TABLE_NAME_HOME_OWNERS = "homeOwners";
+    public static final String COL_HOME_OWNER_ID = "homeOwnerID";
+
+
+    //SERVICES
     public static final String TABLE_NAME_SERVICES = "Services";
     public static final String COL_SID = "sid";
     public static final String COL_SERVICE_NAME = "serviceName";
     public static final String COL_SERVICE_RATE = "serviceHourlyRate";
-    public static final String COL_SERVICE_RATING = "serviceUserRating";
+
+
+    //INTERMEDIATE TABLE - links Service Provider ID to a Service ID
+     public static final String TABLE_NAME_INTER_SID = "serviceAndProvider";
+     public static final String COL_SP_ID = "serviceProviderID";
+     public static final String COL_SERVICE_ID = "serviceID";
+
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    //create the table
+
+    //CREATE RELATIONS
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -74,20 +90,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create ServiceProvider table
         String create_serProvider_table = "CREATE TABLE " + TABLE_NAME_SERVICE_PROVIDERS +
                 "("
-                + COL_SERVICEPROVIDER_ID + " INTEGER," //forign key of type person
+                + COL_SERVICE_PROVIDER_ID + " INTEGER," //forign key of type person
                 + COL_COMP_NAME + " TEXT,"
-                + COL_ASSOC_SERVICES + " TEXT" //HELP
-                + COL_AVAILABILITY + " TEXT"
+                + COL_ASSOC_SERVICES + " TEXT," //HELP
+                + COL_AVAILABILITY + " TEXT,"
+                + COL_PHONE_NUM + " TEXT,"
+                + COL_LICENSE + " TEXT"
                 + ")";
         db.execSQL(create_serProvider_table);
+
+        //Create home owner table
 
         //Create Service table
         String create_service_table = "CREATE TABLE " + TABLE_NAME_SERVICES +
                 "("
                 + COL_SID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_SERVICE_NAME + " TEXT,"
-                + COL_SERVICE_RATE + " REAL,"
-                + COL_SERVICE_RATING + " REAL"
+                + COL_SERVICE_RATE + " REAL"
                 + ")";
         db.execSQL(create_service_table);
     }
@@ -130,9 +149,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    //Add serviceProvider - IMPLEMENT
 
-    //Add homeOwner - IMPLEMENT
 
     //Add service
     public boolean addService(String serviceName, double serviceRate) {
