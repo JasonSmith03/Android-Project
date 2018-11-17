@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +25,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "projectDB5.db";
 
-    //people table properties
+    //people table columns
     public static final String TABLE_NAME_PEOPLE = "People";
     public static final String COL_ID = "id";
     public static final String COL_USERNAME = "username";
     public static final String COL_PASSWORD_HASH = "password_hash";
     public static final String COL_SALT = "salt";
     public static final String COL_EMAIL = "email";
-    public static final String COL_HOME_ADDRESS = "homeAddress";
-    //type of user?
+    public static final String COL_ADDRESS = "address";
+    public static final String COL_PERSON_TYPE = "personType";
 
-    //service table properties
+    //service provider table columns
+    public static final String TABLE_NAME_SERVICE_PROVIDERS = "serviceProviders";
+    public static final String COL_SERVICEPROVIDER_ID = "serviceProviderID";
+    public static final String COL_COMP_NAME = "companyName";
+    public static final ArrayList<Service> COL_ASSOC_SERVICES = new ArrayList<Service>(); //FINAL?????
+    public static final ArrayList<Timestamp> COL_AVAILABILITY = new ArrayList<Timestamp>();
+
+    //home owner table columns - INSTANTIATE
+
+    //service table columns
     public static final String TABLE_NAME_SERVICES = "Services";
     public static final String COL_SID = "sid";
     public static final String COL_SERVICE_NAME = "serviceName";
@@ -43,7 +54,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
     //create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -56,9 +66,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_PASSWORD_HASH + " TEXT,"
                 + COL_SALT + " TEXT,"
                 + COL_EMAIL + " TEXT,"
-                + COL_HOME_ADDRESS + " TEXT"
+                + COL_ADDRESS + " TEXT,"
+                + COL_PERSON_TYPE + " INTEGER"
                 + ")";
         db.execSQL(create_people_table);
+
+        //Create ServiceProvider table
+        String create_serProvider_table = "CREATE TABLE " + TABLE_NAME_SERVICE_PROVIDERS +
+                "("
+                + COL_SERVICEPROVIDER_ID + " INTEGER," //forign key of type person
+                + COL_COMP_NAME + " TEXT,"
+                + COL_ASSOC_SERVICES + " TEXT" //HELP
+                + COL_AVAILABILITY + " TEXT"
+                + ")";
+        db.execSQL(create_serProvider_table);
 
         //Create Service table
         String create_service_table = "CREATE TABLE " + TABLE_NAME_SERVICES +
@@ -78,14 +99,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //* MUST ADD SERVICE_PROVIDER or HOME_OWNER with PERSON
     //add a Person
-    public boolean addPerson(String username, String password, String email, String homeAddr) {
+    public boolean addPerson(String username, String password, String email, String address, int userType) {
 
         salt = bycrypt_hash.gensalt();
         hashed_password = BCrypt.hashpw(password, salt);
 
         Log.d("genSalt", "Salt value: " + salt);
-
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -94,9 +115,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_PASSWORD_HASH, hashed_password);
         contentValues.put(COL_SALT, salt);
         contentValues.put(COL_EMAIL, email);
-        contentValues.put(COL_HOME_ADDRESS, homeAddr);
+        contentValues.put(COL_ADDRESS, address);
+        contentValues.put(COL_PERSON_TYPE, userType);
 
-        Log.d("myTag", "addUser: Adding " + username + " to " + TABLE_NAME_PEOPLE);
+        Log.d("myTag", "addUser: Adding " + username + " to " + TABLE_NAME_PEOPLE +
+                    "of type: " + userType);
         long result = db.insert(TABLE_NAME_PEOPLE, null, contentValues);
         db.close();
 
@@ -106,6 +129,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    //Add serviceProvider - IMPLEMENT
+
+    //Add homeOwner - IMPLEMENT
 
     //Add service
     public boolean addService(String serviceName, double serviceRate) {
