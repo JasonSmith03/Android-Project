@@ -31,8 +31,6 @@ public class activity_service_provider_interface extends AppCompatActivity {
         setContentView(R.layout.activity_service_provider_interface);
 
         editProfile = (Button) findViewById(R.id.editProfileBtn);
-        editService = (Button) findViewById(R.id.serviceBtn);
-        availability = (Button) findViewById(R.id.availabilityBtn);
         logOut = (Button) findViewById(R.id.logOutBtn);
 
 //        arrayList = mDBHandler.findAllServices();
