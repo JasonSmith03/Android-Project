@@ -2,11 +2,13 @@ package com.uottawa.jasonsmith.homeservicesapp;
 
 public class Person {
     private String  username, email, address, password;
+    private int id;
 
     //empty constructor
     public Person(){}
 
-    public Person(String username, String email, String address, String password){
+    public Person(int id, String username, String email, String address, String password){
+        this.id = id;
         this.username = username;
         this.email = email;
         this.address = address;
@@ -18,11 +20,15 @@ public class Person {
         this.password = passwordContent;
     }
 
+    public void setID(int id){this.id = id;}
+
     public void setUsername(String username){this.username = username;}
 
     public void setEmail(String email){this.email = email;}
 
     public void setPassword(String password){this.password = password;}
+
+    public int getID(){ return id; }
 
     public String getUsername(){
         return username;

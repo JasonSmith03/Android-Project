@@ -263,7 +263,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
     //QUERY: FIND ALL PEOPLE
     public void findAllPeople() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -296,18 +295,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //QUERY: FIND ALL SP's
-    public void findAllServiceProviders() {
+    public ArrayList<ServiceProvider> findAllServiceProviders() {
+
+        ArrayList<ServiceProvider> allSPList = new ArrayList<ServiceProvider>();
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS;
         Cursor cursor = db.rawQuery(query, null);
 
-        ServiceProvider sp = new ServiceProvider();
+        ServiceProvider sp;
         if (cursor.moveToFirst()) {
             do {
+
+                sp = new ServiceProvider();
                 sp.setCompanyName(cursor.getString(1));
                 sp.setPhoneNumber(cursor.getString(2));
                 sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
+
+                allSPList.add(sp);
 
                 Log.d("---------", "-------------");
                 Log.d("QueryResultSP", "Query returned: | company name: "
@@ -321,9 +326,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
+
+        return allSPList;
     }
 
+    //Query find last person added
+    public int findLastPersonsPK(){
 
+        int lastPersonsPK = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select 'id' FROM " + TABLE_NAME_PEOPLE + " ORDER BY 'id' DESC LIMIT '1'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        Person person;
+        if (cursor.moveToFirst()) {
+            do {
+                person = new Person();
+
+                person.setID(Integer.parseInt(cursor.getString(0)));
+                lastPersonsPK = person.getID();
+
+                Log.d("---------", "-------------");
+                Log.d("QueryResult", "Query returned: | username: "
+                        + person.getUsername()
+                        + " | email: " + person.getEmail()
+                        + " | password: " + person.getPassword());
+            }
+            while (cursor.moveToNext());
+        } else {
+            person = null;
+        }
+        cursor.close();
+        db.close();
+
+        return lastPersonsPK;
+    }
 
 
 
