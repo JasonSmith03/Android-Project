@@ -23,9 +23,13 @@ public class admin_interface extends AppCompatActivity {
 
     EditText editText, initialRate;
     Button addBtn, removeBtn, editBtn;
-    ListView lvServices, serviceProviders, homeOwners;
+    ListView lvServices, lvServiceProviders, lvUser;
     ArrayList<Service> arrayList;
+    ArrayList<ServiceProvider> arrayListServiceProvider;
+    ArrayList<User> arrayListUser;
     ArrayAdapter<Service> arrayAdapter;
+    ArrayAdapter<ServiceProvider> arrayAdapterServiceProvider;
+    ArrayAdapter<User> arrayAdapterUser;
     double hourlyRate = 0.0;
 
     @Override
@@ -39,12 +43,16 @@ public class admin_interface extends AppCompatActivity {
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
         editBtn = (Button) findViewById(R.id.editServiceBtn);
         lvServices = (ListView) findViewById(R.id.listViewServices);
-        serviceProviders= (ListView) findViewById(R.id.serviceProviderList);
-        homeOwners = (ListView) findViewById(R.id.userClientList);
+        lvServiceProviders= (ListView) findViewById(R.id.serviceProviderList);
+        lvUser = (ListView) findViewById(R.id.userClientList);
 
         arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
         lvServices.setAdapter(arrayAdapter);
+
+        arrayListServiceProvider = mDBHandler.findAllServiceProviders();
+        arrayAdapterServiceProvider = new ArrayAdapter<ServiceProvider>(this, android.R.layout.simple_list_item_1, arrayListServiceProvider);
+        lvServiceProviders.setAdapter(arrayAdapterServiceProvider);
 
         addServiceClick();
         removeServiceClick();
@@ -159,6 +167,4 @@ public class admin_interface extends AppCompatActivity {
         });
         dialog.show();
     }
-
-
 }

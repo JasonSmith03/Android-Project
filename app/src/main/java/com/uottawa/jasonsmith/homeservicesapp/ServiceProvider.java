@@ -17,6 +17,11 @@ public class ServiceProvider extends Person {
 
     public ServiceProvider(){}
 
+    public ServiceProvider(String companyName, String phoneNumber, boolean licensed){
+        this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
+        this.licensed = licensed;
+    }
 
     public void associateWithService(){
         //TODO code this method
@@ -42,5 +47,9 @@ public class ServiceProvider extends Person {
     }
     public void setLicensed(boolean licensed){
         this.licensed = licensed;
+    }
+
+    public String toString(){
+        return getCompanyName() + "\n" + getPhoneNumber() + "\n" + getLicensed();
     }
 }

@@ -157,7 +157,7 @@
         <ListView
             android:id="@+id/serviceProviderList"
             android:layout_width="match_parent"
-            android:layout_height="272dp"
+            android:layout_height="257dp"
             android:layout_marginTop="664dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -167,7 +167,7 @@
         <ListView
             android:id="@+id/userClientList"
             android:layout_width="match_parent"
-            android:layout_height="244dp"
+            android:layout_height="257dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
