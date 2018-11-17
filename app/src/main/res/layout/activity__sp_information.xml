@@ -7,22 +7,6 @@
     tools:context=".activity_SP_information">
 
     <EditText
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="244dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Address"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +38,7 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="368dp"
+        android:layout_marginTop="308dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Description"
@@ -70,14 +54,14 @@
         android:id="@+id/license"
         android:layout_width="207dp"
         android:layout_height="51dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="240dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Licensed? (yes/no)"
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,8 +70,8 @@
         android:layout_width="110dp"
         android:layout_height="63dp"
         android:layout_marginTop="16dp"
-        android:text="Done"
         android:background="@drawable/roundbutton"
+        android:text="Done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"

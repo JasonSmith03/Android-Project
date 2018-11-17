@@ -22,4 +22,6 @@
     <string name="view_edit_services">View/Edit Services</string>
     <string name="view_edit_availability">View/Edit Availability</string>
     <string name="log_out">Log Out</string>
+    <string name="companyName">USERNAME</string>
+    <string name="welcome">Welcome</string>
 </resources>

@@ -11,8 +11,8 @@ import android.widget.Toast;
 public class activity_SP_information extends AppCompatActivity {
 
     Button done;
-    EditText name, number, address, aLicense, description;
-
+    EditText name, number, aLicense, description;
+    boolean license = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,6 @@ public class activity_SP_information extends AppCompatActivity {
         done = (Button) findViewById(R.id.doneBtn);
         name = (EditText) findViewById(R.id.companyName);
         number = (EditText) findViewById(R.id.phoneNumber);
-        address = (EditText) findViewById(R.id.address);
         aLicense = (EditText) findViewById(R.id.license);
         description = (EditText) findViewById(R.id.description);
 
@@ -31,25 +30,32 @@ public class activity_SP_information extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+
+    private boolean isValidLicense(){
+        if(aLicense.getText().toString().equalsIgnoreCase("yes") || aLicense.getText().toString().equalsIgnoreCase("no")){
+            return true;
+        }
+        return false;
+    }
     public void doneClick(){
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String doneText = done.getText().toString();
-                String nameText = name.getText().toString();
-                String phoneNum = number.getText().toString();
-                String addressText = address.getText().toString();
-                String licensed = aLicense.getText().toString();
-                String descriptionText = description.getText().toString();
-                //add all these values to the database
-
-                //make sure all fields are full in the information page
-                if(doneText.equals("") || nameText.equals("") || phoneNum.equals("") || addressText.equals("") || licensed.equals("") || descriptionText.equals("")){
+                Intent intent = new Intent(getApplicationContext(), activity_service_provider_interface.class);
+                if(name.getText().toString().equals("") || number.getText().toString().equals("") || aLicense.getText().toString().equals("") || description.getText().toString().equals("")){
                     toastMessage("All fields must be full");
                 }else{
-                    //go to the service provider interface
-                    Intent intent = new Intent(getApplicationContext(), activity_service_provider_interface.class);
-                    startActivityForResult(intent, 0);
+                    if(isValidLicense() == false){
+                        toastMessage("Invalid license");
+                    }else{
+                        if(aLicense.getText().toString().equalsIgnoreCase("yes")){
+                            license = true;
+                        }
+                        //go to the service provider interface
+                        intent.putExtra("USERNAME", name.getText().toString()); //Display company name
+                        startActivity(intent);
+                    }
+
                 }
             }
         });

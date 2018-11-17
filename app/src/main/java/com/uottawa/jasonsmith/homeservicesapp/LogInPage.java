@@ -67,7 +67,8 @@ public class LogInPage extends AppCompatActivity {
             else if(Admin.passwordMatchSP(tempServiceProvider)){
                 //Welcome page is prepared to display role and username of account
                 Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
-                startActivityForResult(serviceProviderIntent, 0);
+                serviceProviderIntent.putExtra("USERNAME", getComponentName());//TODO this may or may not work yet
+                startActivity(serviceProviderIntent);
                 return;
             }
 
