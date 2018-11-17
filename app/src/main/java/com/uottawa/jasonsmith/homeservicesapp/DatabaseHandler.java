@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB6.db";
+    private static final String DATABASE_NAME = "projectDB10.db";
 
 
     //PEOPLE
