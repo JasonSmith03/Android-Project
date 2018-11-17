@@ -100,11 +100,11 @@ public class CreateNewAccount extends AppCompatActivity {
                     if (m.find()){
                         if(RegistrationInfo.selection){
                             int userType = 2;
-                            User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
-                            if (Admin.notFoundInUser(tempUser)){
+                            //User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
+                            //if (Admin.notFoundInUser(tempUser)){
                                 Intent intent =  new Intent(getApplicationContext(), WelcomeScreen.class);
                                 //adding to Admin's list
-                                Admin.addUser(tempUser);
+                                //Admin.addUser(tempUser);
                                 //adding to Database
                                 addPerson(  usernameContent,
                                         passwordContent,
@@ -117,16 +117,16 @@ public class CreateNewAccount extends AppCompatActivity {
                                 emailInput.setText("");
                                 passwordInput.setText("");
                                 addressInput.setText("");
-                            }else{
-                                toastMessage("Username taken");
-                            }
+                            //}else{
+                            //    toastMessage("Username taken");
+                            //}
                         }else{
                             int userType = 1;
-                            ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
-                            if (Admin.notFoundInServiceProviders(tempServiceProvider)){
+                            //Person tempPerson = new Person(usernameContent, emailContent, passwordContent, addressContent);
+                            //if (Admin.notFoundInServiceProviders(tempPerson)){
                                 Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
                                 //adding to Admin's list
-                                Admin.addServiceProvider(tempServiceProvider);
+                                //Admin.addServiceProvider(tempServiceProvider);
                                 //adding to Database
                                 addPerson(  usernameContent,
                                         passwordContent,
@@ -139,9 +139,9 @@ public class CreateNewAccount extends AppCompatActivity {
                                 emailInput.setText("");
                                 passwordInput.setText("");
                                 addressInput.setText("");
-                            }else{
-                                toastMessage("Username taken");
-                            }
+                            //}else{
+                            //    toastMessage("Username taken");
+                            //}
                         }
                     }else{
                         toastMessage("Email invalid");
