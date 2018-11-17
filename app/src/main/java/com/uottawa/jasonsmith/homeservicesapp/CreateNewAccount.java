@@ -26,13 +26,19 @@ public class CreateNewAccount extends AppCompatActivity {
     }
 
     //add Person to database
-    public void addPerson(String username, String password, String email, String homeAddress){
+    public void addPerson(String username, String password, String email, String homeAddress, int userType){
         //initiate new DatabaseHandler
         DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
-        boolean insertData = mDBHandler.addPerson(username, password, email, homeAddress);
+        boolean insertData = mDBHandler.addPerson(username, password, email, homeAddress, userType);
         if(insertData){
-            toastMessage("Person successfully added to Database");
+
+            String thisTest = "";
+            if(userType == 1){thisTest = "Service Provider";}
+            else{thisTest = "Home Owner";}
+
+            toastMessage("Person successfully added to Database , of user type " + thisTest);
+
             mDBHandler.findAllPeople();
 
 
@@ -93,6 +99,7 @@ public class CreateNewAccount extends AppCompatActivity {
                     Matcher m = p.matcher(emailContent);
                     if (m.find()){
                         if(RegistrationInfo.selection){
+                            int userType = 2;
                             User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
                             if (Admin.notFoundInUser(tempUser)){
                                 Intent intent =  new Intent(getApplicationContext(), WelcomeScreen.class);
@@ -102,7 +109,8 @@ public class CreateNewAccount extends AppCompatActivity {
                                 addPerson(  usernameContent,
                                         passwordContent,
                                         emailContent,
-                                        addressContent);
+                                        addressContent,
+                                        userType);
                                 //go to the service provider information page
                                 startActivityForResult(intent, 0);
                                 usernameInput.setText("");
@@ -113,6 +121,7 @@ public class CreateNewAccount extends AppCompatActivity {
                                 toastMessage("Username taken");
                             }
                         }else{
+                            int userType = 1;
                             ServiceProvider tempServiceProvider = new ServiceProvider(usernameContent, emailContent, passwordContent, addressContent);
                             if (Admin.notFoundInServiceProviders(tempServiceProvider)){
                                 Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
@@ -122,7 +131,8 @@ public class CreateNewAccount extends AppCompatActivity {
                                 addPerson(  usernameContent,
                                         passwordContent,
                                         emailContent,
-                                        addressContent);
+                                        addressContent,
+                                        userType);
                                 //go to the service provider information page
                                 startActivityForResult(intent, 0);
                                 usernameInput.setText("");

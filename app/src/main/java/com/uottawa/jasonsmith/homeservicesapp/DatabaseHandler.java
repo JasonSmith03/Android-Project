@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB5.db";
+    private static final String DATABASE_NAME = "projectDB6.db";
 
 
     //PEOPLE
@@ -109,6 +109,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_SERVICE_RATE + " REAL"
                 + ")";
         db.execSQL(create_service_table);
+
+        //Create intermediate table
+        String create_intermediate_table = "CREATE TABLE " + TABLE_NAME_INTER_SID +
+                "("
+                + COL_SP_ID + " INTEGER,"
+                + COL_SERVICE_ID + " INTEGER"
+                + ")";
+        db.execSQL(create_intermediate_table);
+
     }
 
     //to upgrade the table
