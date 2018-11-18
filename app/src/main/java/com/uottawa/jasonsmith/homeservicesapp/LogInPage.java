@@ -53,6 +53,8 @@ public class LogInPage extends AppCompatActivity {
                 //Admin is brought to admin interface
                 Intent adminIntent = new Intent(this, admin_interface.class);
                 startActivityForResult (adminIntent,0);
+                usernameInput.setText("");
+                passwordInput.setText("");
                 return;
             }
             //Checks if username/password match a User account
@@ -69,6 +71,8 @@ public class LogInPage extends AppCompatActivity {
                 Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
                 serviceProviderIntent.putExtra("USERNAME", getComponentName());//TODO this may or may not work yet
                 startActivity(serviceProviderIntent);
+                usernameInput.setText("");
+                passwordInput.setText("");
                 return;
             }
 
