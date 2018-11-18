@@ -1,15 +1,19 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,7 @@ public class admin_interface extends AppCompatActivity {
     ArrayAdapter<User> arrayAdapterUser;
     double hourlyRate = 0.0;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +54,52 @@ public class admin_interface extends AppCompatActivity {
         arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
         lvServices.setAdapter(arrayAdapter);
+        setListViewHeightBasedOnChildren(lvServices);
 
         arrayListServiceProvider = mDBHandler.findAllServiceProviders();
         arrayAdapterServiceProvider = new ArrayAdapter<ServiceProvider>(this, android.R.layout.simple_list_item_1, arrayListServiceProvider);
         lvServiceProviders.setAdapter(arrayAdapterServiceProvider);
+        setListViewHeightBasedOnChildren(lvServiceProviders);
+
+//        arrayListUser = mDBHandler.finAllUsers();
+//        arrayAdapterUser = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, arrayListUser);
+//        lvUser.setAdapter(arrayAdapterUser);
+//        setListViewHeightBasedOnChildren(lvUser);
+
+        //separates list view from scroll view (independent of each other)
+        lvServices.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        //separates list view from scroll view (independent of each other)
+        lvServiceProviders.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        //separates list view from scroll view (independent of each other)
+//        lvUser.setOnTouchListener(new View.OnTouchListener() {
+//            // Setting on Touch Listener for handling the touch inside ScrollView
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                // Disallow the touch request for parent scroll on touch of child view
+//                v.getParent().requestDisallowInterceptTouchEvent(true);
+//                return false;
+//            }
+//        });
+
+
 
         addServiceClick();
         removeServiceClick();
@@ -166,5 +213,29 @@ public class admin_interface extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    /**** Method for Setting the Height of the ListView dynamically.
+     **** Hack to fix the issue of not showing all the items of the ListView
+     **** when placed inside a ScrollView  ****/
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }
