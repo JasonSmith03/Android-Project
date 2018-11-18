@@ -12,6 +12,18 @@
         android:layout_height="match_parent"
         tools:context=".admin_interface">
 
+        <Button
+            android:id="@+id/adminLogOut"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundbutton"
+            android:text="@string/log_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.979"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/service"
             android:layout_width="wrap_content"

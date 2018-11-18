@@ -2,6 +2,7 @@ package com.uottawa.jasonsmith.homeservicesapp;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class admin_interface extends AppCompatActivity {
     DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
     EditText editText, initialRate;
-    Button addBtn, removeBtn, editBtn;
+    Button addBtn, removeBtn, editBtn, logOut;
     ListView lvServices, lvServiceProviders, lvUser;
     ArrayList<Service> arrayList;
     ArrayList<ServiceProvider> arrayListServiceProvider;
@@ -47,6 +48,7 @@ public class admin_interface extends AppCompatActivity {
         addBtn = (Button) findViewById(R.id.addServiceBtn);
         removeBtn = (Button) findViewById(R.id.removeServiceBtn);
         editBtn = (Button) findViewById(R.id.editServiceBtn);
+        logOut = (Button) findViewById(R.id.adminLogOut);
         lvServices = (ListView) findViewById(R.id.listViewServices);
         lvServiceProviders= (ListView) findViewById(R.id.serviceProviderList);
         lvUser = (ListView) findViewById(R.id.userClientList);
@@ -98,10 +100,11 @@ public class admin_interface extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-        
+
         addServiceClick();
         removeServiceClick();
         editServiceClick();
+        logOutClick();
     }
 
     private void toastMessage(String message){
@@ -187,6 +190,15 @@ public class admin_interface extends AppCompatActivity {
         });
     }
 
+    public void logOutClick(){
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LogInPage.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
     //shows dialog box where you can edit the price of a service
     public void showInputBox(final Service oldService, final int index){
         final Dialog dialog = new Dialog(this);
