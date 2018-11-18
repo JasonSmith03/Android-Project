@@ -98,9 +98,7 @@ public class admin_interface extends AppCompatActivity {
 //                return false;
 //            }
 //        });
-
-
-
+        
         addServiceClick();
         removeServiceClick();
         editServiceClick();
