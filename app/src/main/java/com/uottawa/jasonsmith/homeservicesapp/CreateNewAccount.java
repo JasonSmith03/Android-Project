@@ -101,10 +101,11 @@ public class CreateNewAccount extends AppCompatActivity {
                     Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
                     Matcher m = p.matcher(emailContent);
                     if (m.find()){
-                        if(RegistrationInfo.selection){
-                            int userType = 2;
-                            //User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
-                            //if (Admin.notFoundInUser(tempUser)){
+                        if(addressContent.matches("\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)")){
+                            if(RegistrationInfo.selection){
+                                int userType = 2;
+                                //User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
+                                //if (Admin.notFoundInUser(tempUser)){
                                 Intent intent =  new Intent(getApplicationContext(), WelcomeScreen.class);
                                 //adding to Admin's list
                                 //Admin.addUser(tempUser);
@@ -120,13 +121,13 @@ public class CreateNewAccount extends AppCompatActivity {
                                 emailInput.setText("");
                                 passwordInput.setText("");
                                 addressInput.setText("");
-                            //}else{
-                            //    toastMessage("Username taken");
-                            //}
-                        }else{
-                            int userType = 1;
-                            //Person tempPerson = new Person(usernameContent, emailContent, passwordContent, addressContent);
-                            //if (Admin.notFoundInServiceProviders(tempPerson)){
+                                //}else{
+                                //    toastMessage("Username taken");
+                                //}
+                            }else{
+                                int userType = 1;
+                                //Person tempPerson = new Person(usernameContent, emailContent, passwordContent, addressContent);
+                                //if (Admin.notFoundInServiceProviders(tempPerson)){
                                 Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
                                 //adding to Admin's list
                                 //Admin.addServiceProvider(tempServiceProvider);
@@ -142,9 +143,12 @@ public class CreateNewAccount extends AppCompatActivity {
                                 emailInput.setText("");
                                 passwordInput.setText("");
                                 addressInput.setText("");
-                            //}else{
-                            //    toastMessage("Username taken");
-                            //}
+                                //}else{
+                                //    toastMessage("Username taken");
+                                //}
+                            }
+                        }else{
+                            toastMessage("Address invalid");
                         }
                     }else{
                         toastMessage("Email invalid");

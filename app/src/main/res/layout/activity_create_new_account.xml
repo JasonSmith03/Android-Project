@@ -25,7 +25,7 @@
 
     <EditText
         android:id="@+id/createUsername"
-        android:layout_width="169dp"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -43,7 +43,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="169dp"
+        android:layout_width="212dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -52,7 +52,7 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter email"
+        android:hint="Enter email (ex@web.ca)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/createPassword"
-        android:layout_width="169dp"
+        android:layout_width="217dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -95,7 +95,7 @@
 
     <EditText
         android:id="@+id/address"
-        android:layout_width="169dp"
+        android:layout_width="221dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -104,7 +104,7 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter address"
+        android:hint="Enter address (123 Street)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
