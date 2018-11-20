@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Log;
 
 public class activity_SP_information extends AppCompatActivity {
 
@@ -38,8 +39,6 @@ public class activity_SP_information extends AppCompatActivity {
         if(insertData) {
             toastMessage("Service Provider successfully added to Database");
         }else{  toastMessage("Something went wrong"); }
-
-        mDBHandler.findAllServiceProviders();
     }
 
 

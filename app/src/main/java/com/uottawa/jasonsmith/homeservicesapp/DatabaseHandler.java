@@ -203,17 +203,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-
     //Associate SP with service
-    public boolean associateWithService(String sp_id, double service_id) {
-
+    public boolean subscribeToService(int sp_id, int service_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL_SERVICE_PROVIDER_ID, sp_id);
         contentValues.put(COL_SERVICE_ID, service_id);
 
-        //Log.d("myTag", "addService: Adding " + serviceName + " to " + TABLE_NAME_SERVICES);
         long result = db.insert(TABLE_NAME_INTER_SID, null, contentValues);
         db.close();
 
@@ -286,66 +283,49 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //QUERY: Find Primary key (ID) for Service and SP
-    public void findID(String name, String table) {
+    public int findID(String name, String table) {
         SQLiteDatabase db = this.getWritableDatabase();
+        String query;
 
-        String query = "";
-
-        if (table == "Services") {
-            query = "Select 'sid' FROM " + TABLE_NAME_SERVICES + " WHERE " +
+        if (table.equals("Services")) {
+            query = "Select sid FROM " + TABLE_NAME_SERVICES + " WHERE " +
                     COL_SERVICE_NAME + " = \"" + name + "\"";
 
+            //query = "SELECT sid FROM Services WHERE serviceName = 'Deck Repair'";
             Cursor cursor = db.rawQuery(query, null);
 
             Service service = new Service();
             if (cursor.moveToFirst()) {
-                do {
-                    service.setSid(cursor.getInt(0));
-                    service.setService(cursor.getString(1));
-                    service.setHourlyRate(Double.parseDouble(cursor.getString(2)));
-
-                    Log.d("---------", "-------------");
-                    Log.d("QueryResultID", "ID returned: | " + service.getSid()
-                            + " from " + table);
-                }
-                while (cursor.moveToNext());
+                service.setSid(Integer.parseInt(cursor.getString(0)));
+                Log.d("RECEIVED", "Service ID " + service.getSid());
             } else {
                 service = null;
             }
             cursor.close();
             db.close();
-
-            //return
+            return service.getSid();
         }
 
-        else {
-            query = "Select 'username' FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
-                    COL_COMP_NAME + " = \"" + name + "\"";
+        else if(table.equals("ServiceProviders")) {
+            query = "Select serviceProviderID FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                    COL_COMP_NAME +  " = \"" + name + "\"";
 
             Cursor cursor = db.rawQuery(query, null);
-
             ServiceProvider sp = new ServiceProvider();;
             if (cursor.moveToFirst()) {
-                do {
-                    sp.setServiceProviderID(cursor.getInt(0));
-                    sp.setCompanyName(cursor.getString(1));
-
-                    Log.d("---------", "-------------");
-                    Log.d("QueryResultID", "ID returned: | " + sp.getServiceProviderID()
-                            + " from " + table);
-                }
-                while (cursor.moveToNext());
+                sp.setServiceProviderID(Integer.parseInt(cursor.getString(0)));
+                Log.d("RECEIVED", "Ser Provider ID " + sp.getServiceProviderID());
             } else {
                 sp = null;
             }
             cursor.close();
             db.close();
-
-            //return
+            return sp.getServiceProviderID();
         }
-
-
-
+        else{
+            //should never enter else
+            return 0;
+        }
     }
 
 
@@ -464,14 +444,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 service = new Service();
+                service.setSid(Integer.parseInt(cursor.getString(0)));
                 service.setService(cursor.getString(1));
                 service.setHourlyRate(Double.parseDouble(cursor.getString(2)));
 
                 allServicesList.add(service);
 
                 Log.d("---------", "-------------");
-                Log.d("QueryResult", "Query returned: | service: "
-                        + service.getService()
+                Log.d("QueryResult", "Query returned: "
+                        + "ID: " + service.getSid()
+                        + "| service: " + service.getService()
                         + " | hourly rate: " + service.getHourlyRate());
             }
             while (cursor.moveToNext());
@@ -482,6 +464,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
 
         return allServicesList;
+    }
+
+    //get Intermediate table
+    public void getIntermediateTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_SID;
+        Cursor cursor = db.rawQuery(query, null);
+
+        IntermediateTable intTable = new IntermediateTable();;
+        if (cursor.moveToFirst()) {
+            do {
+                intTable.setSp_id(Integer.parseInt(cursor.getString(0)));
+                intTable.setSID(Integer.parseInt(cursor.getString(1)));
+
+                Log.d("---------", "-------------");
+                Log.d("QueryResultInt", "Query returned: | "
+                        + " SP id: " + intTable.getSP_id()
+                        + " Service id: " + intTable.getSID() );
+            }
+            while (cursor.moveToNext());
+        } else {
+            intTable = null;
+        }
+        cursor.close();
+        db.close();
     }
 
 }

@@ -7,6 +7,7 @@ public class Service {
     /**
      * @author Jason Smith
      * @author Joseph Peters
+     * @author Nicolas Gardin
      */
     private int sid;
     private String service;

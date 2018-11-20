@@ -3,6 +3,7 @@ package com.uottawa.jasonsmith.homeservicesapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,44 @@ public class LogInPage extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
     public void register(View view) {
+
+//        DatabaseHandler mDBHandler = new DatabaseHandler(this);
+//
+//        Log.d("QueryResult", "---------------------PEOPLE---------------------------------------------------------------");
+//        mDBHandler.findAllPeople();
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", "---------------------SERVICE PROVIDERS----------------------------------------------------");
+//        mDBHandler.findAllServiceProviders();
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", "---------------------SERVICES-------------------------------------------------------------");
+//        mDBHandler.findAllServices();
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", " ");
+//        Log.d("QueryResult", "---------------------INTERMEDIATE TABLE---------------------------------------------------");
+//
+//        //TESTING INTERMEDIATE TABLE
+//
+//        //get primary key of service 'Deck Repair' from Services table
+//        int serviceID = mDBHandler.findID("Deck Repair", "Services");
+//
+//        //get primary key of service provider 'Matts Repairs' from ServiceProviders table
+//        int sp_ID = mDBHandler.findID("Als Repairs", "ServiceProviders");
+//
+//
+//        Log.d("Adding Services", "Service ID: " + Integer.toString(serviceID) + " |   SP ID: " + Integer.toString(sp_ID));
+//
+//        //use Primary keys to add both of these values to the intermediate table
+//        boolean insertData2 = mDBHandler.subscribeToService(sp_ID,serviceID);
+//        if(insertData2) {
+//            toastMessage("Subscribed to service");
+//        }else{  toastMessage("Something went wrong"); }
+//
+//        //display intermediate table
+//        mDBHandler.getIntermediateTable();
+
+
         //Application Context and Activity
         Intent intent = new Intent(getApplicationContext(), RegistrationInfo.class);
         startActivityForResult(intent, 0);
