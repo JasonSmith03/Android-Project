@@ -115,6 +115,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         // user checked or unchecked a box
                         if (isChecked == true){
                             tmpList.add(stringArrayServices[which]);
+                        }else{
+                            tmpList.remove(stringArrayServices[which]);
                         }
                     }
                 });
@@ -126,13 +128,17 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         for(int i = 0; i < tmpList.size(); i++){
                             for(int j = 0; j < arrayListEditServices.size(); j++){
                                 if(arrayListViewServices.size() < 1){
-                                    arrayListViewServices.add(arrayListEditServices.get(j));
+                                    if(tmpList.get(i).equals(arrayListEditServices.get(j).getService())){
+                                        arrayListViewServices.add(arrayListEditServices.get(j));
+                                        arrayAdapterView.notifyDataSetChanged();
+                                    }
                                 }else if(tmpList.get(i).equals(arrayListEditServices.get(j).getService()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
                                     arrayListViewServices.add(arrayListEditServices.get(j));
                                     arrayAdapterView.notifyDataSetChanged();
                                 }
                             }
                         }
+                        tmpList = new ArrayList<>();
                     }
                 });
                 builder.setNegativeButton("Cancel", null);
