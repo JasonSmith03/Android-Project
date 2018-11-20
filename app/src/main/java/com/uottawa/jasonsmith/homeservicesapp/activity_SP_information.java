@@ -73,7 +73,7 @@ public class activity_SP_information extends AppCompatActivity {
 
                         //go to the service provider interface
                         intent.putExtra("USERNAME", name.getText().toString()); //Display company name
-                        startActivity(intent);
+                        startActivityForResult(intent, 0);
                     }
 
                 }
