@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB11.db";
+    private static final String DATABASE_NAME = "projectDB13.db";
 
 
     //PEOPLE
@@ -89,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create ServiceProvider table ADD AVAILABILITY AND DESCRIPTION AND SET FK
         String create_serProvider_table = "CREATE TABLE " + TABLE_NAME_SERVICE_PROVIDERS +
                 "("
-                + COL_SERVICE_PROVIDER_ID + " INTEGER," //forign key of type person
+                + COL_SERVICE_PROVIDER_ID + " INTEGER," //foreign key of type person
                 + COL_COMP_NAME + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT"
@@ -110,8 +110,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create intermediate table
         String create_intermediate_table = "CREATE TABLE " + TABLE_NAME_INTER_SID +
                 "("
-                + COL_SP_ID + " INTEGER,"
-                + COL_SERVICE_ID + " INTEGER"
+                + COL_SP_ID + " TEXT,"
+                + COL_SERVICE_ID + " TEXT"
                 + ")";
         db.execSQL(create_intermediate_table);
 
@@ -127,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
-
+    //-------- ADD TO DB ----------------------------------------------------
 
     //Add a Person
     public boolean addPerson(String username, String password, String email, String address, int userType) {
@@ -161,16 +161,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //add a Service Provider
-    public boolean addServiceProvider(String companyName, String phoneNum, String license) {
+    public boolean addServiceProvider(int fk, String companyName, String phoneNum, String license) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put(COL_SERVICE_PROVIDER_ID, fk);
         contentValues.put(COL_COMP_NAME, companyName);
         contentValues.put(COL_PHONE_NUM, phoneNum);
         contentValues.put(COL_LICENSE, license);
 
-        Log.d("Service Provider", "Adding SP: " + companyName);
+        Log.d("Service Provider", "Adding SP: " + companyName + " with ID " + fk);
         long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
         db.close();
 
@@ -180,15 +181,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     //Add service
@@ -210,6 +202,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
         }
     }
+
+
+    //Associate SP with service
+    public boolean associateWithService(String sp_id, double service_id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_SERVICE_PROVIDER_ID, sp_id);
+        contentValues.put(COL_SERVICE_ID, service_id);
+
+        //Log.d("myTag", "addService: Adding " + serviceName + " to " + TABLE_NAME_SERVICES);
+        long result = db.insert(TABLE_NAME_INTER_SID, null, contentValues);
+        db.close();
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
+    //-------- DELETE FROM DB ----------------------------------------------------
 
     //DELETE USER
     public boolean deleteUser(String username) {
@@ -263,6 +280,77 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+
+
+    //-------- QUERIES ----------------------------------------------------
+
+
+    //QUERY: Find Primary key (ID) for Service and SP
+    public void findID(String name, String table) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "";
+
+        if (table == "Services") {
+            query = "Select 'sid' FROM " + TABLE_NAME_SERVICES + " WHERE " +
+                    COL_SERVICE_NAME + " = \"" + name + "\"";
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            Service service = new Service();
+            if (cursor.moveToFirst()) {
+                do {
+                    service.setSid(cursor.getInt(0));
+                    service.setService(cursor.getString(1));
+                    service.setHourlyRate(Double.parseDouble(cursor.getString(2)));
+
+                    Log.d("---------", "-------------");
+                    Log.d("QueryResultID", "ID returned: | " + service.getSid()
+                            + " from " + table);
+                }
+                while (cursor.moveToNext());
+            } else {
+                service = null;
+            }
+            cursor.close();
+            db.close();
+
+            //return
+        }
+
+        else {
+            query = "Select 'username' FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                    COL_COMP_NAME + " = \"" + name + "\"";
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            ServiceProvider sp = new ServiceProvider();;
+            if (cursor.moveToFirst()) {
+                do {
+                    sp.setServiceProviderID(cursor.getInt(0));
+                    sp.setCompanyName(cursor.getString(1));
+
+                    Log.d("---------", "-------------");
+                    Log.d("QueryResultID", "ID returned: | " + sp.getServiceProviderID()
+                            + " from " + table);
+                }
+                while (cursor.moveToNext());
+            } else {
+                sp = null;
+            }
+            cursor.close();
+            db.close();
+
+            //return
+        }
+
+
+
+    }
+
+
+
+
     //QUERY: FIND ALL PEOPLE
     public void findAllPeople() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -275,13 +363,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Person person = new Person();
         if (cursor.moveToFirst()) {
             do {
+                person.setID(Integer.parseInt(cursor.getString(0)));
                 person.setUsername(cursor.getString(1));
                 person.setPassword(cursor.getString(2));
                 person.setEmail(cursor.getString(4));
 
                 Log.d("---------", "-------------");
-                Log.d("QueryResult", "Query returned: | username: "
-                        + person.getUsername()
+                Log.d("QueryResult", "Query returned: "
+                        + " ID: " + person.getID()
+                        + " | username: " + person.getUsername()
                         + " | email: " + person.getEmail()
                         + " | password: " + person.getPassword());
             }
@@ -308,6 +398,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
 
                 sp = new ServiceProvider();
+                sp.setID(Integer.parseInt(cursor.getString(0)));
                 sp.setCompanyName(cursor.getString(1));
                 sp.setPhoneNumber(cursor.getString(2));
                 sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
@@ -315,8 +406,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 allSPList.add(sp);
 
                 Log.d("---------", "-------------");
-                Log.d("QueryResultSP", "Query returned: | company name: "
-                        + sp.getCompanyName()
+                Log.d("QueryResultSP", "Query returned: "
+                        + " ID: " + sp.getID()
+                        + " | company name: " + sp.getCompanyName()
                         + " | phone number: " + sp.getPhoneNumber()
                         + " | Licensed?: " + sp.getLicensed());
             }
@@ -336,17 +428,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int lastPersonsPK = 0;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select 'id' FROM " + TABLE_NAME_PEOPLE + " ORDER BY 'id' DESC LIMIT '1'";
+        String query = "Select id FROM " + TABLE_NAME_PEOPLE + " ORDER BY id DESC LIMIT '1'";
         Cursor cursor = db.rawQuery(query, null);
 
-        Person person;
+        Person person = new Person();
         if (cursor.moveToFirst()) {
-            do {
-                person = new Person();
-                person.setID(Integer.parseInt(cursor.getString(0)));
-                lastPersonsPK = person.getID();
-            }
-            while (cursor.moveToNext());
+            person.setID(Integer.parseInt(cursor.getString(0)));
+            lastPersonsPK = person.getID();
+
         } else {
             person = null;
         }

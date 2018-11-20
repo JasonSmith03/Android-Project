@@ -37,9 +37,12 @@ public class CreateNewAccount extends AppCompatActivity {
             if(userType == 1){thisTest = "Service Provider";}
             else{thisTest = "Home Owner";}
 
-            toastMessage("Person successfully added to Database , of user type " + thisTest);
-
+            //toastMessage("Person successfully added to Database , of user type " + thisTest);
             mDBHandler.findAllPeople();
+
+            //int pkVal = mDBHandler.findLastPersonsPK();
+            //toastMessage(Integer.toString(pkVal));
+            //mDBHandler.findAllPeople();
 
 
             //TEST EDIT SERVICE

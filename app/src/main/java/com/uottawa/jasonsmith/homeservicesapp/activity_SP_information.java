@@ -32,8 +32,9 @@ public class activity_SP_information extends AppCompatActivity {
     public void addServiceProvider(String companyName, String phoneNum, String license){
 
         DatabaseHandler mDBHandler = new DatabaseHandler(this);
+        int fk = mDBHandler.findLastPersonsPK();
 
-        boolean insertData = mDBHandler.addServiceProvider(companyName, phoneNum, license);
+        boolean insertData = mDBHandler.addServiceProvider(fk, companyName, phoneNum, license);
         if(insertData) {
             toastMessage("Service Provider successfully added to Database");
         }else{  toastMessage("Something went wrong"); }

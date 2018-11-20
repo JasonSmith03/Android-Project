@@ -8,6 +8,7 @@ public class Service {
      * @author Jason Smith
      * @author Joseph Peters
      */
+    private int sid;
     private String service;
     private double hourlyRate;
     private double averageRating = 0.0;
@@ -19,6 +20,17 @@ public class Service {
         this.service = service;
         this.hourlyRate = hourlyRate;
     }
+
+    public Service(int sid, String service, double hourlyRate){
+        this.sid = sid;
+        this.service = service;
+        this.hourlyRate = hourlyRate;
+    }
+
+
+    public void setSid(int sid){this.sid = sid;}
+
+    public int getSid(){ return sid; }
 
     public void setService(String service){this.service = service;}
 

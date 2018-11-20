@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class ServiceProvider extends Person {
 
+    private int sp_id;
     private ArrayList<Timestamp> availabilities;
     private String phoneNumber;
     private String companyName;
@@ -23,11 +24,25 @@ public class ServiceProvider extends Person {
         this.licensed = licensed;
     }
 
+    public ServiceProvider(int sp_id, String companyName, String phoneNumber, boolean licensed){
+        this.sp_id = sp_id;
+        this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
+        this.licensed = licensed;
+    }
+
     public void associateWithService(){
         //TODO code this method
     }
 
     //getters and setters needed in the case that a service provider wants to change their information.
+    public int getServiceProviderID(){
+        return sp_id;
+    }
+    public void setServiceProviderID(int sp_id){
+        this.sp_id = sp_id;
+    }
+
     public String getPhoneNumber(){
         return this.phoneNumber;
     }
