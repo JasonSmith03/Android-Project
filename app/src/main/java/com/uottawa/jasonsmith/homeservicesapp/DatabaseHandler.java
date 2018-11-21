@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB13.db";
+    private static final String DATABASE_NAME = "projectDB14.db";
 
 
     //PEOPLE
@@ -287,7 +287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query;
 
-        query = "Select id FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+        query = "Select * FROM " + TABLE_NAME_PEOPLE + " WHERE " +
                 COL_USERNAME + " = \"" + name + "\"" + " AND " +
                 COL_PASSWORD_HASH + " = \"" + password + "\"";
 
