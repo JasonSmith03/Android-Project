@@ -17,7 +17,7 @@
             android:layout_height="199dp"
             android:layout_marginStart="14dp"
             android:layout_marginLeft="14dp"
-            android:layout_marginTop="296dp"
+            android:layout_marginTop="140dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
@@ -30,14 +30,18 @@
 
         <Button
             android:id="@+id/spRemoveServie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="125dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/roundbutton"
             android:text="Remove Service"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintEnd_toStartOf="@+id/spEditServiceBtn"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourServices" />
 
@@ -45,14 +49,14 @@
             android:id="@+id/spEditAvailBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="664dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:background="@drawable/roundbutton"
             android:text="Edit Availibilities"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintHorizontal_bias="0.432"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/avail" />
 
         <TextView
             android:id="@+id/welcomeSP"
@@ -70,34 +74,32 @@
 
         <Button
             android:id="@+id/editProfileBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="160dp"
+            android:layout_width="64dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/roundbutton"
             android:text="@string/edit_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/spEditServiceBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="160dp"
+            android:layout_width="125dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="360dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
             android:background="@drawable/roundbutton"
             android:text="Edit Service"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
-            app:layout_constraintStart_toEndOf="@+id/editProfileBtn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/logOutBtn"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="57dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/roundbutton"
             android:text="@string/log_out"
@@ -112,7 +114,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="244dp"
+            android:layout_marginTop="96dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
@@ -120,6 +122,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,12 +132,12 @@
             android:layout_height="199dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="760dp"
+            android:layout_marginTop="492dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/listview_border"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,7 +147,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="712dp"
+            android:layout_marginTop="444dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
@@ -152,7 +155,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.479"
+            app:layout_constraintHorizontal_bias="0.451"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
