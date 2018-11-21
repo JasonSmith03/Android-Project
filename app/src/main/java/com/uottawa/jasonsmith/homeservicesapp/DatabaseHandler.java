@@ -288,8 +288,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query;
 
         query = "Select sid FROM " + TABLE_NAME_PEOPLE + " WHERE " +
-                COL_SERVICE_NAME + " = \"" + name + "\"" + " AND " +
-                COL_SERVICE_NAME + " = \"" + password + "\"";
+                COL_USERNAME + " = \"" + name + "\"" + " AND " +
+                COL_PASSWORD_HASH + " = \"" + password + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
 
