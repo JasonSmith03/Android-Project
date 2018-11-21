@@ -152,14 +152,16 @@
 
         <ListView
             android:id="@+id/listViewServices"
-            android:layout_width="365dp"
+            android:layout_width="0dp"
             android:layout_height="203dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="304dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/listview_border"
             android:choiceMode="multipleChoice"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -167,21 +169,29 @@
 
         <ListView
             android:id="@+id/serviceProviderList"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="198dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="672dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/listview_border"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
             android:id="@+id/userClientList"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="205dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/listview_border"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userClientsTB" />
     </android.support.constraint.ConstraintLayout>
