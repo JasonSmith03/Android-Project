@@ -15,6 +15,8 @@ public class LogInPage extends AppCompatActivity {
 
     User tempUser;
     ServiceProvider tempServiceProvider;
+    int query = 0;
+    DatabaseHandler mDBHandler = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class LogInPage extends AppCompatActivity {
     }
     public void register(View view) {
 
-//        DatabaseHandler mDBHandler = new DatabaseHandler(this);
+
 //
 //        Log.d("QueryResult", "---------------------PEOPLE---------------------------------------------------------------");
 //        mDBHandler.findAllPeople();
@@ -71,7 +73,7 @@ public class LogInPage extends AppCompatActivity {
 
     public void logIn(View view) {
 
-            //Application Context and Activity
+        //Application Context and Activity
 
         Intent intent = new Intent(this, WelcomeScreen.class);
         //Username field
@@ -84,7 +86,7 @@ public class LogInPage extends AppCompatActivity {
         //Creates the temp accounts that will be used for verifying username/password combination
         tempUser = new User(usernameContent, passwordContent);
         tempServiceProvider = new ServiceProvider(usernameContent, passwordContent);
-
+        query = mDBHandler.findLoginInfo(usernameContent, passwordContent);
         //Checks if fields either field is left blank
         if(!usernameContent.equals("") && !passwordContent.equals("")){
             //Checks if username/password match Admin account
@@ -105,11 +107,10 @@ public class LogInPage extends AppCompatActivity {
                 return;
             }
             //Checks if username/password match a Service Provider account
-            else if(Admin.passwordMatchSP(tempServiceProvider)){
+            else if(query > -1){
                 //Welcome page is prepared to display role and username of account
                 Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
-                serviceProviderIntent.putExtra("USERNAME", getComponentName());//TODO this may or may not work yet
-                startActivity(serviceProviderIntent);
+                startActivityForResult(serviceProviderIntent, 0);
                 usernameInput.setText("");
                 passwordInput.setText("");
                 return;

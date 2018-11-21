@@ -295,6 +295,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Person person = new Person();
             if (cursor.moveToFirst()) {
+                Log.d("PersonFound", "Person found");
             person.setID(Integer.parseInt(cursor.getString(0)));
             person.setUsername(cursor.getString(1));
             person.setPassword(cursor.getString(2));
