@@ -15,21 +15,16 @@
             android:id="@+id/yourServices"
             android:layout_width="0dp"
             android:layout_height="199dp"
-<<<<<<< HEAD
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="252dp"
-=======
             android:layout_marginStart="14dp"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="296dp"
->>>>>>> 22e156fb6183380d484bd285c802dcbe55b227ff
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/listview_border"
             android:choiceMode="multipleChoice"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,11 +72,11 @@
             android:id="@+id/editProfileBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="160dp"
             android:background="@drawable/roundbutton"
             android:text="@string/edit_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.034"
+            app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="160dp"
             android:background="@drawable/roundbutton"
             android:text="Edit Service"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +112,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="196dp"
+            android:layout_marginTop="244dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
@@ -125,7 +120,6 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
