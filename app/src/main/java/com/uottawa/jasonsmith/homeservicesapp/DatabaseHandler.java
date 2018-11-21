@@ -287,7 +287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query;
 
-        query = "Select sid FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+        query = "Select id FROM " + TABLE_NAME_PEOPLE + " WHERE " +
                 COL_USERNAME + " = \"" + name + "\"" + " AND " +
                 COL_PASSWORD_HASH + " = \"" + password + "\"";
 
