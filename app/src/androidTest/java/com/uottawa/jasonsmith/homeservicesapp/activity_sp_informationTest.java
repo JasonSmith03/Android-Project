@@ -61,4 +61,8 @@ public class activity_sp_informationTest {
         String describe = text.getText().toString();
         assertNotEquals(" ", describe);
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

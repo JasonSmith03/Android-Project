@@ -29,8 +29,11 @@ public class activity_service_provider_interface extends AppCompatActivity {
     Button editProfile, editService, availability, logOut, removeBtn;
     ArrayList<Service> arrayListViewServices = new ArrayList<Service>(), arrayListEditServices;
     ArrayList<String> tmpList = new ArrayList<String>();
+    ArrayList<Integer> pkList;
     ArrayAdapter<Service> arrayAdapterView, arrayAdapterEditServices;
     ListView lvViewServices, lvEditServices;
+    int queryValue = 0, serviceID = 0;
+    Service service = new Service();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -38,19 +41,21 @@ public class activity_service_provider_interface extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_provider_interface);
 
-//        Intent usernameIntent = getIntent();
-//
-//        String message1 = usernameIntent.getStringExtra("USERNAME");
-//
-//        TextView tview1 = (TextView)findViewById(R.id.companyName);
-//
-//        tview1.setText(message1);
+        Intent serviceProviderIntent = getIntent();
+        queryValue = serviceProviderIntent.getIntExtra("Query value", 0);
 
+        pkList = mDBHandler.findServicesFromPk(queryValue);
         editProfile = (Button) findViewById(R.id.editProfileBtn);
         editService = (Button) findViewById(R.id.spEditServiceBtn);
         removeBtn = (Button) findViewById(R.id.spRemoveServie);
         logOut = (Button) findViewById(R.id.logOutBtn);
         lvViewServices = (ListView) findViewById(R.id.yourServices);
+
+        for(int i = 0; i < pkList.size(); i++){
+            service = mDBHandler.findSpecificService(pkList.get(i));
+            arrayListViewServices.add(service);
+            Log.d("storedService", arrayListViewServices.toString());
+        }
 
         arrayListEditServices = mDBHandler.findAllServices();
         arrayAdapterView = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayListViewServices);
@@ -106,7 +111,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
 
                 boolean[] booleans = new boolean[arrayListEditServices.size()];
                 for (int i = 0; i < arrayListEditServices.size(); i++){
-                    stringArrayServices[i] = arrayListEditServices.get(i).getService();
+                    stringArrayServices[i] = arrayListEditServices.get(i).toString();
                     booleans[i] = false;
                 }
                 builder.setMultiChoiceItems(stringArrayServices, booleans, new DialogInterface.OnMultiChoiceClickListener() {
@@ -128,12 +133,15 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         for(int i = 0; i < tmpList.size(); i++){
                             for(int j = 0; j < arrayListEditServices.size(); j++){
                                 if(arrayListViewServices.size() < 1){
-                                    if(tmpList.get(i).equals(arrayListEditServices.get(j).getService())){
+                                    if(tmpList.get(i).equals(arrayListEditServices.get(j).toString())){
                                         arrayListViewServices.add(arrayListEditServices.get(j));
+                                        serviceID = mDBHandler.findID(arrayListViewServices.get(j).getService(), "Services");
+                                        mDBHandler.subscribeToService(queryValue, serviceID);
                                         arrayAdapterView.notifyDataSetChanged();
                                     }
-                                }else if(tmpList.get(i).equals(arrayListEditServices.get(j).getService()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
+                                }else if(tmpList.get(i).equals(arrayListEditServices.get(j).toString()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
                                     arrayListViewServices.add(arrayListEditServices.get(j));
+
                                     arrayAdapterView.notifyDataSetChanged();
                                 }
                             }

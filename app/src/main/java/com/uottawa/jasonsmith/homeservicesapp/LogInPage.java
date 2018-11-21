@@ -63,7 +63,7 @@ public class LogInPage extends AppCompatActivity {
 //        }else{  toastMessage("Something went wrong"); }
 //
 //        //display intermediate table
-//        mDBHandler.getIntermediateTable();
+        mDBHandler.getIntermediateTable();
 
 
         //Application Context and Activity
@@ -110,7 +110,8 @@ public class LogInPage extends AppCompatActivity {
             else if(query > -1){
                 //Welcome page is prepared to display role and username of account
                 Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
-                startActivityForResult(serviceProviderIntent, 0);
+                serviceProviderIntent.putExtra("Query value", query);
+                startActivity(serviceProviderIntent);
                 usernameInput.setText("");
                 passwordInput.setText("");
                 return;
