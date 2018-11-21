@@ -141,7 +141,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                                     }
                                 }else if(tmpList.get(i).equals(arrayListEditServices.get(j).toString()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
                                     arrayListViewServices.add(arrayListEditServices.get(j));
-
+                                    serviceID = mDBHandler.findID(arrayListViewServices.get(j).getService(), "Services");
+                                    mDBHandler.subscribeToService(queryValue, serviceID);
                                     arrayAdapterView.notifyDataSetChanged();
                                 }
                             }
