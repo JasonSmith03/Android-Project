@@ -226,6 +226,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //-------- DELETE FROM DB ----------------------------------------------------
 
+
+    //Unassociated SP with service
+    public void unsubscribeFromService(int sp_id, int service_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "DELETE * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SP_ID + " = \"" + sp_id + "\"" +
+                COL_SERVICE_ID + " = \"" + service_id + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        IntermediateTable inter = new IntermediateTable();
+        if (cursor.moveToFirst()) {
+            int serviceID = Integer.parseInt(cursor.getString(1));
+            db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + serviceID, null);
+        }
+        cursor.close();
+        db.close();
+    }
+
+
     //DELETE USER
     public boolean deleteUser(String username) {
         boolean result = false;
@@ -457,6 +477,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    //QUERY: FIND SERVICE FROM PK
+    public ArrayList<Integer> findServicesFromPk(int pk) {
+
+        ArrayList<Integer> allServicesList = new ArrayList<Integer>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SP_ID + " = \"" + pk + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        IntermediateTable inter;
+        if (cursor.moveToFirst()) {
+            do {
+                inter = new IntermediateTable();
+                inter.setSID(Integer.parseInt(cursor.getString(1)));
+                allServicesList.add(inter.getSID());
+            }
+            while (cursor.moveToNext());
+        } else {
+            inter = null;
+        }
+        cursor.close();
+        db.close();
+        return allServicesList;
+    }
+
+
+    //QUERY: FIND SPECIFIC SERVICE FROM PK
+    public Service findSpecificService(int pk) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICES + " WHERE " +
+                COL_SID + " = \"" + pk + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Service service = new Service();
+        if (cursor.moveToFirst()) {
+            service.setSid(Integer.parseInt(cursor.getString(0)));
+            service.setService(cursor.getString(1));
+            service.setHourlyRate(Double.parseDouble(cursor.getString(2)));
+            cursor.close();
+            db.close();
+            return service;
+        } else {
+            service = null;
+        }
+        return service;
+    }
+
+
+
 
 
     //QUERY: FIND ALL SERVICES
@@ -492,7 +565,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
-
         return allServicesList;
     }
 
@@ -521,5 +593,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
+
+
 
 }
