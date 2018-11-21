@@ -8,12 +8,12 @@
 
     <EditText
         android:id="@+id/phoneNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="247dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="176dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Phone Number"
+        android:hint="Phone Number (xxx-xxx-xxxx)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -22,21 +22,20 @@
 
     <EditText
         android:id="@+id/companyName"
-        android:layout_width="wrap_content"
+        android:layout_width="246dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Company name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:layout_width="244dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="308dp"
         android:ems="10"
@@ -52,7 +51,7 @@
 
     <EditText
         android:id="@+id/license"
-        android:layout_width="207dp"
+        android:layout_width="246dp"
         android:layout_height="51dp"
         android:layout_marginTop="240dp"
         android:ems="10"
@@ -69,7 +68,7 @@
         android:id="@+id/doneBtn"
         android:layout_width="110dp"
         android:layout_height="63dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="432dp"
         android:background="@drawable/roundbutton"
         android:text="Done"
         app:layout_constraintEnd_toEndOf="parent"

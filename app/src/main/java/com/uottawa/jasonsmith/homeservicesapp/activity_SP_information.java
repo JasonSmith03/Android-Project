@@ -66,14 +66,20 @@ public class activity_SP_information extends AppCompatActivity {
                         toastMessage("Invalid license");
                     }else{
                         //validate phone #
-                        if(aLicense.getText().toString().equalsIgnoreCase("yes")){
-                            license = true;
-                        }
-                        addServiceProvider(name.getText().toString(), number.getText().toString(), String.valueOf(license));
+                        if(!number.getText().toString().matches("[1-9]\\d{2}-[1-9]\\d{2}-\\d{4}")){
+                            Log.d("Testjoe", "number: "+number.toString());
+                            toastMessage("Invalid Phone Number");
+                        }else{
+                            if(aLicense.getText().toString().equalsIgnoreCase("yes")){
+                                license = true;
+                            }
+                            addServiceProvider(name.getText().toString(), number.getText().toString(), String.valueOf(license));
 
-                        //go to the service provider interface
-                        intent.putExtra("USERNAME", name.getText().toString()); //Display company name
-                        startActivityForResult(intent, 0);
+                            //go to the service provider interface
+                            intent.putExtra("USERNAME", name.getText().toString()); //Display company name
+                            startActivityForResult(intent, 0);
+                        }
+
                     }
 
                 }
