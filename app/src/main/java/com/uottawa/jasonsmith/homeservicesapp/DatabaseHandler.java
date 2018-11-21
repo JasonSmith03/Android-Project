@@ -226,6 +226,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //-------- DELETE FROM DB ----------------------------------------------------
 
+
+    //Unassociated SP with service
+    public void unsubscribeFromService(int sp_id, int service_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "DELETE * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SP_ID + " = \"" + sp_id + "\"" +
+                COL_SERVICE_ID + " = \"" + service_id + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        IntermediateTable inter = new IntermediateTable();
+        if (cursor.moveToFirst()) {
+            int serviceID = Integer.parseInt(cursor.getString(1));
+            db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + serviceID, null);
+        }
+        cursor.close();
+        db.close();
+    }
+
+
     //DELETE USER
     public boolean deleteUser(String username) {
         boolean result = false;
