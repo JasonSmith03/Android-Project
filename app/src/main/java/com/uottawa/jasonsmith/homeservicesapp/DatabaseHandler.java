@@ -133,7 +133,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean addPerson(String username, String password, String email, String address, int userType) {
 
         salt = bycrypt_hash.gensalt();
-        hashed_password = BCrypt.hashpw(password, salt);
+        //hashed_password = BCrypt.hashpw(password, salt);
 
         Log.d("genSalt", "Salt value: " + salt);
 
@@ -141,7 +141,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL_USERNAME, username);
-        contentValues.put(COL_PASSWORD_HASH, hashed_password);
+        //hashed_password implementation
+        contentValues.put(COL_PASSWORD_HASH, password);
         contentValues.put(COL_SALT, salt);
         contentValues.put(COL_EMAIL, email);
         contentValues.put(COL_ADDRESS, address);
@@ -280,6 +281,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //-------- QUERIES ----------------------------------------------------
+
+    //QUERY: Get login information
+    public int findLoginInfo(String name, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query;
+
+        query = "Select sid FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+                COL_SERVICE_NAME + " = \"" + name + "\"" + " AND " +
+                COL_SERVICE_NAME + " = \"" + password + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Person person = new Person();
+            if (cursor.moveToFirst()) {
+            person.setID(Integer.parseInt(cursor.getString(0)));
+            person.setUsername(cursor.getString(1));
+            person.setPassword(cursor.getString(2));
+
+            Log.d("PersonFound", "***PERSON FOUND***");
+            cursor.close();
+            db.close();
+            return person.getID();
+        } else {
+            return -1;
+        }
+    }
+
+
 
 
     //QUERY: Find Primary key (ID) for Service and SP
