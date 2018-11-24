@@ -153,6 +153,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
                                         else{
                                             toastMessage("You have already subscribed to one or more of these services");
                                         }
+                                        tmpList = new ArrayList<>();
                                         return;
                                     }
                                 }
