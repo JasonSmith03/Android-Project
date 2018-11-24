@@ -44,15 +44,20 @@ public class activity_service_provider_interface extends AppCompatActivity {
         Intent serviceProviderIntent = getIntent();
         queryValue = serviceProviderIntent.getIntExtra("Query value", 0);
 
+        //list of the ID of a service
         pkList = mDBHandler.findServicesFromPk(queryValue);
+
         editProfile = (Button) findViewById(R.id.editProfileBtn);
         editService = (Button) findViewById(R.id.spEditServiceBtn);
         removeBtn = (Button) findViewById(R.id.spRemoveServie);
         logOut = (Button) findViewById(R.id.logOutBtn);
         lvViewServices = (ListView) findViewById(R.id.yourServices);
 
+
+        //finds a service based off of the id from the pkList
         for(int i = 0; i < pkList.size(); i++){
             service = mDBHandler.findSpecificService(pkList.get(i));
+            //adds the existing service provided
             arrayListViewServices.add(service);
             Log.d("storedService", arrayListViewServices.toString());
         }
@@ -114,14 +119,17 @@ public class activity_service_provider_interface extends AppCompatActivity {
                     stringArrayServices[i] = arrayListEditServices.get(i).toString();
                     booleans[i] = false;
                 }
+                Log.d("TEMPLIST", "String array services: " + stringArrayServices);
                 builder.setMultiChoiceItems(stringArrayServices, booleans, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         // user checked or unchecked a box
                         if (isChecked == true){
                             tmpList.add(stringArrayServices[which]);
+                            Log.d("TEMPLIST", "temp list add: " + tmpList.toString());
                         }else{
                             tmpList.remove(stringArrayServices[which]);
+                            Log.d("TEMPLIST", "temp list remove: " + tmpList.toString());
                         }
                     }
                 });
@@ -132,22 +140,27 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         // user clicked OK
                         for(int i = 0; i < tmpList.size(); i++){
                             for(int j = 0; j < arrayListEditServices.size(); j++){
-                                if(arrayListViewServices.size() < 1){
+                               if(arrayListViewServices.size() < 1){
                                     if(tmpList.get(i).equals(arrayListEditServices.get(j).toString())){
                                         arrayListViewServices.add(arrayListEditServices.get(j));
-                                        serviceID = mDBHandler.findID(arrayListViewServices.get(j).getService(), "Services");
+                                        //
+                                        serviceID = mDBHandler.findID(arrayListEditServices.get(j).getService(), "Services");
+                                        //subscribe user to service
                                         mDBHandler.subscribeToService(queryValue, serviceID);
                                         arrayAdapterView.notifyDataSetChanged();
+                                        Log.d("TEMPLIST", "If array list view is < 1 after added: " + arrayListViewServices.toString());
                                     }
                                 }else if(tmpList.get(i).equals(arrayListEditServices.get(j).toString()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
                                     arrayListViewServices.add(arrayListEditServices.get(j));
-                                    serviceID = mDBHandler.findID(arrayListViewServices.get(j).getService(), "Services");
+                                    serviceID = mDBHandler.findID(arrayListEditServices.get(j).getService(), "Services");
                                     mDBHandler.subscribeToService(queryValue, serviceID);
                                     arrayAdapterView.notifyDataSetChanged();
+                                    Log.d("TEMPLIST", "If array list view in the else if: " + arrayListViewServices.toString());
                                 }
                             }
                         }
                         tmpList = new ArrayList<>();
+                        Log.d("TEMPLIST", "Resetting temp list: " + tmpList.toString());
                     }
                 });
                 builder.setNegativeButton("Cancel", null);
