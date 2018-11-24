@@ -538,8 +538,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Service> allServicesList = new ArrayList<Service>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        //String query = "Select 'username' FROM " + TABLE_NAME + " WHERE " +
-        //COL_USERNAME + " = \"" + name + "\"";
         String query = "Select * FROM " + TABLE_NAME_SERVICES;
         Cursor cursor = db.rawQuery(query, null);
 
@@ -581,12 +579,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 intTable.setSp_id(Integer.parseInt(cursor.getString(0)));
                 intTable.setSID(Integer.parseInt(cursor.getString(1)));
 
-                Log.d("---------", "-------------");
-                Log.d("QueryResultInt", "Query returned: | "
-                        + " SP id: " + intTable.getSP_id()
-                        + " Service id: " + intTable.getSID() );
+                Log.d("QueryResultInt", " --------------------------");
+                Log.d("QueryResultInt", "| "
+                        + "SP id: " + intTable.getSP_id()
+                        + " | Service id: " + intTable.getSID() +  " |");
             }
             while (cursor.moveToNext());
+            Log.d("QueryResultInt", " --------------------------");
         } else {
             intTable = null;
         }
@@ -594,6 +593,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public boolean alreadyExists(int sp_PK, int servicePK){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SP_ID + " = \"" + sp_PK + "\"" + " AND " +
+                COL_SERVICE_ID + " = \"" + servicePK + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
 
 
 
