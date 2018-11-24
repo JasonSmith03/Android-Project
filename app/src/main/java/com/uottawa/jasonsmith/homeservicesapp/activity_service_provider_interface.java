@@ -140,23 +140,37 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         // user clicked OK
                         for(int i = 0; i < tmpList.size(); i++){
                             for(int j = 0; j < arrayListEditServices.size(); j++){
-                               if(arrayListViewServices.size() < 1){
-                                    if(tmpList.get(i).equals(arrayListEditServices.get(j).toString())){
-                                        arrayListViewServices.add(arrayListEditServices.get(j));
-                                        //
-                                        serviceID = mDBHandler.findID(arrayListEditServices.get(j).getService(), "Services");
-                                        //subscribe user to service
-                                        mDBHandler.subscribeToService(queryValue, serviceID);
-                                        arrayAdapterView.notifyDataSetChanged();
-                                        Log.d("TEMPLIST", "If array list view is < 1 after added: " + arrayListViewServices.toString());
+
+                                //get name of service selected from tmpList
+                                String res = tmpList.get(i).replace("\n", " ");
+                                res = res.replaceAll(" .+$", "");
+
+                                for(int k = 0; k < tmpList.size(); k++) {
+                                    if (mDBHandler.alreadyExists(queryValue, mDBHandler.findID(res, "Services"))) {
+                                        if(tmpList.size() == 1){
+                                            toastMessage("You are already subscribed to service " + res);
+                                        }
+                                        else{
+                                            toastMessage("You have already subscribed to one or more of these services");
+                                        }
+                                        return;
                                     }
-                                }else if(tmpList.get(i).equals(arrayListEditServices.get(j).toString()) && !(arrayListViewServices.contains(arrayListEditServices.get(j)))){
+                                }
+                                if (tmpList.get(i).equals(arrayListEditServices.get(j).toString())) {
                                     arrayListViewServices.add(arrayListEditServices.get(j));
+                                    //
                                     serviceID = mDBHandler.findID(arrayListEditServices.get(j).getService(), "Services");
+                                    //subscribe user to service
                                     mDBHandler.subscribeToService(queryValue, serviceID);
                                     arrayAdapterView.notifyDataSetChanged();
-                                    Log.d("TEMPLIST", "If array list view in the else if: " + arrayListViewServices.toString());
+                                    Log.d("TEMPLIST", "If array list view is < 1 after added: " + arrayListViewServices.toString());
                                 }
+
+                                //if(arrayListViewServices.size() < 1){
+
+                                //}
+
+
                             }
                         }
                         tmpList = new ArrayList<>();

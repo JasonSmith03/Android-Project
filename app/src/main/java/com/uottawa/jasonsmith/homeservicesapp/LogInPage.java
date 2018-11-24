@@ -73,6 +73,9 @@ public class LogInPage extends AppCompatActivity {
 
     public void logIn(View view) {
 
+
+        mDBHandler.getIntermediateTable();
+
         //Application Context and Activity
 
         Intent intent = new Intent(this, WelcomeScreen.class);
