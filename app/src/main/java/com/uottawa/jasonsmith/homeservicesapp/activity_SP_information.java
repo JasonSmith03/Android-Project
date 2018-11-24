@@ -58,7 +58,7 @@ public class activity_SP_information extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_service_provider_interface.class);
+                Intent intent = new Intent(getApplicationContext(), LogInPage.class);
                 if(name.getText().toString().equals("") || number.getText().toString().equals("") || aLicense.getText().toString().equals("") || description.getText().toString().equals("")){
                     toastMessage("All fields must be full");
                 }else{

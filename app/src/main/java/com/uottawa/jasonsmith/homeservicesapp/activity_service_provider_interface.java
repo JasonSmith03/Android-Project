@@ -146,6 +146,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                                 res = res.replaceAll(" .+$", "");
 
                                 for(int k = 0; k < tmpList.size(); k++) {
+                                    Log.d("EXISTSVALUE", "If condition: " + String.valueOf(mDBHandler.alreadyExists(queryValue, mDBHandler.findID(res, "Services"))));
+                                    Log.d("EXISTSVALUE", "Query value: " + String.valueOf(queryValue));
                                     if (mDBHandler.alreadyExists(queryValue, mDBHandler.findID(res, "Services"))) {
                                         if(tmpList.size() == 1){
                                             toastMessage("You are already subscribed to service " + res);
@@ -157,6 +159,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
                                         return;
                                     }
                                 }
+
                                 if (tmpList.get(i).equals(arrayListEditServices.get(j).toString())) {
                                     arrayListViewServices.add(arrayListEditServices.get(j));
                                     //
@@ -165,13 +168,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                                     mDBHandler.subscribeToService(queryValue, serviceID);
                                     arrayAdapterView.notifyDataSetChanged();
                                     Log.d("TEMPLIST", "If array list view is < 1 after added: " + arrayListViewServices.toString());
+                                    break;
                                 }
-
-                                //if(arrayListViewServices.size() < 1){
-
-                                //}
-
-
                             }
                         }
                         tmpList = new ArrayList<>();
