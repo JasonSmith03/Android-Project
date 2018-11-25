@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB23.db";
+    private static final String DATABASE_NAME = "projectDB24.db";
 
 
     //PEOPLE
@@ -232,14 +232,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "DELETE * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
-                COL_SP_ID + " = \"" + sp_id + "\"" +
-                COL_SERVICE_ID + " = \"" + service_id + "\"";
+                COL_SP_ID + " = \"" + sp_id + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
         IntermediateTable inter = new IntermediateTable();
         if (cursor.moveToFirst()) {
             int serviceID = Integer.parseInt(cursor.getString(1));
-            db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + serviceID, null);
+            db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + service_id, null);
         }
         cursor.close();
         db.close();

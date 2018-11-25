@@ -193,6 +193,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                 int ctr = lvViewServices.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
+                        //serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Services");
+                        //mDBHandler.unsubscribeFromService(queryValue, serviceID);
                         arrayAdapterView.remove(arrayListViewServices.get(item));
                     }
                 }
