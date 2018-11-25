@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB24.db";
+    private static final String DATABASE_NAME = "projectDB25.db";
 
 
     //PEOPLE
@@ -231,7 +231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void unsubscribeFromService(int sp_id, int service_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "DELETE * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+        String query = "SELECT * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
                 COL_SP_ID + " = \"" + sp_id + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
