@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB25.db";
+    private static final String DATABASE_NAME = "projectDB26.db";
 
 
     //PEOPLE
@@ -59,9 +59,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //INTERMEDIATE TABLE - links Service Provider ID to a Service ID
-     public static final String TABLE_NAME_INTER_SID = "serviceAndProvider";
-     public static final String COL_SP_ID = "serviceProviderID";
-     public static final String COL_SERVICE_ID = "serviceID";
+    public static final String TABLE_NAME_INTER_SID = "serviceAndProvider";
+    public static final String COL_SP_ID = "serviceProviderID";
+    public static final String COL_SERVICE_ID = "serviceID";
+
+    //INTERMEDIATE TABLE - links Service Provider and their availibilities
+    public static final String TABLE_NAME_INTER_AVAILABILITIES = "availabilitiesList";
+    public static final String COL_SP_IDENTIFIER = "serviceProId";
+    public static final String COL_TIME = "time";
 
 
 
@@ -107,7 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(create_service_table);
 
-        //Create intermediate table
+        //Create intermediate table subscribe
         String create_intermediate_table = "CREATE TABLE " + TABLE_NAME_INTER_SID +
                 "("
                 + COL_SP_ID + " TEXT,"
@@ -115,6 +120,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(create_intermediate_table);
 
+        //Create intermediate table availabilities
+        String create_inter_avail_table = "CREATE TABLE " + TABLE_NAME_INTER_AVAILABILITIES +
+                "("
+                + COL_SP_IDENTIFIER + " TEXT,"
+                + COL_TIME + " TEXT"
+                + ")";
+        db.execSQL(create_inter_avail_table);
     }
 
     //to upgrade the table
@@ -223,6 +235,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    //Add an availability
+    public boolean addAvailability(int sp_id, String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_SP_IDENTIFIER, sp_id);
+        contentValues.put(COL_TIME, time);
+
+        long result = db.insert(TABLE_NAME_INTER_AVAILABILITIES, null, contentValues);
+        db.close();
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 
     //-------- DELETE FROM DB ----------------------------------------------------
 
@@ -239,6 +271,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             int serviceID = Integer.parseInt(cursor.getString(1));
             db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + service_id, null);
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //Delete all table entries
+    public void deleteAvailabilities() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME_INTER_AVAILABILITIES;
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            db.delete(TABLE_NAME_INTER_AVAILABILITIES, COL_SP_IDENTIFIER + " >= " + 0, null);
         }
         cursor.close();
         db.close();
@@ -591,6 +636,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
+
+    //get Intermediate table
+    public void getAvailabilitiesTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        IntermediateAvailabilitiesTable intTable = new IntermediateAvailabilitiesTable();;
+        if (cursor.moveToFirst()) {
+            do {
+                intTable.setSp_id(Integer.parseInt(cursor.getString(0)));
+                intTable.setDate(cursor.getString(1));
+
+                Log.d("QueryResultInt", " A--------------------------");
+                Log.d("QueryResultInt", "| "
+                        + "SP id: " + intTable.getSP_id()
+                        + " | Service id: " + intTable.getDate() +  " |");
+            }
+            while (cursor.moveToNext());
+            Log.d("QueryResultInt", " --------------------------");
+        } else {
+            intTable = null;
+        }
+        cursor.close();
+        db.close();
+    }
+
 
 
     public boolean alreadyExists(int sp_PK, int servicePK){
