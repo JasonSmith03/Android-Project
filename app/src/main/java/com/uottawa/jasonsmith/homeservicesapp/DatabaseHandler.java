@@ -549,6 +549,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    //QUERY: FIND AVAILABILITIES FROM PK
+    public ArrayList<String> findAvailabilitiesFromPk(int pk) {
+
+        ArrayList<String> allServicesList = new ArrayList<String>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
+                COL_SP_IDENTIFIER + " = \"" + pk + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        IntermediateAvailabilitiesTable inter;
+        if (cursor.moveToFirst()) {
+            do {
+                inter = new IntermediateAvailabilitiesTable();
+                inter.setSp_id(Integer.parseInt(cursor.getString(1)));
+                allServicesList.add(inter.getDate());
+            }
+            while (cursor.moveToNext());
+        } else {
+            inter = null;
+        }
+        cursor.close();
+        db.close();
+        return allServicesList;
+    }
+
+
     //QUERY: FIND SPECIFIC SERVICE FROM PK
     public Service findSpecificService(int pk) {
         SQLiteDatabase db = this.getWritableDatabase();
