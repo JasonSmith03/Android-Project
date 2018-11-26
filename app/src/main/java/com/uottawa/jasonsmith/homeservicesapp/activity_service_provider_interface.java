@@ -28,7 +28,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
     DatabaseHandler mDBHandler = new DatabaseHandler(this);
     Button editProfile, editService, availability, logOut, removeBtn;
     ArrayList<Service> arrayListViewServices = new ArrayList<Service>(), arrayListEditServices;
-    ArrayList<String> tmpList = new ArrayList<String>();
+    ArrayList<String> tmpList = new ArrayList<String>(), availabilities;
     ArrayList<Integer> pkList;
     ArrayAdapter<Service> arrayAdapterView, arrayAdapterEditServices;
     ListView lvViewServices, lvEditServices;
@@ -63,6 +63,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
         }
 
         arrayListEditServices = mDBHandler.findAllServices();
+        //availabilities = mDBHandler.findAllAvailabilities();
         arrayAdapterView = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayListViewServices);
         lvViewServices.setAdapter(arrayAdapterView);
 
@@ -193,8 +194,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                 int ctr = lvViewServices.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
-                        //serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Services");
-                        //mDBHandler.unsubscribeFromService(queryValue, serviceID);
+                        serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Services");
+                        mDBHandler.unsubscribeFromService(queryValue, serviceID);
                         arrayAdapterView.remove(arrayListViewServices.get(item));
                     }
                 }
@@ -203,14 +204,89 @@ public class activity_service_provider_interface extends AppCompatActivity {
             }
         });
     }
-//    public void availabilityClick(){
+
+    public void availabilityClick(){
 //        availability.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
+//                // setup the alert builder
+//                AlertDialog.Builder builder = new AlertDialog.Builder(activity_service_provider_interface.this);
+//                builder.setTitle("Choose time to provide service");
+//                // add a checkbox list
+//                final String[] stringArrayServices = new String[availabilities.size()];
+//                //tmpList = new ArrayList<String>();
+//                //arrayListViewServices = new ArrayList<Service>();
+//
+//                boolean[] booleans = new boolean[availabilities.size()];
+//                for (int i = 0; i < availabilities.size(); i++){
+//                    stringArrayServices[i] = availabilities.get(i).toString();
+//                    booleans[i] = false;
+//                }
+//                Log.d("TEMPLIST", "String array services: " + stringArrayServices);
+//                builder.setMultiChoiceItems(stringArrayServices, booleans, new DialogInterface.OnMultiChoiceClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                        // user checked or unchecked a box
+//                        if (isChecked == true){
+//                            tmpList.add(stringArrayServices[which]);
+//                            Log.d("TEMPLIST", "temp list add: " + tmpList.toString());
+//                        }else{
+//                            tmpList.remove(stringArrayServices[which]);
+//                            Log.d("TEMPLIST", "temp list remove: " + tmpList.toString());
+//                        }
+//                    }
+//                });
+//                // add OK and Cancel buttons
+//                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // user clicked OK
+//                        for(int i = 0; i < tmpList.size(); i++){
+//                            for(int j = 0; j < availabilities.size(); j++){
+//
+//                                //get name of service selected from tmpList
+//                                String res = tmpList.get(i).replace("\n", " ");
+//                                res = res.replaceAll(" .+$", "");
+//
+//                                for(int k = 0; k < tmpList.size(); k++) {
+//                                    Log.d("EXISTSVALUE", "If condition: " + String.valueOf(mDBHandler.alreadyExists(queryValue, mDBHandler.findID(res, "Services"))));
+//                                    Log.d("EXISTSVALUE", "Query value: " + String.valueOf(queryValue));
+//                                    if (mDBHandler.alreadyExists(queryValue, mDBHandler.findID(res, "Services"))) {
+//                                        if(tmpList.size() == 1){
+//                                            toastMessage("You are already subscribed to service " + res);
+//                                        }
+//                                        else{
+//                                            toastMessage("You have already subscribed to one or more of these services");
+//                                        }
+//                                        tmpList = new ArrayList<>();
+//                                        return;
+//                                    }
+//                                }
+//
+//                                if (tmpList.get(i).equals(arrayListEditServices.get(j).toString())) {
+//                                    arrayListViewServices.add(arrayListEditServices.get(j));
+//                                    //
+//                                    serviceID = mDBHandler.findID(arrayListEditServices.get(j).getService(), "Services");
+//                                    //subscribe user to service
+//                                    mDBHandler.subscribeToService(queryValue, serviceID);
+//                                    arrayAdapterView.notifyDataSetChanged();
+//                                    Log.d("TEMPLIST", "If array list view is < 1 after added: " + arrayListViewServices.toString());
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        tmpList = new ArrayList<>();
+//                        Log.d("TEMPLIST", "Resetting temp list: " + tmpList.toString());
+//                    }
+//                });
+//                builder.setNegativeButton("Cancel", null);
+//                // create and show the alert dialog
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
 //
 //            }
 //        });
-//    }
+    }
 
     public void logOutClick(){
         logOut.setOnClickListener(new View.OnClickListener() {
