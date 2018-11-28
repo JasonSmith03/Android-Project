@@ -41,15 +41,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_NAME_SERVICE_PROVIDERS = "serviceProviders";
     public static final String COL_SERVICE_PROVIDER_ID = "serviceProviderID";
     public static final String COL_COMP_NAME = "companyName";
-    //public static final String COL_AVAILABILITY = "availability"; //IS THIS RIGHT?
     public static final String COL_PHONE_NUM = "phoneNumber";
     public static final String COL_LICENSE = "license";
-
 
     //HOME OWNER
     public static final String TABLE_NAME_HOME_OWNERS = "homeOwners";
     public static final String COL_HOME_OWNER_ID = "homeOwnerID";
-
 
     //SERVICES
     public static final String TABLE_NAME_SERVICES = "Services";
@@ -57,6 +54,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_SERVICE_NAME = "serviceName";
     public static final String COL_SERVICE_RATE = "serviceHourlyRate";
 
+    //AVAILABILITIES
+    public static final String TABLE_NAME_AVAILABILITIES = "Availabilities";
+    public static final String COL_AID = "aid";
+    public static final String COL_AVAILABILITY = "date";
 
     //INTERMEDIATE TABLE - links Service Provider ID to a Service ID
     public static final String TABLE_NAME_INTER_SID = "serviceAndProvider";
@@ -112,6 +113,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(create_service_table);
 
+        //Create Availability table
+        String create_avail_table = "CREATE TABLE " + TABLE_NAME_AVAILABILITIES +
+                "("
+                + COL_AID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_AVAILABILITY + " TEXT"
+                + ")";
+        db.execSQL(create_avail_table);
+
         //Create intermediate table subscribe
         String create_intermediate_table = "CREATE TABLE " + TABLE_NAME_INTER_SID +
                 "("
@@ -123,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create intermediate table availabilities
         String create_inter_avail_table = "CREATE TABLE " + TABLE_NAME_INTER_AVAILABILITIES +
                 "("
-                + COL_SP_IDENTIFIER + " TEXT,"
+                + COL_AID + "  INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_TIME + " TEXT"
                 + ")";
         db.execSQL(create_inter_avail_table);
@@ -244,6 +253,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_TIME, time);
 
         long result = db.insert(TABLE_NAME_INTER_AVAILABILITIES, null, contentValues);
+        db.close();
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //Add a time
+    public boolean addTime(String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_AVAILABILITY, time);
+
+        long result = db.insert(TABLE_NAME_AVAILABILITIES, null, contentValues);
         db.close();
 
         if (result == -1) {
@@ -423,8 +449,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
-
     //QUERY: FIND ALL PEOPLE
     public void findAllPeople() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -455,6 +479,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
+    }
+
+
+    //QUERY: FIND ALL TIMES
+    public ArrayList<String> findAllTimes() {
+
+        ArrayList<String> allAvailList = new ArrayList<String>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_AVAILABILITIES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        Availability avail;
+        if (cursor.moveToFirst()) {
+            do {
+                avail = new Availability();
+                avail.setTime(cursor.getString(1));
+                allAvailList.add(avail.getTime());
+            }
+            while (cursor.moveToNext());
+        } else {
+            avail = null;
+        }
+        cursor.close();
+        db.close();
+        return allAvailList;
     }
 
 
