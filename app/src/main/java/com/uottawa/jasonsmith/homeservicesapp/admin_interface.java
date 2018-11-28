@@ -54,13 +54,21 @@ public class admin_interface extends AppCompatActivity {
         lvServiceProviders= (ListView) findViewById(R.id.serviceProviderList);
         lvUser = (ListView) findViewById(R.id.userClientList);
         availabilities = new ArrayList<String>();
-        mDBHandler.addTime("Sunday: 10:00am - 3:00pm");
-        mDBHandler.addTime("Monday: 9:00am - 5:00pm");
-        mDBHandler.addTime("Tuesday: 9:00am - 5:00pm");
-        mDBHandler.addTime("Wednesday: 9:00am - 5:00pm");
-        mDBHandler.addTime("Thursday: 9:00am - 5:00pm");
-        mDBHandler.addTime("Friday: 9:00am - 4:00pm");
-        mDBHandler.addTime("Saturday: 10:00am - 3:00pm");
+        if(!(mDBHandler.availAlreadyExists("Sunday: 10:00am - 3:00pm") || mDBHandler.availAlreadyExists("Monday: 9:00am - 5:00pm") ||
+                mDBHandler.availAlreadyExists("Tuesday: 9:00am - 5:00pm") ||
+                mDBHandler.availAlreadyExists("Wednesday: 9:00am - 5:00pm") ||
+                mDBHandler.availAlreadyExists("Thursday: 9:00am - 5:00pm") ||
+                mDBHandler.availAlreadyExists("Friday: 9:00am - 4:00pm") ||
+                mDBHandler.availAlreadyExists("Saturday: 10:00am - 3:00pm"))){
+            mDBHandler.addTime("Sunday: 10:00am - 3:00pm");
+            mDBHandler.addTime("Monday: 9:00am - 5:00pm");
+            mDBHandler.addTime("Tuesday: 9:00am - 5:00pm");
+            mDBHandler.addTime("Wednesday: 9:00am - 5:00pm");
+            mDBHandler.addTime("Thursday: 9:00am - 5:00pm");
+            mDBHandler.addTime("Friday: 9:00am - 4:00pm");
+            mDBHandler.addTime("Saturday: 10:00am - 3:00pm");
+        }
+
 
         arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);

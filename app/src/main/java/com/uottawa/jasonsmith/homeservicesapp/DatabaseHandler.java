@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB31.db";
+    private static final String DATABASE_NAME = "projectDB34.db";
 
 
     //PEOPLE
@@ -132,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create intermediate table availabilities
         String create_inter_avail_table = "CREATE TABLE " + TABLE_NAME_INTER_AVAILABILITIES +
                 "("
-                + COL_SP_IDENTIFIER + "  INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_SP_IDENTIFIER + " TEXT,"
                 + COL_TIME + " TEXT"
                 + ")";
         db.execSQL(create_inter_avail_table);
@@ -249,6 +249,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        Log.d("TESTING1", "contentValues.put: ");
         contentValues.put(COL_SP_IDENTIFIER, sp_id);
         contentValues.put(COL_TIME, time);
 
@@ -302,14 +303,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Delete all table entries
-    public void deleteAvailabilities() {
+    //Delete a users availability
+    public void deleteAvailability(int sp_id, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME_INTER_AVAILABILITIES;
+
+        String query = "SELECT * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
+                COL_SP_IDENTIFIER + " = \"" + sp_id + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
+        IntermediateAvailabilitiesTable inter = new IntermediateAvailabilitiesTable();
         if (cursor.moveToFirst()) {
-            db.delete(TABLE_NAME_INTER_AVAILABILITIES, COL_SP_IDENTIFIER + " >= " + 0, null);
+            db.delete(TABLE_NAME_INTER_AVAILABILITIES, COL_TIME + " = " + time, null);
         }
         cursor.close();
         db.close();
@@ -695,7 +699,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "Select * FROM " + TABLE_NAME_INTER_SID;
         Cursor cursor = db.rawQuery(query, null);
 
-        IntermediateTable intTable = new IntermediateTable();;
+        IntermediateTable intTable = new IntermediateTable();
         if (cursor.moveToFirst()) {
             do {
                 intTable.setSp_id(Integer.parseInt(cursor.getString(0)));
@@ -717,13 +721,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //get Intermediate table
-    public void getAvailabilitiesTable() {
+    public String getAvailabilitiesTable() {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES;
         Cursor cursor = db.rawQuery(query, null);
 
-        IntermediateAvailabilitiesTable intTable = new IntermediateAvailabilitiesTable();;
+        IntermediateAvailabilitiesTable intTable = new IntermediateAvailabilitiesTable();
         if (cursor.moveToFirst()) {
             do {
                 intTable.setSp_id(Integer.parseInt(cursor.getString(0)));
@@ -741,6 +745,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
+        return "";
     }
 
 
@@ -759,11 +764,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean availAlreadyExists(int sp_PK, String time){
+    public boolean availAlreadyExists(int sp_id, String time){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
-                COL_SP_IDENTIFIER + " = \"" + sp_PK + "\"" + " AND " +
+                COL_SP_IDENTIFIER + " = \"" + sp_id + "\"" + " AND " +
                 COL_TIME + " = \"" + time + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -773,6 +778,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean availAlreadyExists(String time){
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        String query = "Select * FROM " + TABLE_NAME_AVAILABILITIES + " WHERE " +
+                COL_AVAILABILITY + " = \"" + time + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
 
 }

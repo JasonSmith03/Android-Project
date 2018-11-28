@@ -45,9 +45,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
         Intent serviceProviderIntent = getIntent();
         queryValue = serviceProviderIntent.getIntExtra("Query value", 0);
 
-        //list of the ID of a service
-        pkList = mDBHandler.findServicesFromPk(queryValue);
 
+        pkList = mDBHandler.findServicesFromPk(queryValue); //list of the ID of a service
         editProfile = (Button) findViewById(R.id.editProfileBtn);
         editService = (Button) findViewById(R.id.spEditServiceBtn);
         removeBtn = (Button) findViewById(R.id.spRemoveServie);
@@ -74,8 +73,6 @@ public class activity_service_provider_interface extends AppCompatActivity {
         lvViewServices.setAdapter(arrayAdapterView);
 
         availabilitiesEdit = mDBHandler.findAllTimes();
-        Log.d("TESTING", "Get the arraylist of times from DB");
-        Log.d("TESTING", "ArrayList: " + availabilitiesView);
         arrayAdapterAvailability = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, availabilitiesView);
         lvAvailability.setAdapter(arrayAdapterAvailability);
 
@@ -89,11 +86,21 @@ public class activity_service_provider_interface extends AppCompatActivity {
             }
         });
 
+        lvAvailability.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
         editProfileClick();
         editServiceClick();
         removeServiceClick();
         availabilityClick();
-        //removeAvailabilityClick();
+        removeAvailabilityClick();
         logOutClick();
 
     }
@@ -204,8 +211,11 @@ public class activity_service_provider_interface extends AppCompatActivity {
             public void onClick(View v) {
                 SparseBooleanArray positionChecker = lvViewServices.getCheckedItemPositions();
                 int ctr = lvViewServices.getCount();
+                Log.d("TESTING", "ctr: " + ctr);
+
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
+                        Log.d("TESTING", "arrayListEditServices.get(item).getService(): " + arrayListEditServices.get(item).getService());
                         serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Services");
                         mDBHandler.unsubscribeFromService(queryValue, serviceID);
                         arrayAdapterView.remove(arrayListViewServices.get(item));
@@ -253,15 +263,11 @@ public class activity_service_provider_interface extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // user clicked OK
-
                         for(int i = 0; i < tmpList.size(); i++) {
                             for (int j = 0; j < availabilitiesEdit.size(); j++) {
-                                //get name of service selected from tmpList
-//                                String res = tmpList.get(i).replace("\n", " ");
-//                                res = res.replaceAll(" .+$", "");
-
+                                String res = tmpList.get(i);
                                 for (int k = 0; k < tmpList.size(); k++) {
-                                    if (mDBHandler.availAlreadyExists(queryValue, tmpList.get(k))) {
+                                    if (mDBHandler.availAlreadyExists(queryValue, res)) {
                                         if (tmpList.size() == 1) {
                                             toastMessage("You are already provide a service on " + tmpList.get(k) + ".");
                                         } else {
@@ -274,11 +280,13 @@ public class activity_service_provider_interface extends AppCompatActivity {
 
                                 if (tmpList.get(i).equals(availabilitiesEdit.get(j))) {
                                     availabilitiesView.add(availabilitiesEdit.get(j));
-                                    Log.d("TESTING", "availabilitiesView: " + availabilitiesView);
-                                    //
-                                    //serviceID = mDBHandler.findID(availabilitiesEdit.get(j), "Services");
-                                    //subscribe user to service
-                                    //mDBHandler.subscribeToService(queryValue, serviceID);
+                                    Log.d("TESTING1", "availabilitiesView: " + availabilitiesView);
+                                    boolean add = mDBHandler.addAvailability(queryValue, availabilitiesEdit.get(j));
+                                    if(add){
+                                        Log.d("TESTING1", "added to database");
+                                    }
+                                    Log.d("TESTING1", "availabilities.get(j)" + availabilitiesEdit.get(j));
+                                    Log.d("TESTING", "Table: " + mDBHandler.getAvailabilitiesTable());
                                     arrayAdapterAvailability.notifyDataSetChanged();
                                     break;
                                 }
@@ -304,8 +312,9 @@ public class activity_service_provider_interface extends AppCompatActivity {
                 int ctr = lvAvailability.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
-                        serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Availability");
-                        mDBHandler.unsubscribeFromService(queryValue, serviceID);
+                        Log.d("TESTING", "position checker: " + positionChecker.get(item));
+                        Log.d("TESTING", "availabilitiesEdit.get(item): " + availabilitiesEdit.get(item));
+                        mDBHandler.deleteAvailability(queryValue, availabilitiesEdit.get(item));
                         arrayAdapterAvailability.remove(availabilitiesView.get(item));
                     }
                 }
