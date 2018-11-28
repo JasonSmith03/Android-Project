@@ -11,6 +11,21 @@
         android:layout_height="match_parent"
         tools:context=".activity_service_provider_interface">
 
+        <Button
+            android:id="@+id/spRemoveAvail"
+            android:layout_width="125dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/roundbutton"
+            android:text="Remove Availability"
+            app:layout_constraintEnd_toStartOf="@+id/spEditAvailBtn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avail" />
+
         <ListView
             android:id="@+id/yourServices"
             android:layout_width="0dp"
@@ -47,14 +62,14 @@
 
         <Button
             android:id="@+id/spEditAvailBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_width="125dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:background="@drawable/roundbutton"
             android:text="Edit Availibilities"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.768"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/avail" />
 

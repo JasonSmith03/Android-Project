@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB26.db";
+    private static final String DATABASE_NAME = "projectDB31.db";
 
 
     //PEOPLE
@@ -132,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Create intermediate table availabilities
         String create_inter_avail_table = "CREATE TABLE " + TABLE_NAME_INTER_AVAILABILITIES +
                 "("
-                + COL_AID + "  INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_SP_IDENTIFIER + "  INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_TIME + " TEXT"
                 + ")";
         db.execSQL(create_inter_avail_table);
@@ -614,7 +614,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 inter = new IntermediateAvailabilitiesTable();
-                inter.setSp_id(Integer.parseInt(cursor.getString(1)));
+                inter.setDate(cursor.getString(1));
                 allServicesList.add(inter.getDate());
             }
             while (cursor.moveToNext());

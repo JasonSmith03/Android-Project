@@ -54,13 +54,13 @@ public class admin_interface extends AppCompatActivity {
         lvServiceProviders= (ListView) findViewById(R.id.serviceProviderList);
         lvUser = (ListView) findViewById(R.id.userClientList);
         availabilities = new ArrayList<String>();
-        availabilities.add("Sunday: 10:00am - 3:00pm");
-        availabilities.add("Monday: 9:00am - 5:00pm");
-        availabilities.add("Tuesday: 9:00am - 5:00pm");
-        availabilities.add("Wednesday: 9:00am - 5:00pm");
-        availabilities.add("Thursday: 9:00am - 5:00pm");
-        availabilities.add("Friday: 9:00am - 4:00pm");
-        availabilities.add("Saturday: 10:00am - 3:00pm");
+        mDBHandler.addTime("Sunday: 10:00am - 3:00pm");
+        mDBHandler.addTime("Monday: 9:00am - 5:00pm");
+        mDBHandler.addTime("Tuesday: 9:00am - 5:00pm");
+        mDBHandler.addTime("Wednesday: 9:00am - 5:00pm");
+        mDBHandler.addTime("Thursday: 9:00am - 5:00pm");
+        mDBHandler.addTime("Friday: 9:00am - 4:00pm");
+        mDBHandler.addTime("Saturday: 10:00am - 3:00pm");
 
         arrayList = mDBHandler.findAllServices();
         arrayAdapter = new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_multiple_choice, arrayList);
