@@ -759,6 +759,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean availAlreadyExists(int sp_PK, String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
+                COL_SP_IDENTIFIER + " = \"" + sp_PK + "\"" + " AND " +
+                COL_TIME + " = \"" + time + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
