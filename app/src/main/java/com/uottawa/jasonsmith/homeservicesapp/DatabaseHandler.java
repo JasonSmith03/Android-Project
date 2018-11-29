@@ -43,6 +43,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_COMP_NAME = "companyName";
     public static final String COL_PHONE_NUM = "phoneNumber";
     public static final String COL_LICENSE = "license";
+    public static final String COL_DESCRIPTION = "desc";
+
 
     //HOME OWNER
     public static final String TABLE_NAME_HOME_OWNERS = "homeOwners";
@@ -98,7 +100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_SERVICE_PROVIDER_ID + " INTEGER," //foreign key of type person
                 + COL_COMP_NAME + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
-                + COL_LICENSE + " TEXT"
+                + COL_LICENSE + " TEXT,"
+                + COL_DESCRIPTION + "TEXT"
                 + ")";
         db.execSQL(create_serProvider_table);
 
@@ -182,7 +185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //add a Service Provider
-    public boolean addServiceProvider(int fk, String companyName, String phoneNum, String license) {
+    public boolean addServiceProvider(int fk, String companyName, String phoneNum, String license, String desc) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -191,6 +194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_COMP_NAME, companyName);
         contentValues.put(COL_PHONE_NUM, phoneNum);
         contentValues.put(COL_LICENSE, license);
+        contentValues.put(COL_DESCRIPTION, desc);
 
         Log.d("Service Provider", "Adding SP: " + companyName + " with ID " + fk);
         long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
@@ -370,6 +374,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("ServiceEdited", "New service rate:" + newRate);
     }
 
+
+
     //DELETE REMOVED SERVICE
     public boolean deleteRemovedService(int pk) {
         boolean result = false;
@@ -469,6 +475,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+
+
+    //QUERY: FIND A SP
+    public ServiceProvider findSPInfo(int pk) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                COL_SERVICE_PROVIDER_ID + " = \"" + pk + "\"";;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ServiceProvider sp;
+        if (cursor.moveToFirst()) {
+            sp = new ServiceProvider();
+            sp.setID(Integer.parseInt(cursor.getString(0)));
+            sp.setCompanyName(cursor.getString(1));
+            sp.setPhoneNumber(cursor.getString(2));
+            sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
+            sp.setDescrition(cursor.getString(4));
+            return sp;
+        } else {
+            sp = null;
+        }
+        cursor.close();
+        db.close();
+        return sp;
+    }
 
 
 

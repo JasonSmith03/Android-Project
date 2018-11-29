@@ -7,8 +7,7 @@ public class ServiceProvider extends Person {
 
     private int sp_id;
     private ArrayList<Timestamp> availabilities;
-    private String phoneNumber;
-    private String companyName;
+    private String companyName, phoneNumber, descrition;
     private boolean licensed;
 
 
@@ -55,6 +54,13 @@ public class ServiceProvider extends Person {
     }
     public void setCompanyName(String companyName){
         this.companyName = companyName;
+    }
+
+    public String getDescrition(){
+        return descrition;
+    }
+    public void setDescrition(String licensed){
+        this.descrition = descrition;
     }
 
     public boolean getLicensed(){

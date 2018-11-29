@@ -30,12 +30,12 @@ public class activity_SP_information extends AppCompatActivity {
     }
 
 
-    public void addServiceProvider(String companyName, String phoneNum, String license){
+    public void addServiceProvider(String companyName, String phoneNum, String license, String description){
 
         DatabaseHandler mDBHandler = new DatabaseHandler(this);
         int fk = mDBHandler.findLastPersonsPK();
 
-        boolean insertData = mDBHandler.addServiceProvider(fk, companyName, phoneNum, license);
+        boolean insertData = mDBHandler.addServiceProvider(fk, companyName, phoneNum, license, description);
         if(insertData) {
             toastMessage("Service Provider successfully added to Database");
         }else{  toastMessage("Something went wrong"); }
@@ -73,7 +73,7 @@ public class activity_SP_information extends AppCompatActivity {
                             if(aLicense.getText().toString().equalsIgnoreCase("yes")){
                                 license = true;
                             }
-                            addServiceProvider(name.getText().toString(), number.getText().toString(), String.valueOf(license));
+                            addServiceProvider(name.getText().toString(), number.getText().toString(), String.valueOf(license), String.valueOf(description));
 
                             //go to the service provider interface
                             intent.putExtra("USERNAME", name.getText().toString()); //Display company name
