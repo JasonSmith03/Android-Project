@@ -1,7 +1,7 @@
 package com.uottawa.jasonsmith.homeservicesapp;
 
 public class Person {
-    private String  username, email, address, password;
+    private String  username, email, address, password, salt;
     private int id, userType;
 
     //empty constructor
@@ -37,6 +37,8 @@ public class Person {
 
     public void setPersonType(int userType) { this.userType = userType; }
 
+    public void setSalt(String salt) { this.salt = salt; }
+
     public int getID(){ return id; }
 
     public String getUsername(){
@@ -52,6 +54,8 @@ public class Person {
     }
 
     public int getUserType() { return userType; }
+
+    public String getSalt() { return salt; }
 
 
 }

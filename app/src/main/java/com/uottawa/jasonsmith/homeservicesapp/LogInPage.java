@@ -63,7 +63,7 @@ public class LogInPage extends AppCompatActivity {
 //        }else{  toastMessage("Something went wrong"); }
 //
 //        //display intermediate table
-        mDBHandler.getIntermediateTable();
+        mDBHandler.findAllPeople();
 
 
         //Application Context and Activity
@@ -89,10 +89,16 @@ public class LogInPage extends AppCompatActivity {
         //Creates the temp accounts that will be used for verifying username/password combination
         tempUser = new User(usernameContent, passwordContent);
         tempServiceProvider = new ServiceProvider(usernameContent, passwordContent);
-        query = mDBHandler.findLoginInfo(usernameContent, passwordContent);
+        String userSalt = mDBHandler.findLoginSalt(usernameContent);
+        String hashed_password = BCrypt.hashpw(passwordContent, userSalt);
+        query = mDBHandler.findLoginInfo(usernameContent, hashed_password);
+
         //Checks if fields either field is left blank
         if(!usernameContent.equals("") && !passwordContent.equals("")){
             //Checks if username/password match Admin account
+
+
+
             if (usernameContent.equals(Admin.getUsername()) && passwordContent.equals(Admin.getPassword())) {
                 //Admin is brought to admin interface
                 Intent adminIntent = new Intent(this, admin_interface.class);
@@ -101,23 +107,29 @@ public class LogInPage extends AppCompatActivity {
                 passwordInput.setText("");
                 return;
             }
-            //Checks if username/password match a User account
-            else if((Admin.passwordMatchUser(tempUser))){
-                //Welcome page is prepared to display role and username of account
-                intent.putExtra("username", tempUser.getUsername());
-                intent.putExtra("role", "Home owner");
-                startActivity(intent);
-                return;
-            }
+
             //Checks if username/password match a Service Provider account
             else if(query > -1){
-                //Welcome page is prepared to display role and username of account
-                Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
-                serviceProviderIntent.putExtra("Query value", query);
-                startActivity(serviceProviderIntent);
-                usernameInput.setText("");
-                passwordInput.setText("");
-                return;
+                int ut = mDBHandler.getUserType(query);
+                if(ut == 1){
+                    //Welcome page is prepared to display role and username of account
+                    Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
+                    serviceProviderIntent.putExtra("Query value", query);
+                    startActivity(serviceProviderIntent);
+                    usernameInput.setText("");
+                    passwordInput.setText("");
+                    return;
+                }else{
+                    //TODO: HOMEOWNER
+                    //Welcome page is prepared to display role and username of account
+                    Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
+                    serviceProviderIntent.putExtra("Query value", query);
+                    startActivity(serviceProviderIntent);
+                    usernameInput.setText("");
+                    passwordInput.setText("");
+                    return;
+                }
+
             }
 
             toastMessage("Username and password do not match");

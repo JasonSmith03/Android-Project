@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB38.db";
+    private static final String DATABASE_NAME = "projectDB39.db";
 
 
     //PEOPLE
@@ -154,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean addPerson(String username, String password, String email, String address, int userType) {
 
         salt = bycrypt_hash.gensalt();
-        //hashed_password = BCrypt.hashpw(password, salt);
+        hashed_password = BCrypt.hashpw(password, salt);
 
         Log.d("genSalt", "Salt value: " + salt);
 
@@ -162,8 +162,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL_USERNAME, username);
-        //hashed_password implementation
-        contentValues.put(COL_PASSWORD_HASH, password);
+        contentValues.put(COL_PASSWORD_HASH, hashed_password);
         contentValues.put(COL_SALT, salt);
         contentValues.put(COL_EMAIL, email);
         contentValues.put(COL_ADDRESS, address);
@@ -445,6 +444,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return person.getID();
         } else {
             return -1;
+        }
+    }
+
+
+    //QUERY: Find a salt from login value
+    public String findLoginSalt(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query;
+
+        query = "Select * FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+                COL_USERNAME + " = \"" + name + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Person person = new Person();
+        if (cursor.moveToFirst()) {
+            person.setSalt((cursor.getString(3)));
+            cursor.close();
+            db.close();
+            return person.getSalt();
+        } else {
+            return "";
         }
     }
 
