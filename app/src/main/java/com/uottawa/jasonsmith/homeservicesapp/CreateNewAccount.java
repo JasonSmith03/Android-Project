@@ -106,7 +106,7 @@ public class CreateNewAccount extends AppCompatActivity {
                                 int userType = 2;
                                 //User tempUser = new User(usernameContent, emailContent, passwordContent, addressContent);
                                 //if (Admin.notFoundInUser(tempUser)){
-                                Intent intent =  new Intent(getApplicationContext(), WelcomeScreen.class);
+                                Intent intent =  new Intent(getApplicationContext(), LogInPage.class);
                                 //adding to Admin's list
                                 //Admin.addUser(tempUser);
                                 //adding to Database

@@ -10,7 +10,7 @@
         android:id="@+id/phoneNumber"
         android:layout_width="247dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="180dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Phone Number (xxx-xxx-xxxx)"

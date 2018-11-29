@@ -137,19 +137,16 @@ public class LogInPage extends AppCompatActivity {
                 }else{
                     //TODO: HOMEOWNER
                     //Welcome page is prepared to display role and username of account
-                    Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
-                    serviceProviderIntent.putExtra("Query value", query);
-                    startActivity(serviceProviderIntent);
+                    Intent homeOwnerIntent = new Intent(this, activity_homeowner_interface.class);
+                    homeOwnerIntent.putExtra("Query value", query);
+                    startActivity(homeOwnerIntent);
                     usernameInput.setText("");
                     passwordInput.setText("");
                     return;
                 }
-
             }
-
             toastMessage("Username and password do not match");
             return;
-
         }
         toastMessage("Fields can't be left blank");
     }

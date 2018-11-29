@@ -1,31 +1,24 @@
 package com.uottawa.jasonsmith.homeservicesapp;
-
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class activity_homeowner_interface extends AppCompatActivity {
+    //DATABASE STUFF STILL NEEDS TO BE ADDED
+
+    Button editProfile, logOut, serviceSearch, timeSearch, ratingSearch;
+    int queryValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeowner_interface);
-    /*
-        Intent usernameIntent = getIntent();
 
-        String message1 = usernameIntent.getStringExtra("username");
-        String message2 = usernameIntent.getStringExtra("role");
-
-        TextView tview1 = (TextView)findViewById(R.id.displayUsername);
-        TextView tview2 = (TextView)findViewById(R.id.displayRole);
-
-        tview1.setText(message1);
-        tview2.setText(message2);
-
-     */
+        Intent homeownerIntent = getIntent();
+        queryValue = homeownerIntent.getIntExtra("Query value", 0);
 
         logOut = (Button) findViewById(R.id.logOutBtn);
         editProfile = (Button) findViewById(R.id.editProfileBtn);
@@ -33,7 +26,6 @@ public class WelcomeScreen extends AppCompatActivity {
         logOutClick();
         editProfileClick();
     }
-    Button editProfile, logOut, serviceSearch, timeSearch, ratingSearch;
 
     public void logOutClick(){
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -57,5 +49,4 @@ public class WelcomeScreen extends AppCompatActivity {
             }
         });
     }
-
 }
