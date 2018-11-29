@@ -56,6 +56,12 @@ public class activity_service_provider_interface extends AppCompatActivity {
         lvViewServices = (ListView) findViewById(R.id.yourServices);
         lvAvailability = (ListView) findViewById(R.id.avail);
 
+
+        //TESTING
+        mDBHandler.findAllServices();
+        mDBHandler.getIntermediateTable();
+
+
         //finds a service based off of the id from the pkList
         for(int i = 0; i < pkList.size(); i++){
             service = mDBHandler.findSpecificService(pkList.get(i));

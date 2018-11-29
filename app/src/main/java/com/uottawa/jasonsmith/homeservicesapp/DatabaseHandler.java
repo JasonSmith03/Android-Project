@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB37.db";
+    private static final String DATABASE_NAME = "projectDB38.db";
 
 
     //PEOPLE
@@ -372,26 +372,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //DELETE REMOVED SERVICE
-//    public boolean deleteRemovedService(String serviceName) {
-//        boolean result = false;
-//
-//        String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
-//                COL_SP_ID + " = \"" + serviceName + "\"";
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        TABLE_NAME_INTER_AVAILABILITIES inter;
-//        if (cursor.moveToFirst()) {
-//            inter = new
-//            String idStr = cursor.getString(0);
-//            db.delete(TABLE_NAME_SERVICES, WHERE );
-//            cursor.close();
-//            result = true;
-//        }
-//        db.close();
-//        return result;
-//    }
+    public boolean deleteRemovedService(int pk) {
+        boolean result = false;
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SERVICE_ID + " = \"" + pk + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            db.delete(TABLE_NAME_INTER_SID, COL_SERVICE_ID + " = " + pk, null);
+            cursor.close();
+            result = true;
+        }
+        db.close();
+        return result;
+    }
 
 
     //FIND USER TYPE
@@ -676,6 +673,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return allServicesList;
+    }
+
+
+    //QUERY: FIND SERVICE FROM PK
+    public int findServicesFromName(String name) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * FROM " + TABLE_NAME_SERVICES + " WHERE " +
+                COL_SERVICE_NAME + " = \"" + name + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        Service service;
+        if (cursor.moveToFirst()) {
+                service = new Service();
+                service.setSid(Integer.parseInt(cursor.getString(0)));
+                return service.getSid();
+        } else {
+            service = null;
+        }
+        cursor.close();
+        db.close();
+        return service.getSid();
     }
 
 
