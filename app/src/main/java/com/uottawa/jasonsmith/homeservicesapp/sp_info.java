@@ -43,7 +43,7 @@ public class sp_info extends AppCompatActivity {
         descrip.setText(serviceProvider.getDescrition());
 
 
-        //doneClick();
+        doneClick();
     }
 
     private void toastMessage(String message){
