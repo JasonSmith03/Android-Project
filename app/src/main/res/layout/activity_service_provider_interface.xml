@@ -189,7 +189,7 @@
 
         <ListView
             android:id="@+id/hoView"
-            android:layout_width="368dp"
+            android:layout_width="373dp"
             android:layout_height="199dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/listview_border"
