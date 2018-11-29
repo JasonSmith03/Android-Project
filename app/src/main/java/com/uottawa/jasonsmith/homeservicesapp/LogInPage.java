@@ -89,9 +89,16 @@ public class LogInPage extends AppCompatActivity {
         //Creates the temp accounts that will be used for verifying username/password combination
         tempUser = new User(usernameContent, passwordContent);
         tempServiceProvider = new ServiceProvider(usernameContent, passwordContent);
-        String userSalt = mDBHandler.findLoginSalt(usernameContent);
-        String hashed_password = BCrypt.hashpw(passwordContent, userSalt);
-        query = mDBHandler.findLoginInfo(usernameContent, hashed_password);
+
+        if(!(usernameContent.equals("Silver Rivals"))){
+            String userSalt = mDBHandler.findLoginSalt(usernameContent);
+            String hashed_password = BCrypt.hashpw(passwordContent, userSalt);
+            query = mDBHandler.findLoginInfo(usernameContent, hashed_password);
+        }else{
+            query = mDBHandler.findLoginInfo(usernameContent, passwordContent);
+        }
+
+
 
         //Checks if fields either field is left blank
         if(!usernameContent.equals("") && !passwordContent.equals("")){
@@ -105,6 +112,14 @@ public class LogInPage extends AppCompatActivity {
                 startActivityForResult (adminIntent,0);
                 usernameInput.setText("");
                 passwordInput.setText("");
+                return;
+            }
+
+            else if((Admin.passwordMatchUser(tempUser))){
+                //Welcome page is prepared to display role and username of account
+                intent.putExtra("username", tempUser.getUsername());
+                intent.putExtra("role", "Home owner");
+                startActivity(intent);
                 return;
             }
 
