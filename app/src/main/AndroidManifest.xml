@@ -28,7 +28,8 @@
         <activity android:name=".activity_service_provider_interface" />
         <activity android:name=".activity_SP_information" />
         <activity android:name=".homeowner_interface" />
-        <activity android:name=".ho_interface"></activity>
+        <activity android:name=".ho_interface" />
+        <activity android:name=".sp_info"></activity>
     </application>
 
 </manifest>

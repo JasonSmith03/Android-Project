@@ -119,11 +119,9 @@ public class activity_service_provider_interface extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_SP_information.class);
-                startActivityForResult(intent, 0);
-                //TODO
-                //need a way to display companies previous information in the text boxes
-                //get the data from the database
+                Intent intent = new Intent(activity_service_provider_interface.this, sp_info.class);
+                intent.putExtra("Query value", queryValue);
+                startActivity(intent);
             }
         });
     }

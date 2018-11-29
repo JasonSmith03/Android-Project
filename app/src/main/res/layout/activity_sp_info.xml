@@ -7,7 +7,7 @@
     tools:context=".activity_SP_information">
 
     <EditText
-        android:id="@+id/phoneNumber"
+        android:id="@+id/phoneNum"
         android:layout_width="247dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/companyName"
+        android:id="@+id/compName"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/descrip"
         android:layout_width="244dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="308dp"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/license"
+        android:id="@+id/licensed"
         android:layout_width="246dp"
         android:layout_height="51dp"
         android:layout_marginTop="240dp"
@@ -65,10 +65,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/doneBtn"
+        android:id="@+id/doneBtn1"
         android:layout_width="110dp"
         android:layout_height="63dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="432dp"
         android:background="@drawable/roundbutton"
         android:text="Done"
         app:layout_constraintEnd_toEndOf="parent"

@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB39.db";
+    private static final String DATABASE_NAME = "projectDB56.db";
 
 
     //PEOPLE
@@ -43,7 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_COMP_NAME = "companyName";
     public static final String COL_PHONE_NUM = "phoneNumber";
     public static final String COL_LICENSE = "license";
-    public static final String COL_DESCRIPTION = "desc";
+    public static final String COL_DESCRIPTION = "description";
 
 
     //HOME OWNER
@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_COMP_NAME + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT,"
-                + COL_DESCRIPTION + "TEXT"
+                + COL_DESCRIPTION + " TEXT"
                 + ")";
         db.execSQL(create_serProvider_table);
 
@@ -185,7 +185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //add a Service Provider
-    public boolean addServiceProvider(int fk, String companyName, String phoneNum, String license, String desc) {
+    public boolean addServiceProvider(int fk, String companyName, String phoneNum, String license, String description) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -194,7 +194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_COMP_NAME, companyName);
         contentValues.put(COL_PHONE_NUM, phoneNum);
         contentValues.put(COL_LICENSE, license);
-        contentValues.put(COL_DESCRIPTION, desc);
+        contentValues.put(COL_DESCRIPTION, description);
 
         Log.d("Service Provider", "Adding SP: " + companyName + " with ID " + fk);
         long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
@@ -610,6 +610,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    //UPDATE SP
+    public void updateSP(int pk, String sp_name, String phone_num, boolean licensed, String description){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " " +
+                "SET " + COL_COMP_NAME + " = '" + sp_name + "', " +
+                COL_PHONE_NUM + " = '" + phone_num + "', " +
+                COL_LICENSE + " = '" + licensed + "', " +
+                COL_DESCRIPTION + " = '" + description + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + pk + "'";
+        db.execSQL(query);
+
+//        String query1 = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_COMP_NAME + " = '" +
+//                sp_name + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + pk + "'";
+//        db.execSQL(query1);
+//
+//        String query2 = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_PHONE_NUM + " = '" +
+//                phone_num + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + pk + "'";
+//        db.execSQL(query2);
+//
+//        String query3 = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_LICENSE + " = '" +
+//                licensed + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + pk + "'";
+//        db.execSQL(query3);
+//
+//        String query4 = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_DESCRIPTION+ " = '" +
+//                description + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + pk + "'";
+//        db.execSQL(query4);
+    }
+
     //QUERY: FIND ALL SP's
     public ArrayList<ServiceProvider> findAllServiceProviders() {
 
@@ -628,7 +657,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 sp.setCompanyName(cursor.getString(1));
                 sp.setPhoneNumber(cursor.getString(2));
                 sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
-
+                sp.setDescrition(cursor.getString(4));
                 allSPList.add(sp);
 
                 Log.d("---------", "-------------");
@@ -636,7 +665,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + " ID: " + sp.getID()
                         + " | company name: " + sp.getCompanyName()
                         + " | phone number: " + sp.getPhoneNumber()
-                        + " | Licensed?: " + sp.getLicensed());
+                        + " | Licensed?: " + sp.getLicensed()
+                        + " | Description: " + sp.getDescrition());
             }
             while (cursor.moveToNext());
         } else {

@@ -59,7 +59,7 @@ public class ServiceProvider extends Person {
     public String getDescrition(){
         return descrition;
     }
-    public void setDescrition(String licensed){
+    public void setDescrition(String descrition){
         this.descrition = descrition;
     }
 

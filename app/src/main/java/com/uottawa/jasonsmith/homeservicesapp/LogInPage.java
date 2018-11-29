@@ -23,6 +23,7 @@ public class LogInPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in_page);
 
+        mDBHandler.findAllServiceProviders();
     }
     private void toastMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -73,12 +74,8 @@ public class LogInPage extends AppCompatActivity {
 
     public void logIn(View view) {
 
-
         mDBHandler.getIntermediateTable();
 
-        //Application Context and Activity
-
-//        Intent intent = new Intent(this, WelcomeScreen.class);
         //Username field
         EditText usernameInput = (EditText) findViewById(R.id.usernameText);
         String usernameContent = usernameInput.getText().toString();
@@ -114,15 +111,6 @@ public class LogInPage extends AppCompatActivity {
                 passwordInput.setText("");
                 return;
             }
-
-//            else if((Admin.passwordMatchUser(tempUser))){
-//                //Welcome page is prepared to display role and username of account
-//                intent.putExtra("username", tempUser.getUsername());
-//                intent.putExtra("role", "Home owner");
-//                startActivity(intent);
-//                return;
-//            }
-
             //Checks if username/password match a Service Provider account
             else if(query > -1){
                 int ut = mDBHandler.getUserType(query);
