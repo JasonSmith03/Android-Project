@@ -2,7 +2,7 @@ package com.uottawa.jasonsmith.homeservicesapp;
 
 public class Person {
     private String  username, email, address, password;
-    private int id;
+    private int id, userType;
 
     //empty constructor
     public Person(){}
@@ -35,6 +35,8 @@ public class Person {
 
     public void setPassword(String password){this.password = password;}
 
+    public void setPersonType(int userType) { this.userType = userType; }
+
     public int getID(){ return id; }
 
     public String getUsername(){
@@ -48,4 +50,8 @@ public class Person {
     public String getPassword(){
         return password;
     }
+
+    public int getUserType() { return userType; }
+
+
 }

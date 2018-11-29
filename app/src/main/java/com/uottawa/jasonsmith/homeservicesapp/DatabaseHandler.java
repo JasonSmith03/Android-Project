@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_SALT = "salt";
     public static final String COL_EMAIL = "email";
     public static final String COL_ADDRESS = "address";
-    public static final String COL_PERSON_TYPE = "personType";
+    public static final String COL_PERSON_TYPE = "personType";  //if 1 then SP, if 2 then HomeOwner
 
 
     //SERVICE PROVIDER
@@ -370,6 +370,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(query);
         Log.d("ServiceEdited", "New service rate:" + newRate);
     }
+
+    //DELETE REMOVED SERVICE
+//    public boolean deleteRemovedService(String serviceName) {
+//        boolean result = false;
+//
+//        String query = "Select * FROM " + TABLE_NAME_INTER_AVAILABILITIES + " WHERE " +
+//                COL_SP_ID + " = \"" + serviceName + "\"";
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//        TABLE_NAME_INTER_AVAILABILITIES inter;
+//        if (cursor.moveToFirst()) {
+//            inter = new
+//            String idStr = cursor.getString(0);
+//            db.delete(TABLE_NAME_SERVICES, WHERE );
+//            cursor.close();
+//            result = true;
+//        }
+//        db.close();
+//        return result;
+//    }
+
+
+    //FIND USER TYPE
+    public int getUserType(int pk) {
+        boolean result = false;
+
+        String query = "Select * FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+                COL_PERSON_TYPE+ " = \"" + pk + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        Person person = new Person();
+        if (cursor.moveToFirst()) {
+            int userType;
+            person.setPersonType(Integer.parseInt(cursor.getString(6)));
+            cursor.close();
+            return person.getUserType();
+        }
+        db.close();
+        return -1;
+    }
+
+
+
+
 
 
 
