@@ -215,8 +215,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
 
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
-                        Log.d("TESTING", "arrayListEditServices.get(item).getService(): " + arrayListEditServices.get(item).getService());
-                        serviceID = mDBHandler.findID(arrayListEditServices.get(item).getService(), "Services");
+                        Log.d("TESTING", "arrayListViewServices.get(item).getService(): " + arrayListViewServices.get(item).getService());
+                        serviceID = mDBHandler.findID(arrayListViewServices.get(item).getService(), "Services");
                         mDBHandler.unsubscribeFromService(queryValue, serviceID);
                         arrayAdapterView.remove(arrayListViewServices.get(item));
                     }
@@ -312,9 +312,8 @@ public class activity_service_provider_interface extends AppCompatActivity {
                 int ctr = lvAvailability.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
-                        Log.d("TESTING", "position checker: " + positionChecker.get(item));
-                        Log.d("TESTING", "availabilitiesEdit.get(item): " + availabilitiesEdit.get(item));
-                        mDBHandler.deleteAvailability(queryValue, availabilitiesEdit.get(item));
+                        Log.d("TESTING", "availabilitiesView.get(item): " + availabilitiesView.get(item));
+                        mDBHandler.deleteAvailability(queryValue, availabilitiesView.get(item));
                         arrayAdapterAvailability.remove(availabilitiesView.get(item));
                     }
                 }

@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB34.db";
+    private static final String DATABASE_NAME = "projectDB37.db";
 
 
     //PEOPLE
@@ -313,7 +313,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         IntermediateAvailabilitiesTable inter = new IntermediateAvailabilitiesTable();
         if (cursor.moveToFirst()) {
-            db.delete(TABLE_NAME_INTER_AVAILABILITIES, COL_TIME + " = " + time, null);
+            db.delete(TABLE_NAME_INTER_AVAILABILITIES, COL_TIME + " = '" + time + "'", null);
         }
         cursor.close();
         db.close();
