@@ -87,13 +87,7 @@ public class LogInPage extends AppCompatActivity {
         tempUser = new User(usernameContent, passwordContent);
         tempServiceProvider = new ServiceProvider(usernameContent, passwordContent);
 
-        if(!(usernameContent.equals("Silver Rivals"))){
-            String userSalt = mDBHandler.findLoginSalt(usernameContent);
-            String hashed_password = BCrypt.hashpw(passwordContent, userSalt);
-            query = mDBHandler.findLoginInfo(usernameContent, hashed_password);
-        }else{
-            query = mDBHandler.findLoginInfo(usernameContent, passwordContent);
-        }
+
 
 
 
@@ -101,7 +95,18 @@ public class LogInPage extends AppCompatActivity {
         if(!usernameContent.equals("") && !passwordContent.equals("")){
             //Checks if username/password match Admin account
 
+            BCrypt bycrypt = new BCrypt();
+            String userSalt = bycrypt.gensalt();
 
+            if(!(mDBHandler.findLoginSalt(usernameContent).equals(""))){
+                userSalt = mDBHandler.findLoginSalt(usernameContent);
+            }
+
+            if(userSalt.equals("")){ userSalt = bycrypt.gensalt(); }
+            Log.d("SALT", "SALT = " + userSalt);
+            String hashed_password = BCrypt.hashpw(passwordContent, userSalt);
+            Log.d("SALT", "MADE IT");
+            query = mDBHandler.findLoginInfo(usernameContent, hashed_password);
 
             if (usernameContent.equals(Admin.getUsername()) && passwordContent.equals(Admin.getPassword())) {
                 //Admin is brought to admin interface
