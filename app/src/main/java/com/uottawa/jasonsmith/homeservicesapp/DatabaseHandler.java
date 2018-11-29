@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB70.db";
+    private static final String DATABASE_NAME = "projectDB72.db";
 
     //PEOPLE
     public static final String TABLE_NAME_PEOPLE = "People";
@@ -400,7 +400,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         boolean result = false;
 
         String query = "Select * FROM " + TABLE_NAME_PEOPLE + " WHERE " +
-                COL_PERSON_TYPE+ " = \"" + pk + "\"";
+                COL_ID + " = \"" + pk + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -409,7 +409,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             int userType;
             person.setPersonType(Integer.parseInt(cursor.getString(6)));
-            cursor.close();
             return person.getUserType();
         }
         db.close();
