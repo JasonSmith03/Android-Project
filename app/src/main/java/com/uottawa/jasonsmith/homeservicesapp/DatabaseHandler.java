@@ -567,13 +567,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 person.setUsername(cursor.getString(1));
                 person.setPassword(cursor.getString(2));
                 person.setEmail(cursor.getString(4));
+                person.setPersonType(Integer.parseInt(cursor.getString(6)));
 
                 Log.d("---------", "-------------");
                 Log.d("QueryResult", "Query returned: "
                         + " ID: " + person.getID()
                         + " | username: " + person.getUsername()
                         + " | email: " + person.getEmail()
-                        + " | password: " + person.getPassword());
+                        + " | password: " + person.getPassword()
+                        + " | userType: " + person.getUserType());
             }
             while (cursor.moveToNext());
         } else {
