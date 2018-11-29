@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB72.db";
+    private static final String DATABASE_NAME = "projectDB80.db";
 
     //PEOPLE
     public static final String TABLE_NAME_PEOPLE = "People";
@@ -608,6 +608,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return allAvailList;
     }
+
+
+
+    //QUERY: FIND ALL HomeOwners
+    public ArrayList<Person> findAllUsers() {
+
+        ArrayList<Person> allHOList = new ArrayList<Person>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_PEOPLE + " WHERE " +
+                COL_PERSON_TYPE +  " = \"" + 2 + "\"";
+        ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        Person person;
+        if (cursor.moveToFirst()) {
+            do {
+                person = new Person();
+                person.setUsername(cursor.getString(1));
+                person.setEmail(cursor.getString(4));
+                person.setAddress(cursor.getString(5));
+                allHOList.add(person);
+            }
+            while (cursor.moveToNext());
+        } else {
+            person = null;
+        }
+        cursor.close();
+        db.close();
+        return allHOList;
+    }
+
 
 
     //UPDATE SP

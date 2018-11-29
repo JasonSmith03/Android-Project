@@ -32,10 +32,10 @@ public class admin_interface extends AppCompatActivity {
     ArrayList<Service> arrayList;
     ArrayList<String> availabilities;
     ArrayList<ServiceProvider> arrayListServiceProvider;
-    ArrayList<User> arrayListUser;
+    ArrayList<Person> arrayListUser;
     ArrayAdapter<Service> arrayAdapter;
     ArrayAdapter<ServiceProvider> arrayAdapterServiceProvider;
-    ArrayAdapter<User> arrayAdapterUser;
+    ArrayAdapter<Person> arrayAdapterUser;
     double hourlyRate = 0.0;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -78,9 +78,9 @@ public class admin_interface extends AppCompatActivity {
         arrayAdapterServiceProvider = new ArrayAdapter<ServiceProvider>(this, android.R.layout.simple_list_item_1, arrayListServiceProvider);
         lvServiceProviders.setAdapter(arrayAdapterServiceProvider);
 
-//        arrayListUser = mDBHandler.finAllUsers();
-//        arrayAdapterUser = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, arrayListUser);
-//        lvUser.setAdapter(arrayAdapterUser);
+        arrayListUser = mDBHandler.findAllUsers();
+        arrayAdapterUser = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, arrayListUser);
+        lvUser.setAdapter(arrayAdapterUser);
 
         //separates list view from scroll view (independent of each other)
         lvServices.setOnTouchListener(new View.OnTouchListener() {
@@ -105,15 +105,15 @@ public class admin_interface extends AppCompatActivity {
         });
 
         //separates list view from scroll view (independent of each other)
-//        lvUser.setOnTouchListener(new View.OnTouchListener() {
-//            // Setting on Touch Listener for handling the touch inside ScrollView
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                // Disallow the touch request for parent scroll on touch of child view
-//                v.getParent().requestDisallowInterceptTouchEvent(true);
-//                return false;
-//            }
-//        });
+        lvUser.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         addServiceClick();
         removeServiceClick();

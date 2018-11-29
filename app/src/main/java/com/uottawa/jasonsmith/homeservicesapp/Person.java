@@ -37,6 +37,8 @@ public class Person {
 
     public void setPersonType(int userType) { this.userType = userType; }
 
+    public void setAddress(String address){ this.address = address; }
+
     public void setSalt(String salt) { this.salt = salt; }
 
     public int getID(){ return id; }
@@ -57,5 +59,9 @@ public class Person {
 
     public String getSalt() { return salt; }
 
+    public String getAddress(){ return address; }
 
+    public String toString(){
+        return getUsername() + "\n" + getEmail()+ "\n" + getAddress();
+    }
 }
