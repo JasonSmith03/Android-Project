@@ -23,7 +23,7 @@ public class homeowner_interface extends AppCompatActivity {
         logOut = (Button) findViewById(R.id.logOutBtn);
         editProfile = (Button) findViewById(R.id.editProfileBtn);
 
-        //logOutClick();
+        logOutClick();
         //editProfileClick();
     }
 

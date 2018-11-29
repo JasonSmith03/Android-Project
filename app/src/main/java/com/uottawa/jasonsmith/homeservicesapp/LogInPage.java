@@ -119,6 +119,7 @@ public class LogInPage extends AppCompatActivity {
             //Checks if username/password match a Service Provider account
             else if(query > -1){
                 int ut = mDBHandler.getUserType(query);
+                mDBHandler.findAllPeople();
                 if(ut == 1){
                     //Welcome page is prepared to display role and username of account
                     Intent serviceProviderIntent = new Intent(this, activity_service_provider_interface.class);
@@ -127,8 +128,7 @@ public class LogInPage extends AppCompatActivity {
                     usernameInput.setText("");
                     passwordInput.setText("");
                     return;
-                }else{
-                    //TODO: HOMEOWNER
+                }else {
                     //Welcome page is prepared to display role and username of account
                     Intent homeOwnerIntent = new Intent(this, homeowner_interface.class);
                     homeOwnerIntent.putExtra("Query value", query);
