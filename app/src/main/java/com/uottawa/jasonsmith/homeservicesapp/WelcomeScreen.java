@@ -49,7 +49,7 @@ public class WelcomeScreen extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_ho_information.class);
+                Intent intent = new Intent(getApplicationContext(), ho_interface.class);
                 startActivityForResult(intent, 0);
                 //TODO
                 //need a way to display companies previous information in the text boxes

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class activity_homeowner_interface extends AppCompatActivity {
+public class homeowner_interface extends AppCompatActivity {
     //DATABASE STUFF STILL NEEDS TO BE ADDED
 
     Button editProfile, logOut, serviceSearch, timeSearch, ratingSearch;
@@ -23,8 +23,8 @@ public class activity_homeowner_interface extends AppCompatActivity {
         logOut = (Button) findViewById(R.id.logOutBtn);
         editProfile = (Button) findViewById(R.id.editProfileBtn);
 
-        logOutClick();
-        editProfileClick();
+        //logOutClick();
+        //editProfileClick();
     }
 
     public void logOutClick(){
@@ -41,7 +41,7 @@ public class activity_homeowner_interface extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_ho_information.class);
+                Intent intent = new Intent(getApplicationContext(), ho_interface.class);
                 startActivityForResult(intent, 0);
                 //TODO
                 //need a way to display companies previous information in the text boxes
@@ -50,3 +50,25 @@ public class activity_homeowner_interface extends AppCompatActivity {
         });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

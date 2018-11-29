@@ -78,7 +78,7 @@ public class LogInPage extends AppCompatActivity {
 
         //Application Context and Activity
 
-        Intent intent = new Intent(this, WelcomeScreen.class);
+//        Intent intent = new Intent(this, WelcomeScreen.class);
         //Username field
         EditText usernameInput = (EditText) findViewById(R.id.usernameText);
         String usernameContent = usernameInput.getText().toString();
@@ -115,13 +115,13 @@ public class LogInPage extends AppCompatActivity {
                 return;
             }
 
-            else if((Admin.passwordMatchUser(tempUser))){
-                //Welcome page is prepared to display role and username of account
-                intent.putExtra("username", tempUser.getUsername());
-                intent.putExtra("role", "Home owner");
-                startActivity(intent);
-                return;
-            }
+//            else if((Admin.passwordMatchUser(tempUser))){
+//                //Welcome page is prepared to display role and username of account
+//                intent.putExtra("username", tempUser.getUsername());
+//                intent.putExtra("role", "Home owner");
+//                startActivity(intent);
+//                return;
+//            }
 
             //Checks if username/password match a Service Provider account
             else if(query > -1){
@@ -137,9 +137,11 @@ public class LogInPage extends AppCompatActivity {
                 }else{
                     //TODO: HOMEOWNER
                     //Welcome page is prepared to display role and username of account
-                    Intent homeOwnerIntent = new Intent(this, activity_homeowner_interface.class);
+                    Intent homeOwnerIntent = new Intent(this, homeowner_interface.class);
                     homeOwnerIntent.putExtra("Query value", query);
                     startActivity(homeOwnerIntent);
+
+
                     usernameInput.setText("");
                     passwordInput.setText("");
                     return;

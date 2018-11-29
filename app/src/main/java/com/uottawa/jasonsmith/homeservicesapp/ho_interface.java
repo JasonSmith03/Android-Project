@@ -9,14 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class activity_ho_information extends AppCompatActivity {
+public class ho_interface extends AppCompatActivity {
     Button done;
     EditText address;
+    String STD, virus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ho_information);
+        setContentView(R.layout.activity_ho_interface);
 
         done = (Button) findViewById(R.id.doneBtn);
 
@@ -29,7 +30,7 @@ public class activity_ho_information extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_homeowner_interface.class);
+                Intent intent = new Intent(getApplicationContext(), homeowner_interface.class);
                 if(address.getText().toString().equals("")){
                     //this keeps homeowner's address the same
                     startActivityForResult(intent, 0);
@@ -38,10 +39,10 @@ public class activity_ho_information extends AppCompatActivity {
                     if(!address.getText().toString().matches("\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)")){
                         toastMessage("Invalid address");
                     }else{
-                            addHomeowner(address.getText().toString());
+                        addHomeowner(address.getText().toString());
 
-                            //go to the homeowner interface
-                            startActivityForResult(intent, 0);
+                        //go to the homeowner interface
+                        startActivityForResult(intent, 0);
 
                     }
 
