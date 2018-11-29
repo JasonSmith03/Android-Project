@@ -167,13 +167,18 @@ public class admin_interface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SparseBooleanArray positionChecker = lvServices.getCheckedItemPositions();
+                Boolean flag = false;
                 int ctr = lvServices.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
                         mDBHandler.deleteRemovedService(arrayList.get(item).getSid());
                         mDBHandler.deleteService(arrayList.get(item).getService());
                         arrayAdapter.remove(arrayList.get(item));
+                        flag=true;
                     }
+                }
+                if (!flag){
+                    toastMessage("Please select services to remove");
                 }
 
                 positionChecker.clear();

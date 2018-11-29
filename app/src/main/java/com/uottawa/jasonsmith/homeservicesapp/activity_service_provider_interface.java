@@ -214,6 +214,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SparseBooleanArray positionChecker = lvViewServices.getCheckedItemPositions();
+                Boolean flag=false;
                 int ctr = lvViewServices.getCount();
                 Log.d("TESTING", "ctr: " + ctr);
 
@@ -223,7 +224,11 @@ public class activity_service_provider_interface extends AppCompatActivity {
                         serviceID = mDBHandler.findID(arrayListViewServices.get(item).getService(), "Services");
                         mDBHandler.unsubscribeFromService(queryValue, serviceID);
                         arrayAdapterView.remove(arrayListViewServices.get(item));
+                        flag = true;
                     }
+                }
+                if(!flag){
+                    toastMessage("Please select services to remove");
                 }
                 positionChecker.clear();
                 arrayAdapterView.notifyDataSetChanged();
@@ -313,13 +318,18 @@ public class activity_service_provider_interface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SparseBooleanArray positionChecker = lvAvailability.getCheckedItemPositions();
+                Boolean flag = false;
                 int ctr = lvAvailability.getCount();
                 for(int item = ctr - 1; item >= 0; item--){
                     if(positionChecker.get(item)){
                         Log.d("TESTING", "availabilitiesView.get(item): " + availabilitiesView.get(item));
                         mDBHandler.deleteAvailability(queryValue, availabilitiesView.get(item));
                         arrayAdapterAvailability.remove(availabilitiesView.get(item));
+                        flag = true;
                     }
+                }
+                if (!flag){
+                    toastMessage("Please select timess to remove");
                 }
                 positionChecker.clear();
                 arrayAdapterAvailability.notifyDataSetChanged();
