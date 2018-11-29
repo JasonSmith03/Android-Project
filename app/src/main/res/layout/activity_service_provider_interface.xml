@@ -63,7 +63,7 @@
             android:layout_marginTop="704dp"
             android:layout_weight="1"
             android:background="@drawable/roundbutton"
-            android:text="Edit Availibilities"
+            android:text="Add Availibilities"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,7 +101,7 @@
             android:layout_marginEnd="188dp"
             android:layout_marginRight="188dp"
             android:background="@drawable/roundbutton"
-            android:text="Edit Service"
+            android:text="Add Service"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -145,9 +145,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/listview_border"
+            android:choiceMode="multipleChoice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            android:choiceMode="multipleChoice"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -186,6 +186,16 @@
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="199dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
