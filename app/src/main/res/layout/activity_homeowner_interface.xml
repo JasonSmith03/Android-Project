@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/appbackground"
     android:layout_height="match_parent">
 
     <TextView
@@ -24,7 +25,7 @@
         android:id="@+id/logOutBtn"
         android:layout_width="64dp"
         android:layout_height="57dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/roundbutton"
         android:text="@string/log_out"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +37,7 @@
         android:id="@+id/editProfileBtn"
         android:layout_width="64dp"
         android:layout_height="57dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/roundbutton"
         android:text="@string/edit_profile"
         app:layout_constraintEnd_toEndOf="parent"

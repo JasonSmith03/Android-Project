@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/appbackground"
     tools:context=".activity_service_provider_interface">
 
     <android.support.constraint.ConstraintLayout
@@ -71,7 +72,7 @@
             android:id="@+id/welcomeSP"
             android:layout_width="173dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/welcome"
             android:textSize="28sp"
@@ -85,11 +86,11 @@
             android:id="@+id/editProfileBtn"
             android:layout_width="64dp"
             android:layout_height="57dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/roundbutton"
             android:text="@string/edit_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.043"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,11 +110,11 @@
             android:id="@+id/logOutBtn"
             android:layout_width="64dp"
             android:layout_height="57dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/roundbutton"
             android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.951"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
