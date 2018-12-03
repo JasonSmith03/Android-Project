@@ -3,6 +3,6 @@
     <!-- use this for transparent -->
     <!-- <solid android:color="#00000000" /> -->
     <!-- use this for a background colour -->
-    <solid android:color="#FFF" />
+    <solid android:color="#FFFF" />
     <stroke android:width="1dip" android:color="#000000" />
 </shape>
