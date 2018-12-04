@@ -24,7 +24,5 @@ GitHub Repository link:
 - Admin username: Silver Rivals
 - Admin password: admin1
 
-#Starts Here
-Build Status
-[![Build Status](https://circleci.com/gh/JasonSmith03/Android-Project.png?branch=master)](https://circleci.com/gh/JasonSmith03/Android-Project)
-#Ends Here
+
+[![CircleCI](https://circleci.com/gh/JasonSmith03/Android-Project.svg?style=svg)](https://circleci.com/gh/JasonSmith03/Android-Project)
