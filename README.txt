@@ -26,6 +26,5 @@ GitHub Repository link:
 
 #Starts Here
 Build Status
-[![Build
-Status](https://circleci.com/gh/JasonSmith03/Android-Project.png?branch=master)](https://circleci.com/gh/JasonSmith03/Android-Project)
+[![Build Status](https://circleci.com/gh/JasonSmith03/Android-Project.png?branch=master)](https://circleci.com/gh/JasonSmith03/Android-Project)
 #Ends Here
