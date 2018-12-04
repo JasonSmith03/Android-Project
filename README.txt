@@ -27,5 +27,5 @@ GitHub Repository link:
 #Starts Here
 Build Status
 [![Build
-Status](https://circleci.com/gh/SEG2105F18/Android-Project.png?branch=master)](https://circleci.com/gh/JasonSmith03/Android-Project)
+Status](https://circleci.com/gh/SEG2105F18/SEGProject.png?branch=master)](https://circleci.com/gh/JasonSmith03/SEGProject)
 #Ends Here
