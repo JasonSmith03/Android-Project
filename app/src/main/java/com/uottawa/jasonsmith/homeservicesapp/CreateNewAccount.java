@@ -18,6 +18,7 @@ public class CreateNewAccount extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_create_new_account);
 
         signUp = (Button) findViewById(R.id.SignUpBtn);

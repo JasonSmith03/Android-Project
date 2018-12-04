@@ -21,6 +21,7 @@ public class sp_info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_sp_info);
 
         Intent serviceProviderIntent = getIntent();

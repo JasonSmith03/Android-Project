@@ -12,6 +12,7 @@ public class RegistrationInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_registration_info);
     }
     public void homeOwnerSelected(View view){

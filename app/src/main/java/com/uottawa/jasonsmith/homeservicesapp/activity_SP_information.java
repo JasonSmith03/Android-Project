@@ -18,6 +18,7 @@ public class activity_SP_information extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity__sp_information);
 
         done = (Button) findViewById(R.id.doneBtn);

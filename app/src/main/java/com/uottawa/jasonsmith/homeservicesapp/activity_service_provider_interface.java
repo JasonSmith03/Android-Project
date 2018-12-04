@@ -40,6 +40,7 @@ public class activity_service_provider_interface extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_service_provider_interface);
 
         Intent serviceProviderIntent = getIntent();

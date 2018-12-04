@@ -42,6 +42,7 @@ public class admin_interface extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_admin_interface);
 
         editText = (EditText) findViewById(R.id.service);

@@ -62,6 +62,6 @@ public class Person {
     public String getAddress(){ return address; }
 
     public String toString(){
-        return getUsername() + "\n" + getEmail()+ "\n" + getAddress();
+        return "Username: " + getUsername() + "\n" + "Email: " + getEmail()+ "\n" + "Address: " + getAddress();
     }
 }

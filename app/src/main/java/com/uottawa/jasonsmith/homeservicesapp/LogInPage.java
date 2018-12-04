@@ -21,6 +21,7 @@ public class LogInPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.drawable.appbackground);
         setContentView(R.layout.activity_log_in_page);
 
         mDBHandler.findAllServiceProviders();
