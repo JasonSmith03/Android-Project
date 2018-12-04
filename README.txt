@@ -24,5 +24,5 @@ GitHub Repository link:
 - Admin username: Silver Rivals
 - Admin password: admin1
 
-
-image:https://circleci.com/gh/JasonSmith03/Android-Project/tree/master.svg?style=svg&circle-token=e95cae5bc48e1cecb04b52904ec04b0c2bb52e36["CircleCI", link="https://circleci.com/gh/JasonSmith03/Android-Project/tree/master"]
+.. image:: https://circleci.com/gh/JasonSmith03/Android-Project/tree/master.svg?style=svg&circle-token=e95cae5bc48e1cecb04b52904ec04b0c2bb52e36
+    :target: https://circleci.com/gh/JasonSmith03/Android-Project/tree/master
