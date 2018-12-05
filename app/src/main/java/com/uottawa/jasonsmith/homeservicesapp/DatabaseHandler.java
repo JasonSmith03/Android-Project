@@ -832,7 +832,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             sp.setPhoneNumber(cursor.getString(2));
             sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
             sp.setDescrition(cursor.getString(4));
-//            sp.setRating(Double.parseDouble(cursor.getString(5)));
+            sp.setRating(Double.parseDouble(cursor.getString(5)));
 
             cursor.close();
             db.close();

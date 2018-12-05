@@ -78,7 +78,7 @@ public class homeowner_interface extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // setup the alert builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(homeowner_interface.this);
-                builder.setTitle("Choose service provider(s)");
+                builder.setTitle("Related service provider(s)");
                 // add a checkbox list
                 //Get list of IDs of service provider associated with specific service
                 spID = mDBHandler.findServiceProvidersFromSID(arrayListServiceView.get(position).getSid());

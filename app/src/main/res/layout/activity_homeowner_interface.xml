@@ -87,12 +87,13 @@
             android:id="@+id/spListView"
             android:layout_width="0dp"
             android:layout_height="247dp"
-            android:layout_marginTop="500dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/listview_border"
             android:choiceMode="singleChoice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/spSearch" />
 
         <EditText
             android:id="@+id/spSearch"
@@ -100,16 +101,42 @@
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
             android:hint="Search service provider"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/findSPPrompt" />
+
+        <TextView
+            android:id="@+id/findSPPrompt"
+            android:layout_width="260dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Tap on service to see service providers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/possibleServices" />
+
+        <TextView
+            android:id="@+id/ratingPrompt"
+            android:layout_width="205dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="89dp"
+            android:layout_marginRight="89dp"
+            android:gravity="center"
+            android:text="Tap to rate a company"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spListView" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
