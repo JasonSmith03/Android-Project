@@ -29,7 +29,7 @@ public class Service {
     }
 
 
-    public void setSid(int sid){this.sid = sid;}
+    public void setSid(int sid) { this.sid = sid; }
 
     public int getSid(){ return sid; }
 

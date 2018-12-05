@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class ServiceProvider extends Person {
 
-    private int sp_id, rating;
+    private int sp_id;
     private ArrayList<Timestamp> availabilities;
     private String companyName, phoneNumber, descrition;
     private boolean licensed;
+    private double rating;
 
 
     public ServiceProvider(String usernameContent, String passwordContent) {
@@ -76,11 +77,11 @@ public class ServiceProvider extends Person {
         this.licensed = licensed;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

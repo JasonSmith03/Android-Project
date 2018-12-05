@@ -43,6 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_PHONE_NUM = "phoneNumber";
     public static final String COL_LICENSE = "license";
     public static final String COL_DESCRIPTION = "description";
+    public static final String COL_RATING = "rating";
 
 
     //HOME OWNER
@@ -100,7 +101,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_COMP_NAME + " TEXT,"
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT,"
-                + COL_DESCRIPTION + " TEXT"
+                + COL_DESCRIPTION + " TEXT,"
+                + COL_RATING + " REAL"
                 + ")";
         db.execSQL(create_serProvider_table);
 
@@ -194,6 +196,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_PHONE_NUM, phoneNum);
         contentValues.put(COL_LICENSE, license);
         contentValues.put(COL_DESCRIPTION, description);
+        contentValues.put(COL_RATING, 0.0);
 
         Log.d("Service Provider", "Adding SP: " + companyName + " with ID " + fk);
         long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
@@ -305,6 +308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+
     //Delete a users availability
     public void deleteAvailability(int sp_id, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -342,6 +346,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+
     //DELETE SERVICE
     public boolean deleteService(String serviceName) {
         boolean result = false;
@@ -362,6 +367,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+
+    //EDIT SERVICE
     public void editService(String serviceName, double newRate){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -372,7 +379,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(query);
         Log.d("ServiceEdited", "New service rate:" + newRate);
     }
-
 
 
     //DELETE REMOVED SERVICE
@@ -424,6 +430,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //-------- QUERIES ----------------------------------------------------
 
+
     //QUERY: Get login information
     public int findLoginInfo(String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -450,6 +457,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return -1;
         }
     }
+
 
 
     //QUERY: Find a salt from login value
@@ -549,6 +557,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+
     //QUERY: FIND ALL PEOPLE
     public void findAllPeople() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -564,6 +573,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 person.setID(Integer.parseInt(cursor.getString(0)));
                 person.setUsername(cursor.getString(1));
                 person.setPassword(cursor.getString(2));
+                person.setSalt(cursor.getString(3));
                 person.setEmail(cursor.getString(4));
                 person.setPersonType(Integer.parseInt(cursor.getString(6)));
 
@@ -572,6 +582,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + " ID: " + person.getID()
                         + " | username: " + person.getUsername()
                         + " | email: " + person.getEmail()
+                        + " | salt: " + person.getSalt()
                         + " | password: " + person.getPassword()
                         + " | userType: " + person.getUserType());
             }
@@ -582,6 +593,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
 
 
     //QUERY: FIND ALL TIMES
@@ -671,6 +683,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        db.execSQL(query4);
     }
 
+
+
     //QUERY: FIND ALL SP's
     public ArrayList<ServiceProvider> findAllServiceProviders() {
 
@@ -710,6 +724,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return allSPList;
     }
 
+
+
     //Query find last person added
     public int findLastPersonsPK(){
 
@@ -735,7 +751,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    //QUERY: FIND SERVICE FROM PK
+
+    //QUERY: FIND ALL SERVICES FROM SP ID
     public ArrayList<Integer> findServicesFromPk(int pk) {
 
         ArrayList<Integer> allServicesList = new ArrayList<Integer>();
@@ -760,6 +777,62 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return allServicesList;
+    }
+
+
+    //QUERY: FIND ALL SERVICE PROVIDERS FROM SERVICE ID
+    public ArrayList<Integer> findServiceProvidersFromSID(int pk) {
+
+        ArrayList<Integer> allSPList = new ArrayList<Integer>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_INTER_SID + " WHERE " +
+                COL_SERVICE_ID + " = \"" + pk + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        IntermediateTable inter;
+        if (cursor.moveToFirst()) {
+            do {
+                inter = new IntermediateTable();
+                inter.setSp_id(Integer.parseInt(cursor.getString(0)));
+                allSPList.add(inter.getSP_id());
+            }
+            while (cursor.moveToNext());
+        } else {
+            inter = null;
+        }
+        cursor.close();
+        db.close();
+        return allSPList;
+    }
+
+
+    //QUERY: FIND SPECIFIC SP FROM ID
+    public ServiceProvider findSpecificSP(int pk) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                COL_SERVICE_PROVIDER_ID + " = \"" + pk + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        ServiceProvider sp = new ServiceProvider();
+        if (cursor.moveToFirst()) {
+            sp.setServiceProviderID(Integer.parseInt(cursor.getString(0)));
+            sp.setCompanyName(cursor.getString(1));
+            sp.setPhoneNumber(cursor.getString(2));
+            sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
+            sp.setDescrition(cursor.getString(4));
+            sp.setRating(Double.parseDouble(cursor.getString(5)));
+
+            cursor.close();
+            db.close();
+            return sp;
+        } else {
+            sp = null;
+        }
+        return sp;
     }
 
 
@@ -791,7 +864,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    //QUERY: FIND SERVICE FROM PK
+
+    //QUERY: FIND SERVICE FROM NAME
     public int findServicesFromName(String name) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -811,6 +885,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return service.getSid();
     }
+
 
 
     //QUERY: FIND SPECIFIC SERVICE FROM PK
@@ -835,8 +910,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return service;
     }
-
-
 
 
 
@@ -874,6 +947,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return allServicesList;
     }
 
+
+
     //get Intermediate table
     public void getIntermediateTable() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -900,6 +975,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
     }
+
 
 
     //get Intermediate table
@@ -946,6 +1022,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return false;
     }
 
+
+
     public boolean availAlreadyExists(int sp_id, String time){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -959,6 +1037,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return false;
     }
+
+
 
     public boolean availAlreadyExists(String time){
         SQLiteDatabase db = this.getWritableDatabase();
