@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 public class ServiceProvider extends Person {
 
-    private int sp_id;
+    private int sp_id, numRating;
     private ArrayList<Timestamp> availabilities;
-    private String companyName, phoneNumber, descrition;
+    private ArrayList<Service> services;
+    private String companyName, phoneNumber, descrition, name;
     private boolean licensed;
     private double rating;
+    private double hrlyRate;
 
 
     public ServiceProvider(String usernameContent, String passwordContent) {
@@ -30,6 +32,10 @@ public class ServiceProvider extends Person {
         this.companyName = companyName;
         this.phoneNumber = phoneNumber;
         this.licensed = licensed;
+    }
+
+    public ServiceProvider(ArrayList<Service> services){
+        this.services = services;
     }
 
     public void associateWithService() {
@@ -83,6 +89,14 @@ public class ServiceProvider extends Person {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public void setNumRating(int numRating){
+        this.numRating = numRating;
+    }
+
+    public int getNumRating(){
+        return numRating;
     }
 
     public String toString() {

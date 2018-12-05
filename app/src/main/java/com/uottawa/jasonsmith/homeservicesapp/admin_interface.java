@@ -233,13 +233,18 @@ public class admin_interface extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList.set(index, new Service(oldService.getService(), Double.parseDouble(editText1.getText().toString())));
-                //Updating the service into the database
-                mDBHandler.editService(arrayList.get(index).getService(), arrayList.get(index).getHourlyRate());
-                arrayAdapter.notifyDataSetChanged();
-                dialog.dismiss();
-                //change the colour of the button back to original
-                editBtn.setBackgroundResource(R.drawable.roundbutton);
+                try{
+                    arrayList.set(index, new Service(oldService.getService(), Double.parseDouble(editText1.getText().toString())));
+                    //Updating the service into the database
+                    mDBHandler.editService(arrayList.get(index).getService(), arrayList.get(index).getHourlyRate());
+                    arrayAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                    //change the colour of the button back to original
+                    editBtn.setBackgroundResource(R.drawable.roundbutton);
+                }catch (NumberFormatException e){
+                    toastMessage("Invalid rating");
+                }
+
             }
         });
         dialog.show();

@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB80.db";
+    private static final String DATABASE_NAME = "projectDB85.db";
 
     //PEOPLE
     public static final String TABLE_NAME_PEOPLE = "People";
@@ -44,6 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COL_LICENSE = "license";
     public static final String COL_DESCRIPTION = "description";
     public static final String COL_RATING = "rating";
+    public static final String COL_NUMBERRATING = "NumRating";
 
 
     //HOME OWNER
@@ -102,7 +103,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_PHONE_NUM + " TEXT,"
                 + COL_LICENSE + " TEXT,"
                 + COL_DESCRIPTION + " TEXT,"
-                + COL_RATING + " REAL"
+                + COL_RATING + " REAL,"
+                + COL_NUMBERRATING + " INTEGER"
                 + ")";
         db.execSQL(create_serProvider_table);
 
@@ -197,6 +199,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(COL_LICENSE, license);
         contentValues.put(COL_DESCRIPTION, description);
         contentValues.put(COL_RATING, 0.0);
+        contentValues.put(COL_NUMBERRATING, 0);
 
         Log.d("Service Provider", "Adding SP: " + companyName + " with ID " + fk);
         long result = db.insert(TABLE_NAME_SERVICE_PROVIDERS, null, contentValues);
@@ -824,7 +827,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             sp.setPhoneNumber(cursor.getString(2));
             sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
             sp.setDescrition(cursor.getString(4));
-            sp.setRating(Double.parseDouble(cursor.getString(5)));
+//            sp.setRating(Double.parseDouble(cursor.getString(5)));
 
             cursor.close();
             db.close();
@@ -1052,5 +1055,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return false;
     }
+    //QUERY: replaces a service providers current rating
+    public void updateRating(int sp_id, double rating){
 
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_RATING + " = '" +
+                rating + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + sp_id + "'";
+        db.execSQL(query);
+    }
+
+    //QUERY: replaces a service providers current rating
+    public void updateNumRating(int sp_id, int num){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "UPDATE " + TABLE_NAME_SERVICE_PROVIDERS + " SET " + COL_NUMBERRATING + " = '" +
+                num + "' WHERE " + COL_SERVICE_PROVIDER_ID + " = '" + sp_id + "'";
+        db.execSQL(query);
+    }
+
+    //QUERY: returns a service providers rating
+    public double getRating(int sp_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                COL_SERVICE_PROVIDER_ID+ " = " + sp_id + "";
+
+        //query = "SELECT sid FROM Services WHERE serviceName = 'Deck Repair'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ServiceProvider sp = new ServiceProvider();
+        if (cursor.moveToFirst()) {
+            sp.setRating(Double.parseDouble(cursor.getString(5)));
+            Log.d("GETRATING", ";" + Double.parseDouble(cursor.getString(5)));
+        } else {
+            sp = null;
+        }
+        cursor.close();
+        db.close();
+        return sp.getRating();
+    }
+
+    //QUERY: returns the number of ratings a service provider has
+    public int getNumOfRatings(int sp_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + TABLE_NAME_SERVICE_PROVIDERS + " WHERE " +
+                COL_SERVICE_PROVIDER_ID + " = " + sp_id + "";
+
+        //query = "SELECT sid FROM Services WHERE serviceName = 'Deck Repair'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        ServiceProvider sp = new ServiceProvider();
+        if (cursor.moveToFirst()) {
+            sp.setNumRating(Integer.parseInt(cursor.getString(6)));
+        } else {
+            sp = null;
+        }
+        cursor.close();
+        db.close();
+        return sp.getNumRating();
+    }
 }
