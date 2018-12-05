@@ -66,6 +66,7 @@ public class LogInPage extends AppCompatActivity {
 //
 //        //display intermediate table
         mDBHandler.findAllPeople();
+        mDBHandler.findAllServiceProviders();
 
 
         //Application Context and Activity

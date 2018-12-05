@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database Schema
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "projectDB85.db";
+    private static final String DATABASE_NAME = "projectDB86.db";
 
     //PEOPLE
     public static final String TABLE_NAME_PEOPLE = "People";
@@ -707,15 +707,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 sp.setPhoneNumber(cursor.getString(2));
                 sp.setLicensed(Boolean.parseBoolean(cursor.getString(3)));
                 sp.setDescrition(cursor.getString(4));
+                sp.setRating(Double.parseDouble(cursor.getString(5)));
+                sp.setNumRating(Integer.parseInt(cursor.getString(6)));
+
                 allSPList.add(sp);
 
                 Log.d("---------", "-------------");
-                Log.d("QueryResultSP", "Query returned: "
+                Log.d("FindAllServiceProviders", "Query returned: "
                         + " ID: " + sp.getID()
                         + " | company name: " + sp.getCompanyName()
                         + " | phone number: " + sp.getPhoneNumber()
                         + " | Licensed?: " + sp.getLicensed()
-                        + " | Description: " + sp.getDescrition());
+                        + " | Description: " + sp.getDescrition()
+                        + " | Rating: " + sp.getRating()
+                        + " | #ofRatings: " + sp.getNumRating());
             }
             while (cursor.moveToNext());
         } else {

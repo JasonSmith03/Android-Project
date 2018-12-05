@@ -217,14 +217,11 @@ public class homeowner_interface extends AppCompatActivity {
                     currRating = theRating;
                     rating = Double.parseDouble(editText1.getText().toString());
                     numRating = mDBHandler.getNumOfRatings(id);
-                    Log.d("RATINGS", "numRating, rating, currRating: " + numRating + ", " + rating + ", " + currRating);
-                    if(currRating == 0.0){
+                    if(numRating == 0){
                         currRating = rating;
                         numRating = 1;
                         mDBHandler.updateNumRating(id, numRating);
                         mDBHandler.updateRating(id, currRating);
-
-                        Log.d("RATINGS1", "numRating, rating, currRating: " + numRating + ", " + rating + ", " + currRating);
                     }
                     else{
                         double origRating = currRating * numRating;
@@ -233,6 +230,7 @@ public class homeowner_interface extends AppCompatActivity {
                         mDBHandler.updateNumRating(id, numRating);
                         mDBHandler.updateRating(id, currRating);
                     }
+                    Log.d("RATINGS", "numRating, rating, currRating: " + numRating + ", " + rating + ", " + currRating);
                     dialog.dismiss();
                 }catch (NumberFormatException e){
                     toastMessage("Choose a valid rating (1 to 5)");
